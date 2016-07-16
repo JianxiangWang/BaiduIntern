@@ -114,8 +114,12 @@ def main():
                         O_text = o_mention[1]
                         k = "|~|".join([S_id, S_text, O_id, O_text])
                         if k not in dict_label_info[P]["candidates"]:
-                            dict_label_info[P]["candidates"][k] = []
-                        dict_label_info[P]["candidates"][k].append([label, rule])
+                            dict_label_info[P]["candidates"][k] = {}
+                            dict_label_info[P]["candidates"][k]["label_info"] = []
+                            dict_label_info[P]["candidates"][k]["label"] = 0
+                        dict_label_info[P]["candidates"][k]["label_info"].append([label, rule])
+                        dict_label_info[P]["candidates"][k]["label"] += label
+
 
             # 去重复
             if P in dict_label_info:

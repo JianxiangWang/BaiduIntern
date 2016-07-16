@@ -20,7 +20,7 @@ with open("P_similar") as fin:
         similar_P_list = T.split(",")
         dict_P_to_similar_P_list[P] = similar_P_list
 
-# P 的引导词, 包含正例的负例的
+# P 的引导词, 包含正例的负例的.
 # p --> 'positive' or 'negative' --> set(["朋友", ...])
 dict_P_to_guide_words = cPickle.load(open("guide_words.cPkl", "rb"))
 

@@ -1,0 +1,161 @@
+
+# 句子集合
+sentences(
+    sent_id     text,
+    sent_text   text,
+    tokens      text[],
+    pos_tags    text[],
+    ner_tags    text[],
+    dep_types   text[],
+    dep_tokens  int[],
+    so          text
+).
+
+# 加载mention  -->  特定P
+SO_mention(
+    mention_id      text,
+    mention_text    text,
+    sent_id         text,
+    begin_index     int,
+    end_index       int
+).
+
+function map_SO_mention over(
+    sent_id     text,
+    tokens      text[],
+    so          text
+)returns rows like SO_mention
+implementation "udf/map_SO_mention.py" handles tsv lines.
+
+SO_mention += map_SO_mention(
+    sent_id, tokens, so
+):-
+    sentences(sent_id, _, tokens, _, _, _, _, so).
+
+# SO 候选集合   -->  特定P
+
+SO_candidate(
+    S_mention_id    text,
+    S_mention_text  text,
+    O_mention_id    text,
+    O_mention_text  text
+).
+
+function map_SO_candidate over(
+    sent_id     text,
+    tokens      text[],
+    so          text
+)returns rows like SO_candidate
+implementation "udf/map_SO_candidate.py" handles tsv lines.
+
+SO_candidate += map_SO_candidate(
+    sent_id, tokens, so
+):-
+    sentences(sent_id, _, tokens, _, _, _, _, so).
+
+
+# 抽取特征     --> 当前与P无关
+SO_feature(
+    S_id    text,
+    O_id    text,
+    feature text
+).
+
+function extract_SO_feature over(
+    S_id            text,
+    O_id            text,
+    S_begin_index   int,
+    S_end_index     int,
+    O_begin_index   int,
+    O_end_index     int,
+    sent_id         text,
+    tokens          text[],
+    pos_tags        text[],
+    ner_tags        text[],
+    dep_types       text[],
+    dep_tokens      int[]
+) returns rows like SO_feature
+implementation "udf/extract_SO_features.py" handles tsv lines.
+
+SO_feature += extract_SO_feature(
+    S_id, O_id, S_begin_index, S_end_index, O_begin_index, O_end_index,
+    sent_id, tokens, pos_tags, ner_tags, dep_types, dep_tokens
+) :-
+    SO_mention(S_id, _, sent_id, S_begin_index, S_end_index),
+    SO_mention(O_id, _, sent_id, O_begin_index, O_end_index),
+    sentences(sent_id, _, tokens, pos_tags, ner_tags, dep_types, dep_tokens, _).
+
+
+# supervise   --> 特定P
+
+SO_label(
+    S_id    text,
+    O_id    text,
+    label   int,
+    rule_id text
+).
+
+function supervise over(
+    S_id    text, S_text  text, S_begin_index int, S_end_index int,
+    O_id    text, O_text  text, O_begin_index int, O_end_index int,
+    sent_id         text,
+    sent_text       text,
+    tokens          text[],
+    pos_tags        text[],
+    ner_tags        text[],
+    dep_types       text[],
+    dep_tokens      int[]
+)returns rows like SO_label
+implementation "udf/supervise.py" handles tsv lines.
+
+SO_label += supervise(
+    S_id, S_text, S_begin_index, S_end_index,
+    O_id, O_text, O_begin_index, O_end_index ,
+    sent_id,
+    sent_text,
+    tokens,
+    pos_tags,
+    ner_tags,
+    dep_types,
+    dep_tokens
+) :-
+    SO_candidate(S_id, _, O_id, _),
+    SO_mention(S_id, S_text, sent_id, S_begin_index, S_end_index),
+    SO_mention(O_id, O_text, _      , O_begin_index, O_end_index),
+    sentences(sent_id, sent_text, tokens, pos_tags, ner_tags, dep_types, dep_tokens, _).
+
+
+# model
+
+has_relation?(
+    S_id    text,
+    O_id    text
+).
+
+
+SO_label_resolved(S_id, O_id, SUM(vote)) :- SO_label(S_id, O_id, vote, rule_id).
+
+has_relation(S_id, O_id) = if l > 0 then TRUE
+                      else if l < 0 then FALSE
+                      else NULL end :- SO_label_resolved(S_id, O_id, l).
+
+@weight(f)
+has_relation(S_id, O_id) :-
+    SO_candidate(S_id, _, O_id, _),
+    SO_feature(S_id, O_id, f).
+
+# 每个P不一样, 现在先不用
+# @weight(3.0)
+# has_relation(S_id, O_id) => has_relation(O_id, S_id) :-
+#    SO_candidate(S_id, _, O_id, _).
+
+
+
+
+
+
+
+
+
+
+

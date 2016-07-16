@@ -272,6 +272,5 @@ def label_for_current_P(tokens,
 
 
 
-
 if __name__ == "__main__":
     main()

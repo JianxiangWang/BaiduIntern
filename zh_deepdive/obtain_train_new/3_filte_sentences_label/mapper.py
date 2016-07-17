@@ -247,7 +247,7 @@ def label_for_current_P(tokens,
 
     # 出现P对应的 S, O ==> 则标记为正例
     if (S_text, O_text) in dict_P_to_seeds[P]:
-        yield [1, "pos: from seeds", " ".join((S_text, O_text))]
+        yield [1, "pos: from seeds", " ".join((S_text, P, O_text))]
 
     # 互斥的P 对应的 S O ==> 则标记为负例
     similar_P_list = dict_P_to_similar_P_list[P]
@@ -256,7 +256,7 @@ def label_for_current_P(tokens,
         # 不在相似中,就是互斥的
         if curr_P not in similar_P_list:
             if (S_text, O_text) in dict_P_to_seeds[curr_P]:
-                yield [-1, "neg: from seeds", " ".join((S_text, O_text))]
+                yield [-1, "neg: from seeds", " ".join((S_text, curr_P, O_text))]
                 break
 
     '''2. 使用引导词去标记'''

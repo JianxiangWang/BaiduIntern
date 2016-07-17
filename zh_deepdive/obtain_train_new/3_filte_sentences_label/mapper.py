@@ -91,7 +91,7 @@ def main():
                         continue
 
                     # 标注, 一个候选集合可能被多条规则选中
-                    for label, rule in label_for_current_P(
+                    for label, rule, info in label_for_current_P(
                             tokens,
                             s_mention[1], s_mention[-2], s_mention[-1],
                             o_mention[1], o_mention[-2], o_mention[-1],
@@ -117,7 +117,7 @@ def main():
                             dict_label_info[P]["candidates"][k] = {}
                             dict_label_info[P]["candidates"][k]["label_info"] = []
                             dict_label_info[P]["candidates"][k]["label"] = 0
-                        dict_label_info[P]["candidates"][k]["label_info"].append([label, rule])
+                        dict_label_info[P]["candidates"][k]["label_info"].append([label, rule, unicode(info)])
                         dict_label_info[P]["candidates"][k]["label"] += label
 
 

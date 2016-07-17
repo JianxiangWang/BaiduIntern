@@ -25,7 +25,7 @@ def main(in_file, to_file):
                 neg_far_apart_exist = False
 
                 label = 0
-                for x, rule in label_rules:
+                for x, rule, _ in label_rules:
                     label += x
                     if rule.startswith("pos"):
                         pos_exist = True

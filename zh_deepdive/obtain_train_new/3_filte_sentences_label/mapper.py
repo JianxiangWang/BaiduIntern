@@ -36,11 +36,11 @@ def main():
         sent_id = str(uuid.uuid1())
         markup = line["depparser"]
 
-        tokens = [item[1] for item in markup]
-        pos_tags = [item[4] for item in markup]
-        ner_tags = [item[5] for item in markup]
-        dep_types = [item[-1] for item in markup]
-        dep_tokens = [item[-2] for item in markup]
+        tokens      = [item[1] for item in markup]
+        pos_tags    = [item[4] for item in markup]
+        ner_tags    = [item[5] for item in markup]
+        dep_types   = [item[-1] for item in markup]
+        dep_tokens  = [item[-2] for item in markup]
 
 
         # 一些标注信息
@@ -234,6 +234,12 @@ def label_for_current_P(tokens,
     MAX_DIST = 10
 
     ''' 1. 使用种子去标记'''
+
+    print "tokens", type(tokens[0])
+    print "S_text", type(S_text)
+    print "O_text", type(O_text)
+    print "P", type(P)
+
 
     # 出现P对应的 S, O ==> 则标记为正例
     if (S_text, O_text) in dict_P_to_seeds[P]:

@@ -229,7 +229,11 @@ def label_for_current_P(tokens,
                         O_text, O_begin_index, O_end_index, P):
 
     # unicode to str
+    tokens = map(str, tokens)
+    S_text = str(S_text)
+    O_text = str(O_text)
     P = str(P)
+
 
     MAX_DIST = 10
 

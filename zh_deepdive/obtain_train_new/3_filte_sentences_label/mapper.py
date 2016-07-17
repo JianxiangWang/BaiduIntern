@@ -239,15 +239,15 @@ def label_for_current_P(tokens,
 
     ''' 1. 使用种子去标记'''
 
-    print "tokens", type(tokens[0])
-    print "S_text", type(S_text)
-    print "O_text", type(O_text)
-    print "P", type(P)
+    # print "tokens", type(tokens[0])
+    # print "S_text", type(S_text)
+    # print "O_text", type(O_text)
+    # print "P", type(P)
 
 
     # 出现P对应的 S, O ==> 则标记为正例
     if (S_text, O_text) in dict_P_to_seeds[P]:
-        yield [1, "pos: from seeds"]
+        yield [1, "pos: from seeds", " ".join((S_text, O_text))]
 
     # 互斥的P 对应的 S O ==> 则标记为负例
     similar_P_list = dict_P_to_similar_P_list[P]
@@ -256,7 +256,7 @@ def label_for_current_P(tokens,
         # 不在相似中,就是互斥的
         if curr_P not in similar_P_list:
             if (S_text, O_text) in dict_P_to_seeds[curr_P]:
-                yield [-1, "neg: from seeds"]
+                yield [-1, "neg: from seeds", " ".join((S_text, O_text))]
                 break
 
     '''2. 使用引导词去标记'''
@@ -269,16 +269,18 @@ def label_for_current_P(tokens,
     intermediate_tokens = tokens[S_end_idx+1:O_start_idx]
 
     # positive guide words
-    if len(positive_guide_words.intersection(intermediate_tokens)) > 0:
-        yield [1, "pos: positive guide words between"]
+    positive_words = positive_guide_words.intersection(intermediate_tokens)
+    if len(positive_words) > 0:
+        yield [1, "pos: positive guide words between", " ".join(positive_words)]
 
     # negative guide words
-    if len(negative_guide_words.intersection(intermediate_tokens)) > 0:
-        yield [-1, "neg: negative guide words between"]
+    negative_words = negative_guide_words.intersection(intermediate_tokens)
+    if len(negative_words) > 0:
+        yield [-1, "neg: negative guide words between", " ".join(negative_words)]
 
     # 3. S O 之间的距离
     if len(intermediate_tokens) > MAX_DIST:
-        yield [-1, "neg:far_apart"]
+        yield [-1, "neg:far_apart", str(MAX_DIST)]
 
 
 

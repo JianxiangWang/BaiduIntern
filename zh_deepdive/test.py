@@ -9,13 +9,10 @@ import pypinyin
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-def A():
-
-    for i in range(10):
-        if i == 3:
-            yield i
-            break
 
 
-for x in A():
-    print x
+s = [1, 3,  5]
+
+t = set([1, 4])
+
+print t.intersection(s)

@@ -1,0 +1,109 @@
+
+# 句子集合      --> 特定P
+sentence(
+    sent_id     text,
+    sent_text   text,
+    tokens      text[],
+    pos_tags    text[],
+    ner_tags    text[],
+    dep_types   text[],
+    dep_tokens  int[],
+    so          text,
+    label_info  text
+).
+
+# 加载mention  -->  特定P
+so_mention(
+    mention_id      text,
+    mention_text    text,
+    sent_id         text,
+    begin_index     int,
+    end_index       int
+).
+
+# SO 候选集合   -->  特定P
+
+so_candidate(
+    S_mention_id    text,
+    S_mention_text  text,
+    O_mention_id    text,
+    O_mention_text  text
+).
+
+# supervise   -->   特定P
+
+so_label(
+    S_id    text,
+    O_id    text,
+    label   int,
+    rule_ids text
+).
+
+
+# 抽取特征     --> 当前与P无关
+so_feature(
+    S_id    text,
+    O_id    text,
+    feature text
+).
+
+function extract_so_feature over(
+    S_id            text,
+    O_id            text,
+    S_begin_index   int,
+    S_end_index     int,
+    O_begin_index   int,
+    O_end_index     int,
+    sent_id         text,
+    tokens          text[],
+    pos_tags        text[],
+    ner_tags        text[],
+    dep_types       text[],
+    dep_tokens      int[]
+) returns rows like so_feature
+implementation "udf/extract_so_features.py" handles tsv lines.
+
+so_feature += extract_so_feature(
+    S_id, O_id, S_begin_index, S_end_index, O_begin_index, O_end_index,
+    sent_id, tokens, pos_tags, ner_tags, dep_types, dep_tokens
+) :-
+    so_mention(S_id, _, sent_id, S_begin_index, S_end_index),
+    so_mention(O_id, _, sent_id, O_begin_index, O_end_index),
+    sentence(sent_id, _, tokens, pos_tags, ner_tags, dep_types, dep_tokens, _, _).
+
+
+
+# model
+
+has_relation?(
+    S_id    text,
+    O_id    text
+).
+
+
+so_label_resolved(S_id, O_id, SUM(vote)) :- so_label(S_id, O_id, vote, rule_ids).
+
+has_relation(S_id, O_id) = if l > 0 then TRUE
+                      else if l < 0 then FALSE
+                      else NULL end :- so_label_resolved(S_id, O_id, l).
+
+@weight(f)
+has_relation(S_id, O_id) :-
+    so_candidate(S_id, _, O_id, _),
+    so_feature(S_id, O_id, f).
+
+# 每个P不一样, 现在先不用
+# @weight(3.0)
+# has_relation(S_id, O_id) => has_relation(O_id, S_id) :-
+#    so_candidate(S_id, _, O_id, _).
+
+
+
+
+
+
+
+
+
+
+

@@ -1,7 +1,9 @@
 #! /usr/bin/env python
 # coding: utf-8
+import ddlib
+import sys
 from deepdive import *
-import ddlib, sys
+
 reload(sys)
 sys.setdefaultencoding("utf-8")
 
@@ -44,8 +46,8 @@ def extract(
             dep_label=dep_types[i]))
 
     # Create DDLIB Spans for the two person mentions
-    S_span = ddlib.Span(begin_word_id=S_begin_index, length=(S_begin_index-S_end_index+1))
-    O_span = ddlib.Span(begin_word_id=O_begin_index, length=(O_begin_index-O_end_index+1))
+    S_span = ddlib.Span(begin_word_id=S_begin_index, length=(S_begin_index - S_end_index + 1))
+    O_span = ddlib.Span(begin_word_id=O_begin_index, length=(O_begin_index - O_end_index + 1))
 
     # Generate the generic features using DDLIB
     for feature in ddlib.get_generic_features_relation(sent, S_span, O_span):

@@ -1,6 +1,9 @@
 #!/usr/bin/env python
+import sys
+
 from deepdive import *
-import ddlib, sys
+from zh_deepdive.backup.tiyurenwu_ouxiang.udf import ddlib
+
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
@@ -44,8 +47,8 @@ def extract(
             dep_label=dep_types[i]))
 
     # Create DDLIB Spans for the two person mentions
-    p1_span = ddlib.Span(begin_word_id=p1_begin_index, length=(p1_end_index-p1_begin_index+1))
-    p2_span = ddlib.Span(begin_word_id=p2_begin_index, length=(p2_end_index-p2_begin_index+1))
+    p1_span = ddlib.Span(begin_word_id=p1_begin_index, length=(p1_end_index - p1_begin_index + 1))
+    p2_span = ddlib.Span(begin_word_id=p2_begin_index, length=(p2_end_index - p2_begin_index + 1))
 
     # Generate the generic features using DDLIB
     for feature in ddlib.get_generic_features_relation(sent, p1_span, p2_span):

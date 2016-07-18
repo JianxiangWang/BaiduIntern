@@ -34,12 +34,15 @@ def format_seed_to_pkl(in_file, to_file):
 
 
 if __name__ == '__main__':
-    format_seed_to_json("seed.train.data", "seed.train.json")
-    format_seed_to_pkl("seed.train.data", "seed.train.cPkl")
 
-    dict_P_to_seeds = cPickle.load(open("seed.train.cPkl", "rb"))
+    format_seed_to_json("../data/seed.test.data", "../data/seed.test.json")
+    format_seed_to_json("../data/seed.test.data.sample", "../data/seed.test.data.sample.json")
+
+
+    # format_seed_to_pkl("seed.train.data", "seed.train.cPkl")
+    # dict_P_to_seeds = cPickle.load(open("seed.train.cPkl", "rb"))
     #
-    print dict_P_to_seeds["历史人物_配偶"]
+
 
 
 

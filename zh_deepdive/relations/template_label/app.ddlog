@@ -77,19 +77,24 @@ so_feature += extract_so_feature(
 
 has_relation?(
     S_id    text,
-    O_id    text
+    S_text  text,
+    O_id    text,
+    O_text  text
 ).
 
 
 so_label_resolved(S_id, O_id, SUM(vote)) :- so_label(S_id, O_id, vote, rule_ids).
 
-has_relation(S_id, O_id) = if l > 0 then TRUE
+has_relation(S_id, S_text, O_id, O_text) = if l > 0 then TRUE
                       else if l < 0 then FALSE
-                      else NULL end :- so_label_resolved(S_id, O_id, l).
+                      else NULL end :-
+            so_label_resolved(S_id, O_id, l),
+            so_candidate(S_id, S_text, O_id, O_text).
+
 
 @weight(f)
-has_relation(S_id, O_id) :-
-    so_candidate(S_id, _, O_id, _),
+has_relation(S_id, S_text, O_id, O_text) :-
+    so_candidate(S_id, S_text, O_id, O_text),
     so_feature(S_id, O_id, f).
 
 # 每个P不一样, 现在先不用

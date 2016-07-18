@@ -13,7 +13,7 @@ def main(template_dir, relation_dir, train_P_file):
         P_pinyi = hanzi_to_pinyi(P)
 
         print "==" * 40
-        print P
+        print "\t", P
         print "==" * 40
 
         # copy template files
@@ -37,7 +37,7 @@ def hanzi_to_pinyi(hanzi):
 
 
 if __name__ == '__main__':
-    template_dir = "/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/relations/template"
+    template_dir = "/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/relations/template_label"
     relation_dir = "/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/relations"
     train_P_file = "/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/train_P.txt_test"
 

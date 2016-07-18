@@ -32,8 +32,8 @@ def main(in_file, to_file):
                     if rule == "neg:far_apart":
                         neg_far_apart_exist = True
 
-                    if rule == "neg: from seeds" or rule == "pos: from seeds":
-                        print P, so
+                    # if rule == "neg: from seeds" or rule == "pos: from seeds":
+                    #     print P, so
 
                 # 有pos了,那么neg: far apart 就不算了
                 if pos_exist and neg_far_apart_exist:
@@ -49,7 +49,7 @@ def main(in_file, to_file):
 
 
     fout = open(to_file, "w")
-    fout.write("P,positive,negative,NULL")
+    fout.write("P,positive,negative,NULL\n")
     for P in sorted(count.keys()):
         fout.write("%s,%d,%d,%d\n" % (P, count[P]["positive"], count[P]["negative"], count[P]["NULL"]) )
     fout.close()

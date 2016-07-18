@@ -1,7 +1,7 @@
 #!/bin/bash
 
-INPUT="/app/ps/spider/kg-value/wangjianxiang01/data/SPO_train_data_so_output"
-OUTPUT="/app/ps/spider/kg-value/wangjianxiang01/data/SPO_train_data_for_deepdive_label"
+INPUT="/app/ps/spider/kg-value/wangjianxiang01/data/SPO_test_data_so_output"
+OUTPUT="/app/ps/spider/kg-value/wangjianxiang01/data/SPO_test_data_for_deepdive_label"
 
 hadoop fs -rmr ${OUTPUT}
 
@@ -11,9 +11,6 @@ hadoop streaming \
     -mapper "mapper.py" \
     -reducer "NONE" \
     -file "mapper.py" \
-    -file "guide_words.cPkl" \
-    -file "P_similar" \
-    -file "seed.train.cPkl" \
     -cacheArchive "/app/ps/spider/kg-value/wangjianxiang01/tools.tar.gz#." \
     -jobconf mapred.job.priority="VERY_HIGH" \
     -jobconf mapred.textoutputformat.ignoreseparator=true \

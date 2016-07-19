@@ -13,13 +13,10 @@ def do_so_count(in_file):
         for line in fin:
             d = json.loads(line)
             for P in d["mars_ner"]:
-
                 if P not in count:
                     count[P] = 0
-
                 s_list = d["mars_ner"][P]["s"]
                 o_list = d["mars_ner"][P]["o"]
-
                 if s_list != [] and o_list != []:
                     count[P] += 1
 

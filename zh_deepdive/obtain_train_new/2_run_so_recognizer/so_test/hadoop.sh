@@ -24,7 +24,7 @@ hadoop streaming \
     -jobconf num.key.fields.for.partition=3 \
     -jobconf stream.memory.limit=2000 \
     -jobconf mapred.job.priority="VERY_HIGH" \
-    -jobconf mapred.map.tasks=10 \
+    -jobconf mapred.map.tasks=1000 \
     -jobconf mapred.job.map.capacity=300 \
     -jobconf mapred.reduce.tasks=0 \
     -jobconf mapred.job.reduce.capacity=300 \

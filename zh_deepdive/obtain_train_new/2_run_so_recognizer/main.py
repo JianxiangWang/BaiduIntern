@@ -23,7 +23,7 @@ def do_so_count(in_file):
                 if s_list != [] and o_list != []:
                     count[P] += 1
 
-    for P in count:
+    for P in sorted(count.keys()):
         print P, count[P]
 
 if __name__ == '__main__':

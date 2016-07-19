@@ -31,7 +31,7 @@ hadoop streaming \
     -jobconf mapred.textoutputformat.ignoreseparator=true \
     -jobconf mapred.compress.map.output=true \
     -jobconf mapred.output.compress=true \
-    -jobconf mapred.job.name="yubingyang_so_recognizer"
+    -jobconf mapred.job.name="wangjianxiang_so_recognizer"
 
 
 exit $?

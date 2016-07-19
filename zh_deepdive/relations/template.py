@@ -7,7 +7,7 @@ import os
 from pypinyin import lazy_pinyin
 
 
-def main(template_dir, relation_dir, train_P_file):
+def main(template_dir, model_dir, train_P_file):
 
     for line in open(train_P_file):
         P = line.strip()
@@ -19,7 +19,7 @@ def main(template_dir, relation_dir, train_P_file):
 
         # copy template files
         # init: 符号链接, chmod
-        P_dir = "%s/%s" % (relation_dir, P_pinyi)
+        P_dir = "%s/%s" % (model_dir, P_pinyi)
 
         cmd = "sh -x template.sh %s %s" % (template_dir, P_dir)
         os.system(cmd)
@@ -39,7 +39,7 @@ def hanzi_to_pinyi(hanzi):
 
 if __name__ == '__main__':
     template_dir = "/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/relations/template_label"
-    relation_dir = "/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/relations"
+    models_dir   = "/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/relations/models"
     train_P_file = "/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/train_P.txt_test"
 
-    main(template_dir, relation_dir, train_P_file)
+    main(template_dir, models_dir, train_P_file)

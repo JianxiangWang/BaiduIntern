@@ -56,4 +56,6 @@ def main(in_file, to_file):
 
 
 if __name__ == '__main__':
-    main("../../data/SPO_train_data_for_deepdive_label", "../../data/SPO_train_data_for_deepdive_label.statistics.csv")
+
+    # main("../../data/SPO_train_data_for_deepdive_label", "../../data/SPO_train_data_for_deepdive_label.statistics.csv")
+    main("../../data/SPO_test_data_for_deepdive_label", "../../data/SPO_test_data_for_deepdive_label.statistics.csv")

@@ -11,5 +11,16 @@ cp -r ${TEMPLATE_DIR} ${DESTINATION_DIR}
 cd ${DESTINATION_DIR}/udf
 chmod +x *.py
 
+cd ../
+chmod +x evaluation.py
+chmod +x load_data.py
+
 # run
 rm -rf ${DESTINATION_DIR}/run
+
+# input
+rm -rf ${DESTINATION_DIR}/input/*
+
+
+rm ${DESTINATION_DIR}/predict.json
+rm ${DESTINATION_DIR}/evaluation.result

@@ -57,13 +57,18 @@ def calculate_P_R(predict_json, silver_all_seed_json, silver_sample_seed_json, t
         precision = len(predicts & silver_all) / float(len(predicts)) * 100
         recall = len(predicts & silver_sample) / float(len(silver_sample)) * 100
 
-        print "%s\tprecision: %.2f%%\trecall: %.2f%%" % (P, precision, recall)
-        fout.write("%s\tprecision: %.2f%%\trecall: %.2f%%\n" % (P, precision, recall))
+        s = "%s\tprecision: %d / %d * 100 = %.2f%%\trecall: %d / %d * 100 = %.2f%%" % \
+                    ( P,
+                     len(predicts & silver_all), len(predicts), precision,
+                     len(predicts & silver_sample), len(silver_sample), recall)
+        print s
+
+        fout.write(s + "\n")
 
     fout.close()
 
 if __name__ == '__main__':
-    write_predict_to_json(0.6, "predict.json")
+    write_predict_to_json(0.5, "predict.json")
     calculate_P_R("predict.json",
                   "/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/seed.test.json",
                   "/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/seed.test.data.sample.json",

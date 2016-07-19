@@ -23,6 +23,12 @@ def load_train_data(in_file):
     P = unicode(this_P)
     num_neagtive = 100000
 
+    print "==" * 20
+    print "\t%s" % P
+    print "==" * 20
+
+    print "load train data..."
+
     with open(in_file) as fin, \
         open("input/sentence.tsv", "w") as fout_sentence, \
         open("input/so_mention.tsv", "w") as fout_mention, \
@@ -61,6 +67,8 @@ def load_train_data(in_file):
                     # so_label.tsv
                     fout_label.write("%s\t%s\t%d\t%s\n" % (S_id, O_id, 1, rule_ids))
 
+                    print "\r==> positive: %d; negative: %d" % (pos_count, neg_count),
+
 
                 if label < 0 and num_neagtive > 0:
                     wanted = True
@@ -70,6 +78,8 @@ def load_train_data(in_file):
                     # so_label.tsv
                     fout_label.write("%s\t%s\t%d\t%s\n" % (S_id, O_id, -1, rule_ids))
 
+                    print "\r==> positive: %d; negative: %d" % (pos_count, neg_count),
+
                     num_neagtive -= 1
 
             if wanted:
@@ -78,7 +88,7 @@ def load_train_data(in_file):
                 mentions = [map(str, mention) for mention in mentions]
                 fout_mention.write("\n".join(["\t".join(mention) for mention in mentions]) + "\n")
 
-        print "positive vs negative: %d vs %d" % (pos_count, neg_count)
+        print "\r==> positive: %d; negative: %d" % (pos_count, neg_count)
 
         fout = open("input/label.log", "w")
         fout.write("train positive vs negative: %d vs %d\n" % (pos_count, neg_count))
@@ -90,6 +100,8 @@ def load_test_data(in_file):
     num = 0
 
     P = unicode(this_P)
+
+    print "load test data..."
 
     with open(in_file) as fin, \
         open("input/sentence.tsv", "a") as fout_sentence, \
@@ -124,6 +136,8 @@ def load_test_data(in_file):
                 fout_label.write("%s\t%s\t%d\t%s\n" % (S_id, O_id, -1, rule_ids))
 
                 num += 1
+
+                print "\r==> test: %d" % (num),
 
 
             if wanted:

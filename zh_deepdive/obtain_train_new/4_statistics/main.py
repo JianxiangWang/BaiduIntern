@@ -59,4 +59,4 @@ if __name__ == '__main__':
 
     # main("../../data/SPO_train_data_for_deepdive_label", "../../data/SPO_train_data_for_deepdive_label.statistics.csv")
     # main("../../data/SPO_test_data_for_deepdive_label", "../../data/SPO_test_data_for_deepdive_label.statistics.csv")
-    main("../3_filte_sentences_label/SPO_train_data_for_deepdive_label", ".../3_filte_sentences_label/SPO_test_data_for_deepdive_label.statistics.csv")
+    main("../3_filte_sentences_label/SPO_train_data_for_deepdive_label", "../3_filte_sentences_label/SPO_test_data_for_deepdive_label.statistics.csv")

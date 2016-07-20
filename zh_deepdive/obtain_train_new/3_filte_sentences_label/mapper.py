@@ -24,6 +24,9 @@ with open("P_similar") as fin:
 # p --> 'positive' or 'negative' --> set(["朋友", ...])
 dict_P_to_guide_words = cPickle.load(open("guide_words.cPkl", "rb"))
 
+# test集的 so 集合
+test_so_set = cPickle.load(open("test_so_set.cPkl", "rb"))
+
 
 def main():
 
@@ -89,6 +92,11 @@ def main():
                     # 不能相同, surface level
                     if s_mention[1] == o_mention[1]:
                         continue
+
+                    # s,o 不能在 test 集合中
+                    if (str(s_mention[1]), str(o_mention[1])) in test_so_set:
+                        continue
+
 
                     # 标注, 一个候选集合可能被多条规则选中
                     for label, rule, info in label_for_current_P(

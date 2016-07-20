@@ -8,12 +8,12 @@ for model_path in models/*; do
     cd $model_path
 
     curr_time=$(date +"%Y-%m-%d %T")
-    echo "$curr_time: $model_name is running..." >> ${log_file}
+    echo "$curr_time $model_name is running..." >> ${log_file}
 
-    sh -x run.sh
+#    sh -x run.sh
 
     curr_time=$(date +"%Y-%m-%d %T")
-    echo "$curr_time: $model_name finished..." >> ${log_file}
+    echo "$curr_time $model_name finished..." >> ${log_file}
 
     cd ../../
 done

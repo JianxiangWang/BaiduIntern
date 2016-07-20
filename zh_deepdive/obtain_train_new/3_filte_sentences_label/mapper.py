@@ -60,7 +60,7 @@ def main():
             # 判断句子长度
             sent_length = len(line["depparser"])
             if sent_length >= MAX_SENT_LENGTH:
-                     continue
+                continue
 
             # 不为空
             if s_list == [] or o_list == []:

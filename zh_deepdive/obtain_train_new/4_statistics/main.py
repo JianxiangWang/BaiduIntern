@@ -21,23 +21,25 @@ def main(in_file, to_file):
             for so in label_info[P]["candidates"]:
                 label_rules = label_info[P]["candidates"][so]["label_info"]
 
-                pos_exist = False
-                neg_far_apart_exist = False
-
-                label = 0
-                for x, rule, _ in label_rules:
-                    label += x
-                    if rule.startswith("pos"):
-                        pos_exist = True
-                    if rule == "neg:far_apart":
-                        neg_far_apart_exist = True
+                # pos_exist = False
+                # neg_far_apart_exist = False
+                #
+                # label = 0
+                # for x, rule, _ in label_rules:
+                #     label += x
+                #     if rule.startswith("pos"):
+                #         pos_exist = True
+                #     if rule == "neg:far_apart":
+                #         neg_far_apart_exist = True
 
                     # if rule == "neg: from seeds" or rule == "pos: from seeds":
                     #     print P, so
 
-                # 有pos了,那么neg: far apart 就不算了
-                if pos_exist and neg_far_apart_exist:
-                    label += 1
+                # # 有pos了,那么neg: far apart 就不算了
+                # if pos_exist and neg_far_apart_exist:
+                #     label += 1
+
+                label = label_info[P]["candidates"][so]["label"]
 
                 if label > 0:
                     count[P]["positive"] += 1
@@ -59,4 +61,6 @@ if __name__ == '__main__':
 
     # main("../../data/SPO_train_data_for_deepdive_label", "../../data/SPO_train_data_for_deepdive_label.statistics.csv")
     # main("../../data/SPO_test_data_for_deepdive_label", "../../data/SPO_test_data_for_deepdive_label.statistics.csv")
-    main("../3_filte_sentences_label/SPO_train_data_for_deepdive_label", "../3_filte_sentences_label/SPO_test_data_for_deepdive_label.statistics.csv")
+    # main("../3_filte_sentences_label/SPO_train_data_for_deepdive_label", "../3_filte_sentences_label/SPO_test_data_for_deepdive_label.statistics.csv")
+    # main("../../data/SPO_train_data_for_deepdive_label_sample", "../../data/SPO_train_data_for_deepdive_label_sample.statistics.csv")
+    main("../../data/SPO_train_data_for_deepdive_label_post_processing", "../../data/SPO_train_data_for_deepdive_label_post_processing.statistics.csv")

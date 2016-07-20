@@ -8,14 +8,15 @@ from pypinyin import lazy_pinyin
 
 
 def main(template_dir, model_dir, train_P_file):
-
+    index = 1
     for line in open(train_P_file):
         P = line.strip()
         P_pinyi = hanzi_to_pinyi(P)
 
         print "==" * 40
-        print "\t", P
+        print "\t", index, P
         print "==" * 40
+        index += 1
 
         # copy template files
         # init: 符号链接, chmod
@@ -40,6 +41,6 @@ def hanzi_to_pinyi(hanzi):
 if __name__ == '__main__':
     template_dir = "/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/relations/template_label"
     models_dir   = "/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/relations/models"
-    train_P_file = "/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/train_P.txt_test"
+    train_P_file = "/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/train_P.txt"
 
     main(template_dir, models_dir, train_P_file)

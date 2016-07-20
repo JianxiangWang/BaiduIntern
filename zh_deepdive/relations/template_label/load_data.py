@@ -21,7 +21,7 @@ def load_train_data(in_file):
     neg_count = 0
 
     P = unicode(this_P)
-    num_neagtive = 100000
+    NUM_NEAGTIVE = 50000
 
     print "==" * 20
     print "\t%s" % P
@@ -70,7 +70,7 @@ def load_train_data(in_file):
                     print "\r==> positive: %d; negative: %d" % (pos_count, neg_count),
 
 
-                if label < 0 and num_neagtive > 0:
+                if label < 0 and NUM_NEAGTIVE > 0:
                     wanted = True
                     neg_count += 1
                     # so_candidate.tsv
@@ -80,7 +80,7 @@ def load_train_data(in_file):
 
                     print "\r==> positive: %d; negative: %d" % (pos_count, neg_count),
 
-                    num_neagtive -= 1
+                    NUM_NEAGTIVE -= 1
 
             if wanted:
                 fout_sentence.write(line)
@@ -139,7 +139,6 @@ def load_test_data(in_file):
 
                 print "\r==> test: %d" % (num),
 
-
             if wanted:
                 fout_sentence.write(line)
                 # [["4fbe2704-4c01-11e6-bcf6-089e016c1d80_17_17", "日本", "4fbe2704-4c01-11e6-bcf6-089e016c1d80", 17, 17], ["4fbe2704-4c01-11e6-bcf6-089e016c1d80_14_14", "饶宗颐", "4fbe2704-4c01-11e6-bcf6-089e016c1d80", 14, 14]]
@@ -152,7 +151,8 @@ def load_test_data(in_file):
         fout.close()
 
 if __name__ == '__main__':
-    load_train_data("/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/SPO_train_data_for_deepdive_label")
+    # load_train_data("/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/SPO_train_data_for_deepdive_label")
+    load_train_data("/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/SPO_train_data_for_deepdive_label_post_processing")
     load_test_data("/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/SPO_test_data_for_deepdive_label")
 
 

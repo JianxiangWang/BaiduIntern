@@ -14,6 +14,7 @@ hadoop streaming \
     -file "guide_words.cPkl" \
     -file "P_similar" \
     -file "seed.train.cPkl" \
+    -file "test_so_set.cPkl" \
     -cacheArchive "/app/ps/spider/kg-value/wangjianxiang01/tools.tar.gz#." \
     -jobconf mapred.job.priority="VERY_HIGH" \
     -jobconf mapred.textoutputformat.ignoreseparator=true \

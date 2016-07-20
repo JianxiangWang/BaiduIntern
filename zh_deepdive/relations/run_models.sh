@@ -6,8 +6,14 @@ rm ${log_file}
 for model_path in models/*; do
     model_name=`basename $model_path`
     cd $model_path
-    echo "$model_name is running..." >> ${log_file}
+
+    curr_time=$(date +"%Y-%m-%d %T")
+    echo "$curr_time: $model_name is running..." >> ${log_file}
+
     sh -x run.sh
-    echo "$model_name finished..." >> ${log_file}
+
+    curr_time=$(date +"%Y-%m-%d %T")
+    echo "$curr_time: $model_name finished..." >> ${log_file}
+
     cd ../../
 done

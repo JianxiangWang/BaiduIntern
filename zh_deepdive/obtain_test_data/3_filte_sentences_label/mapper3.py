@@ -191,7 +191,7 @@ def _get_mention(sent_text, sent_id, tokens, s):
         mention_text_ = "".join([tokens[index] for index in range(begin_index, end_index + 1)])
 
         # token对应的mention 与 so 识别的mention, 至少得有交集
-        if set(unicode(mention_text_)) == set(unicode(so_mention_text)) :
+        if set(unicode(mention_text_)) & set(unicode(so_mention_text)) :
             return (mention_id, mention_text, sent_id, begin_index, end_index)
 
     return None

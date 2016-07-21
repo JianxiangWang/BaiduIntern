@@ -26,7 +26,7 @@ def post_process(sentence_info):
                 s_beg = s_info[2]
                 s_end = s_info[2] + s_info[3]
                 #print >> sys.stderr, 'beg_pos: %d\tend_pos: %d' % (s_beg, s_end)
-                if s_beg >= 1 or s_end <= len(sentence):
+                if s_beg >= 1 and s_end < len(sentence):
                     if sentence[s_beg - 1] in [u'<', u'《'] and \
                             sentence[s_end] in [u'>', u'》']:
                         temp_s.append(s_info)

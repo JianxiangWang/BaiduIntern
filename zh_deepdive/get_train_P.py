@@ -18,20 +18,37 @@ def read_dict_from_csv(in_file):
 
 
 
+def get_62_P_list():
 
-dict_pinyin_to_hanzi = {}
-for d in read_dict_from_csv("data/全网SPO挖掘通用领域P梳理文档2.csv"):
-    P_hanzi = d["领域"] + "_" + d["P"]
-    P_pinyin = d["拼音"]
-    dict_pinyin_to_hanzi[P_pinyin] = P_hanzi
+    dict_pinyin_to_hanzi = {}
+    for d in read_dict_from_csv("data/全网SPO挖掘通用领域P梳理文档2.csv"):
+        P_hanzi = d["领域"] + "_" + d["P"]
+        P_pinyin = d["拼音"]
+        dict_pinyin_to_hanzi[P_pinyin] = P_hanzi
 
-
-with open("data/62P.output") as fin,\
-     open("data/train_P.txt", "w") as fout:
     train_P_list = []
-    for line in fin:
-        pinyin = line.strip()
-        train_P_list.append(dict_pinyin_to_hanzi[pinyin])
+    with open("data/62P.output") as fin:
+        for line in fin:
+            pinyin = line.strip()
+            train_P_list.append(dict_pinyin_to_hanzi[pinyin])
+    return sorted(train_P_list)
 
 
-    fout.write("\n".join(sorted(train_P_list)))
+def get_22_P_list():
+
+    P_list = []
+    with open("data/22.bag_of_word.dict") as fin:
+        for line in fin:
+            P_list.append("人物_" + line.strip().split("\t")[0])
+
+    return sorted(P_list)
+
+def get_ALL_P_List(to_file):
+    P_List = get_62_P_list() + get_22_P_list()
+
+    fout = open(to_file, "w")
+    fout.write("\n".join(P_List))
+    fout.close()
+
+if __name__ == '__main__':
+    get_ALL_P_List("data/train_all_P.txt")

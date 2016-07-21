@@ -73,9 +73,9 @@ def main():
             # 判断so pair 能不能被标注
             for s_mention in s_mention_list:
                 for o_mention in o_mention_list:
-                    # 不能相同, surface level
-                    if s_mention[1] == o_mention[1]:
-                        continue
+                    # # 不能相同, surface level
+                    # if s_mention[1] == o_mention[1]:
+                    #     continue
 
                     # 标注, 一个候选集合可能被多条规则选中
                     for label, rule, info in label_for_current_P(

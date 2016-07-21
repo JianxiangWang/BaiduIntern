@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 INPUT="/app/ps/spider/kg-value/wangjianxiang01/data/SPO_train_data_so_input"
 OUTPUT="/app/ps/spider/kg-value/wangjianxiang01/data/SPO_train_data_so_84P_output"
 
@@ -32,7 +31,7 @@ hadoop streaming \
     -jobconf mapred.textoutputformat.ignoreseparator=true \
     -jobconf mapred.compress.map.output=true \
     -jobconf mapred.output.compress=true \
-    -jobconf mapred.job.name="yubingyang_so_recognizer"
+    -jobconf mapred.job.name="wangjianxiang01_so_recognizer"
 
 #INPUT="/app/ps/spider/kg-value/yubingyang/relation/confidence/so_recog/buchong_s/merge_depparser_sorec"
 ##OUTPUT="/app/ps/spider/kg-value/yubingyang/relation/confidence/so_recog/buchong_s/buchong_s"

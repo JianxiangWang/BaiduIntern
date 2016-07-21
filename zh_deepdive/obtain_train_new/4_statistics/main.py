@@ -64,4 +64,4 @@ if __name__ == '__main__':
     # main("../3_filte_sentences_label/SPO_train_data_for_deepdive_label", "../3_filte_sentences_label/SPO_test_data_for_deepdive_label.statistics.csv")
     # main("../../data/SPO_train_data_for_deepdive_label_sample", "../../data/SPO_train_data_for_deepdive_label_sample.statistics.csv")
     # main("../../data/SPO_train_data_for_deepdive_label_post_processing", "../../data/SPO_train_data_for_deepdive_label_post_processing.statistics.csv")
-    main("../../data/SPO_train_data_for_deepdive_label_post_processing_new_rule_score", "../../data/SPO_train_data_for_deepdive_label_post_processing_new_rule_score.statistics.csv")
+    main("../../data/SPO_train_data_for_deepdive_label.new.post_processing_new_rule_score", "../../data/SPO_train_data_for_deepdive_label.new.post_processing_new_rule_score.statistics.csv")

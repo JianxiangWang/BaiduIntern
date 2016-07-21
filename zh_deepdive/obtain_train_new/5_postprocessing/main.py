@@ -104,7 +104,7 @@ def main3(in_file, to_file):
         "neg: from seeds": -4,
         "pos: positive guide words between": 2,
         "neg: negative guide words between": -2,
-        "neg:far_apart": -1
+        "neg:far_apart": -2
     }
 
     for line in fin:
@@ -130,8 +130,8 @@ def main3(in_file, to_file):
 
 
 if __name__ == "__main__":
-    in_file = "../../data/SPO_train_data_for_deepdive_label"
-    to_file = "../../data/SPO_train_data_for_deepdive_label_post_processing_new_rule_score"
+    in_file = "../../data/SPO_train_data_for_deepdive_label.new"
+    to_file = "../../data/SPO_train_data_for_deepdive_label.new.post_processing_new_rule_score"
     main3(in_file, to_file)
 
 

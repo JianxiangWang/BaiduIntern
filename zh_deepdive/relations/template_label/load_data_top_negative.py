@@ -74,7 +74,7 @@ def load_train_data(in_file):
 
                 if label < 0:
 
-                    if label < -7:
+                    if label < -3:
                         print line
 
                     if len(heap) < NUM_NEAGTIVE:
@@ -177,7 +177,7 @@ def load_test_data(in_file):
 
 if __name__ == '__main__':
     # load_train_data("/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/SPO_train_data_for_deepdive_label")
-    load_train_data("/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/SPO_train_data_for_deepdive_label_post_processing_new_rule_score")
+    load_train_data("/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/SPO_train_data_for_deepdive_label.new")
     load_test_data("/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/SPO_test_data_for_deepdive_label")
 
 

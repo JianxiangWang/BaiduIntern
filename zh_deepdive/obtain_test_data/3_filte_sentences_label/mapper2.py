@@ -159,10 +159,10 @@ def main():
 
             sent_sent = " ".join(new_tokens)
 
-            print "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s" % (
-                sent_id, sent_sent, tokens, pos_tags, ner_tags, dep_types, dep_tokens, S_O,
-                json.dumps(dict_label_info, ensure_ascii=False)
-            )
+            # print "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s" % (
+            #     sent_id, sent_sent, tokens, pos_tags, ner_tags, dep_types, dep_tokens, S_O,
+            #     json.dumps(dict_label_info, ensure_ascii=False)
+            # )
 
 
 

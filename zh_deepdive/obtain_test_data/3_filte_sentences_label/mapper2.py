@@ -56,13 +56,13 @@ def main():
             # s_list = [("刘德华", "PER", 0, 3), ...] == > [(mention_id, mention_text, sent_id, begin_index, end_index), ...]
             s_mention_list = []
             for s in s_list:
-                mention = _get_mention(sent_id, tokens, s)
+                mention = _get_mention(line, sent_id, tokens, s)
                 if mention:
                     s_mention_list.append(mention)
 
             o_mention_list = []
             for o in o_list:
-                mention = _get_mention(sent_id, tokens, o)
+                mention = _get_mention(line, sent_id, tokens, o)
                 if mention:
                     o_mention_list.append(mention)
 
@@ -168,7 +168,7 @@ def main():
 
 # s: ("刘德华", "PER", 0, 3)
 # return (mention_id, mention_text, sent_id, begin_index, end_index)
-def _get_mention(sent_id, tokens, s):
+def _get_mention(line, sent_id, tokens, s):
     so_mention_text, _,  char_start_index, char_length = s
     begin_index, end_index = _get_begin_index_and_end_index(tokens, char_start_index, char_length)
 
@@ -183,6 +183,7 @@ def _get_mention(sent_id, tokens, s):
             print "==" * 40
             print so_mention_text, mention_text_
             print " ".join(tokens)
+            print line["sentence"]
             print so_mention_text, char_start_index, char_length
 
         # token对应的mention 与 so 识别的mention, 至少得有交集

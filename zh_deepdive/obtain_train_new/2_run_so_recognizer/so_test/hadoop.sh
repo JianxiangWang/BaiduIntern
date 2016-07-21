@@ -2,7 +2,7 @@
 
 
 INPUT="/app/ps/spider/kg-value/wangjianxiang01/data/SPO_train_data_so_input"
-OUTPUT="/app/ps/spider/kg-value/wangjianxiang01/data/SPO_train_data_so_output"
+OUTPUT="/app/ps/spider/kg-value/wangjianxiang01/data/SPO_train_data_so_84P_output"
 
 
 hadoop fs -rmr ${OUTPUT}

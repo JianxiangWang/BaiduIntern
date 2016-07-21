@@ -7,7 +7,9 @@ import cPickle
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-# 少一些规则
+
+
+
 def main():
 
     MAX_SENT_LENGTH = 400
@@ -17,6 +19,7 @@ def main():
         # 闯关啦~~~
 
         sent_id = "test_" + str(uuid.uuid1())
+        sent_text = line["sentence"]
         markup = line["depparser"]
 
         tokens      = [item[1] for item in markup]
@@ -41,28 +44,27 @@ def main():
             # sent_length = len(line["depparser"])
             # if sent_length >= MAX_SENT_LENGTH:
             #     continue
-
-            # 不为空
-            if s_list == [] or o_list == []:
-                continue
-
+            #
             # # 获取SO对应的mention的个数
             # num_mention = len(set(s_list + o_list))
             # if num_mention <= 1 or num_mention >= 5:
             #     continue
 
+            # 不为空
+            if s_list == [] or o_list == []:
+                continue
 
             # to mention_list
             # s_list = [("刘德华", "PER", 0, 3), ...] == > [(mention_id, mention_text, sent_id, begin_index, end_index), ...]
             s_mention_list = []
             for s in s_list:
-                mention = _get_mention(line, sent_id, tokens, s)
+                mention = _get_mention(sent_text, sent_id, tokens, s)
                 if mention:
                     s_mention_list.append(mention)
 
             o_mention_list = []
             for o in o_list:
-                mention = _get_mention(line, sent_id, tokens, o)
+                mention = _get_mention(sent_text, sent_id, tokens, o)
                 if mention:
                     o_mention_list.append(mention)
 
@@ -73,9 +75,9 @@ def main():
             # 判断so pair 能不能被标注
             for s_mention in s_mention_list:
                 for o_mention in o_mention_list:
-                    # # 不能相同, surface level
-                    # if s_mention[1] == o_mention[1]:
-                    #     continue
+                    # 不能相同, surface level
+                    if s_mention[1] == o_mention[1]:
+                        continue
 
                     # 标注, 一个候选集合可能被多条规则选中
                     for label, rule, info in label_for_current_P(
@@ -159,21 +161,22 @@ def main():
 
             sent_sent = " ".join(new_tokens)
 
-            # print "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s" % (
-            #     sent_id, sent_sent, tokens, pos_tags, ner_tags, dep_types, dep_tokens, S_O,
-            #     json.dumps(dict_label_info, ensure_ascii=False)
-            # )
+            print "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s" % (
+                sent_id, sent_sent, tokens, pos_tags, ner_tags, dep_types, dep_tokens, S_O,
+                json.dumps(dict_label_info, ensure_ascii=False)
+            )
 
 
 
 # s: ("刘德华", "PER", 0, 3)
 # return (mention_id, mention_text, sent_id, begin_index, end_index)
-def _get_mention(line, sent_id, tokens, s):
+def _get_mention(sent_text, sent_id, tokens, s):
+
+    # 需要修改 char_start_index, char_length, 因为他计算了空格
     so_mention_text, _,  char_start_index, char_length = s
 
-    sent = line["sentence"]
-    before_space_count = space_count(sent, 0, char_start_index)
-    in_space_count = space_count(sent, char_start_index, char_start_index + char_length -1)
+    before_space_count = space_count(sent_text, 0, char_start_index)
+    in_space_count = space_count(sent_text, char_start_index, char_start_index + char_length -1)
 
     #
     char_start_index = char_start_index - before_space_count
@@ -186,15 +189,6 @@ def _get_mention(line, sent_id, tokens, s):
         mention_id = "%s_%d_%d" % (sent_id, begin_index, end_index)
         mention_text = " ".join([tokens[index] for index in range(begin_index, end_index + 1)])
         mention_text_ = "".join([tokens[index] for index in range(begin_index, end_index + 1)])
-
-
-
-        if set(unicode(mention_text_)) != set(unicode(so_mention_text)):
-            print "==" * 40
-            print so_mention_text, mention_text_
-            print " ".join(tokens)
-            print line["sentence"]
-            print so_mention_text, char_start_index, char_length
 
         # token对应的mention 与 so 识别的mention, 至少得有交集
         if set(unicode(mention_text_)) & set(unicode(so_mention_text)) :
@@ -210,7 +204,6 @@ def space_count(sent, char_start_index, char_end_index):
         if w == " ":
             c += 1
     return c
-
 
 
 

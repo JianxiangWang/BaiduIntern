@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 INPUT="/app/ps/spider/kg-value/wangjianxiang01/data/SPO_train_data_so_input"
 OUTPUT="/app/ps/spider/kg-value/wangjianxiang01/data/SPO_train_data_so_output"
 
@@ -32,6 +31,7 @@ hadoop streaming \
     -jobconf mapred.compress.map.output=true \
     -jobconf mapred.output.compress=true \
     -jobconf mapred.job.name="wangjianxiang_so_recognizer"
+
 
 
 exit $?

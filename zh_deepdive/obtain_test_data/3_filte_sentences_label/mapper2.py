@@ -206,7 +206,6 @@ def space_count(sent, char_start_index, char_end_index):
     return c
 
 
-
 def _get_begin_index_and_end_index(tokens, char_start_index, char_length):
 
     char_end_index = char_start_index + char_length - 1

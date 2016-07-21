@@ -25,6 +25,4 @@ hadoop streaming \
 
 
 
-
-
 #"-jobconf mapred.output.compress=true \

@@ -86,7 +86,7 @@ def main():
                 if mention:
                     o_mention_list.append(mention)
 
-            # 去重
+            # 去重, 真的有重复的 !!!!
             s_mention_list = list(set(s_mention_list))
             o_mention_list = list(set(o_mention_list))
 

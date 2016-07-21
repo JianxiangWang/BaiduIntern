@@ -8,9 +8,9 @@ hadoop fs -rmr ${OUTPUT}
 hadoop streaming \
     -input "${INPUT}"  \
     -output "${OUTPUT}" \
-    -mapper "mapper2.py" \
+    -mapper "mapper3.py" \
     -reducer "NONE" \
-    -file "mapper2.py" \
+    -file "mapper3.py" \
     -cacheArchive "/app/ps/spider/kg-value/wangjianxiang01/tools.tar.gz#." \
     -jobconf mapred.job.priority="VERY_HIGH" \
     -jobconf mapred.textoutputformat.ignoreseparator=true \

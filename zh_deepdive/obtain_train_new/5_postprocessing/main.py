@@ -112,17 +112,15 @@ def main3(in_file, to_file):
         dict_label_info = json.loads(line_list[-1])
 
         for P in dict_label_info:
-            # 是我要处理的P
-            if P in small_train_data_P_set:
-                # 遍历candidates
-                for s_o in dict_label_info[P]["candidates"]:
-                    label_rule_list = dict_label_info[P]["candidates"][s_o]["label_info"]
-                    # 新的
-                    label_rule_list = [[dict_rule_to_score[rule], rule, info] for this_label, rule, info in label_rule_list]
-                    label = sum([x for x, _, _ in label_rule_list])
+            # 遍历candidates
+            for s_o in dict_label_info[P]["candidates"]:
+                label_rule_list = dict_label_info[P]["candidates"][s_o]["label_info"]
+                # 新的
+                label_rule_list = list(set([(dict_rule_to_score[rule], rule, info) for this_label, rule, info in label_rule_list]))
+                label = sum([x for x, _, _ in label_rule_list])
 
-                    dict_label_info[P]["candidates"][s_o]["label"] = label
-                    dict_label_info[P]["candidates"][s_o]["label_info"] = label_rule_list
+                dict_label_info[P]["candidates"][s_o]["label"] = label
+                dict_label_info[P]["candidates"][s_o]["label_info"] = label_rule_list
 
         line_list[-1] = json.dumps(dict_label_info, ensure_ascii=False)
         fout.write("%s\n" % "\t".join(line_list))

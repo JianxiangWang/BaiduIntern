@@ -14,6 +14,7 @@ chmod +x *.py
 cd ../
 chmod +x evaluation.py
 chmod +x load_data.py
+chmod +x load_data_top_negative.py
 
 # run
 rm -rf ${DESTINATION_DIR}/run

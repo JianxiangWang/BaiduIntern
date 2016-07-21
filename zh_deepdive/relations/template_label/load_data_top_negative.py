@@ -178,7 +178,7 @@ def load_test_data(in_file):
 if __name__ == '__main__':
     # load_train_data("/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/SPO_train_data_for_deepdive_label")
     # load_train_data("/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/SPO_train_data_for_deepdive_label.new")
-    load_train_data("../../../data/SPO_train_data_for_deepdive_label.new")
+    load_train_data("../../data/SPO_train_data_for_deepdive_label.new")
     # load_test_data("/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/SPO_test_data_for_deepdive_label")
 
 

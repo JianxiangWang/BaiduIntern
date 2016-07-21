@@ -170,6 +170,16 @@ def main():
 # return (mention_id, mention_text, sent_id, begin_index, end_index)
 def _get_mention(line, sent_id, tokens, s):
     so_mention_text, _,  char_start_index, char_length = s
+
+    sent = line["sentence"]
+    before_space_count = space_count(sent, 0, char_start_index)
+    in_space_count = space_count(sent, char_start_index, char_start_index + char_length -1)
+
+    #
+    char_start_index = char_start_index - before_space_count
+    char_length = char_length - in_space_count
+
+
     begin_index, end_index = _get_begin_index_and_end_index(tokens, char_start_index, char_length)
 
     if begin_index and end_index:
@@ -191,6 +201,17 @@ def _get_mention(line, sent_id, tokens, s):
             return (mention_id, mention_text, sent_id, begin_index, end_index)
 
     return None
+
+
+# [char_start_index, char_end_index]
+def space_count(sent, char_start_index, char_end_index):
+    c = 0
+    for w in sent[char_start_index: char_end_index + 1]:
+        if w == [" "]:
+            c += 1
+    return c
+
+
 
 
 def _get_begin_index_and_end_index(tokens, char_start_index, char_length):

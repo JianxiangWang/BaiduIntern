@@ -189,7 +189,7 @@ def _get_mention(line, sent_id, tokens, s):
 
 
 
-        if set(unicode(mention_text_)) & set(unicode(so_mention_text)) == set([]):
+        if set(unicode(mention_text_)) != set(unicode(so_mention_text)):
             print "==" * 40
             print so_mention_text, mention_text_
             print " ".join(tokens)

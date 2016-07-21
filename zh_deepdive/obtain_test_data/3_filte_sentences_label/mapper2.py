@@ -207,7 +207,7 @@ def _get_mention(line, sent_id, tokens, s):
 def space_count(sent, char_start_index, char_end_index):
     c = 0
     for w in sent[char_start_index: char_end_index + 1]:
-        if w == [" "]:
+        if w == " ":
             c += 1
     return c
 

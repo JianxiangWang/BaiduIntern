@@ -34,6 +34,7 @@ def main():
 
     for line in sys.stdin:
         line = json.loads(line)
+
         # 闯关啦~~~
 
         sent_id = str(uuid.uuid1())

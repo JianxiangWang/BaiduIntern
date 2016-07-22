@@ -37,6 +37,7 @@ def main():
         # 闯关啦~~~
 
         sent_id = str(uuid.uuid1())
+        sent_text = line["sentence"]
         markup = line["depparser"]
 
         tokens      = [item[1] for item in markup]
@@ -76,13 +77,13 @@ def main():
             # s_list = [("刘德华", "PER", 0, 3), ...] == > [(mention_id, mention_text, sent_id, begin_index, end_index), ...]
             s_mention_list = []
             for s in s_list:
-                mention = _get_mention(sent_id, tokens, s)
+                mention = _get_mention(sent_text, sent_id, tokens, s)
                 if mention:
                     s_mention_list.append(mention)
 
             o_mention_list = []
             for o in o_list:
-                mention = _get_mention(sent_id, tokens, o)
+                mention = _get_mention(sent_text, sent_id, tokens, o)
                 if mention:
                     o_mention_list.append(mention)
 
@@ -196,8 +197,19 @@ def main():
 
 # s: ("刘德华", "PER", 0, 3)
 # return (mention_id, mention_text, sent_id, begin_index, end_index)
-def _get_mention(sent_id, tokens, s):
+def _get_mention(sent_text, sent_id, tokens, s):
+
+    # 需要修改 char_start_index, char_length, 因为他计算了空格
     so_mention_text, _,  char_start_index, char_length = s
+
+    before_space_count = space_count(sent_text, 0, char_start_index)
+    in_space_count = space_count(sent_text, char_start_index, char_start_index + char_length -1)
+
+    #
+    char_start_index -= before_space_count
+    char_length -= in_space_count
+
+
     begin_index, end_index = _get_begin_index_and_end_index(tokens, char_start_index, char_length)
 
     if begin_index and end_index:
@@ -211,6 +223,13 @@ def _get_mention(sent_id, tokens, s):
 
     return None
 
+# [char_start_index, char_end_index]
+def space_count(sent, char_start_index, char_end_index):
+    c = 0
+    for w in sent[char_start_index: char_end_index + 1]:
+        if w == " ":
+            c += 1
+    return c
 
 def _get_begin_index_and_end_index(tokens, char_start_index, char_length):
 

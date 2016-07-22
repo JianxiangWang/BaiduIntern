@@ -238,6 +238,5 @@ def label_for_current_P(tokens,
     yield [-1, "test data", "test data"]
 
 
-
 if __name__ == "__main__":
     main()

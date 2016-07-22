@@ -25,7 +25,7 @@ with open("P_similar") as fin:
 dict_P_to_guide_words = cPickle.load(open("guide_words_for_84P.cPkl", "rb"))
 
 # test集的 so 集合
-test_so_set = cPickle.load(open("test_so_set.cPkl", "rb"))
+test_so_set = cPickle.load(open("test_so_set_for_84P.cPkl", "rb"))
 
 
 def main():

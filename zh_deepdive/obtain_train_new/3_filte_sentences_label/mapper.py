@@ -266,6 +266,8 @@ def label_for_current_P(tokens,
     O_text = str(O_text)
     P = str(P)
 
+    print P
+
 
     MAX_DIST = 10
 

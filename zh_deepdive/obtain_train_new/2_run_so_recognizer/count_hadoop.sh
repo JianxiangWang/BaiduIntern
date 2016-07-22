@@ -1,8 +1,8 @@
 #!/bin/bash
 
 
-INPUT="/app/ps/spider/kg-value/wangjianxiang01/data/SPO_train_data_so_output"
-OUTPUT="/app/ps/spider/kg-value/wangjianxiang01/data/SPO_train_data_so_output_p_count"
+INPUT="/app/ps/spider/kg-value/wangjianxiang01/data/SPO_train_data_so_84P_output"
+OUTPUT="/app/ps/spider/kg-value/wangjianxiang01/data/SPO_train_data_so_84P_output_count"
 
 hadoop fs -rmr ${OUTPUT}
 hadoop streaming \

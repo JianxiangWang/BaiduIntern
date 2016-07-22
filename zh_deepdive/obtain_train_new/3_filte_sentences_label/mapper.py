@@ -30,12 +30,18 @@ test_so_set = cPickle.load(open("test_so_set_for_84P.cPkl", "rb"))
 
 def main():
 
-    MAX_SENT_LENGTH = 400
+    MAX_SENT_LENGTH = 180
 
     for line in sys.stdin:
         line = json.loads(line)
 
         # 闯关啦~~~
+
+        # 判断句子长度
+        sent_length = len(line["depparser"])
+        if sent_length >= MAX_SENT_LENGTH:
+            continue
+
 
         sent_id = str(uuid.uuid1())
         sent_text = line["sentence"]
@@ -58,11 +64,6 @@ def main():
 
             s_list = map(tuple, s_list)
             o_list = map(tuple, o_list)
-
-            # 判断句子长度
-            sent_length = len(line["depparser"])
-            if sent_length >= MAX_SENT_LENGTH:
-                continue
 
             # 不为空
             if s_list == [] or o_list == []:

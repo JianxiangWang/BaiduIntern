@@ -78,6 +78,8 @@ def format_84P_seed_to_json(seed_62P_file, seed_22P_dir, to_file):
             for line in fin:
                 S, O, P = line.strip().split("\t")
 
+                P = "人物_" + P
+
                 if P not in dict_P_to_seeds:
                     dict_P_to_seeds[P] = []
                 dict_P_to_seeds[P].append([S, O])

@@ -145,7 +145,7 @@ if __name__ == '__main__':
     # format_84P_seed_to_json("../../data/seed.train.data.cleaned", "../../data/seed_22P_for_train", "seed_train_for_84P.json")
     # format_84P_seed_to_pkl("../../data/seed.train.data.cleaned", "../../data/seed_22P_for_train", "seed_train_for_84P.cPkl")
 
-    print get_average_so_num_for_each_P("seed_train_for_84P.json")
+    print get_average_so_num_for_each_P("seed_train_for_84P.cPkl")
 
 
 

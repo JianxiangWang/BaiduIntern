@@ -108,7 +108,7 @@ def format_84P_seed_to_pkl(seed_62P_file, seed_22P_dir, to_file):
                 dict_P_to_seeds[P].add((S, O))
 
 
-    json.dump(dict_P_to_seeds, open(to_file, "w"), ensure_ascii=False)
+    cPickle.dump(dict_P_to_seeds, open(to_file, "wb"))
 
 
 def listdir_no_hidden(path):

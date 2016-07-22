@@ -49,13 +49,15 @@ def space_count(sent, char_start_index, char_end_index):
 # 博士 37 2
 
 tokens = "领会 词 单词 索引 表 作者 介绍 王长喜 ， 著名 英语教学 与 研究 专家 ， 北京外国语大学 博士 ， 中国人民大学外语学院 教授".split(" ")
-sent = "领会词单词索引表 作者介绍 王长喜，著名英语教学与研究专家，北京外国语大学博士，中国人民大学外语学院教授"
+sent = "领会词单"
 
 
-print space_count(sent, 0, 37)
+print len(unicode(sent))
 
-
-begin_index, end_index =  _get_begin_index_and_end_index(tokens, 35, 2)
-
-for w in tokens[begin_index: end_index+1]:
-    print w
+# print space_count(sent, 0, 37)
+#
+#
+# begin_index, end_index =  _get_begin_index_and_end_index(tokens, 35, 2)
+#
+# for w in tokens[begin_index: end_index+1]:
+#     print w

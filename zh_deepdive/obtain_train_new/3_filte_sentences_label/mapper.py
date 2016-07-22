@@ -38,13 +38,14 @@ def main():
         # 闯关啦~~~
 
         # 判断句子长度
-        sent_length = len(line["depparser"])
+        sent_text = line["sentence"]
+        sent_length = len(sent_text)
         if sent_length >= MAX_SENT_LENGTH:
             continue
 
 
         sent_id = str(uuid.uuid1())
-        sent_text = line["sentence"]
+
         markup = line["depparser"]
 
         tokens      = [item[1] for item in markup]

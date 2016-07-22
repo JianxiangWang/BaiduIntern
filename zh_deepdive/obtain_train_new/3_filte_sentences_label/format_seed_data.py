@@ -120,7 +120,7 @@ def listdir_no_hidden(path):
 
 if __name__ == '__main__':
 
-    format_22P_seed_to_json("../../data/seed_22P_for_train", "../../data/seed_22P_for_train.json")
+    # format_22P_seed_to_json("../../data/seed_22P_for_train", "../../data/seed_22P_for_train.json")
 
     # format_seed_to_json("seed.train.data", "seed.train.json")
     # format_seed_to_pkl("seed.train.data", "seed.train.cPkl")

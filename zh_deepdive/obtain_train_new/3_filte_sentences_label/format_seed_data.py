@@ -178,15 +178,19 @@ if __name__ == '__main__':
     #
     # print dict_P_to_seeds["历史人物_配偶"]
 
-    # format_84P_seed_to_json("../../data/seed.train.data.cleaned", "../../data/seed_22P_for_train", "seed_train_for_84P.json")
-    # format_84P_seed_to_pkl("../../data/seed.train.data.cleaned", "../../data/seed_22P_for_train", "seed_train_for_84P.cPkl")
 
+
+    ''' 合演处理 '''
     # print get_average_so_num_for_each_P("seed_train_for_84P.cPkl")
-
+    #
     # 对合演的train种子,进行采样
-    sample_heyan_seed_train_data("../../data/heyan.train.all", 17000, "../../data/seed_22P_for_train/heyan.seed.utf8.train")
-    # 对合演的test种子,全部
-    format_heyan_seed_test_data("../../data/heyan.test.seed", "../../data/seed_22P_for_test/heyan.seed.utf8.test")
+    # sample_heyan_seed_train_data("../../data/heyan.train.all", 17000, "../../data/seed_22P_for_train/heyan.seed.utf8.train")
+    # # 对合演的test种子,全部
+    # format_heyan_seed_test_data("../../data/heyan.test.seed", "../../data/seed_22P_for_test/heyan.seed.utf8.test")
+
+
+    format_84P_seed_to_json("../../data/seed.train.data.cleaned", "../../data/seed_22P_for_train", "seed_train_for_84P.json")
+    format_84P_seed_to_pkl("../../data/seed.train.data.cleaned", "../../data/seed_22P_for_train", "seed_train_for_84P.cPkl")
 
 
 

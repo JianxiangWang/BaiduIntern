@@ -10,7 +10,7 @@ sys.setdefaultencoding('utf-8')
 
 ''' 加载必要文件 '''
 # P --> set([(a, b), ])
-dict_P_to_seeds = cPickle.load(open("seed.train.cPkl", "rb"))
+dict_P_to_seeds = cPickle.load(open("seed_train_for_84P.cPkl", "rb"))
 
 # P --> [P, P, P]
 dict_P_to_similar_P_list = {}
@@ -22,7 +22,7 @@ with open("P_similar") as fin:
 
 # P 的引导词, 包含正例的负例的.
 # p --> 'positive' or 'negative' --> set(["朋友", ...])
-dict_P_to_guide_words = cPickle.load(open("guide_words.cPkl", "rb"))
+dict_P_to_guide_words = cPickle.load(open("guide_words_for_84P.cPkl", "rb"))
 
 # test集的 so 集合
 test_so_set = cPickle.load(open("test_so_set.cPkl", "rb"))

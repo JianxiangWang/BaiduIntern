@@ -13,7 +13,7 @@ hadoop streaming \
     -file "mapper.py" \
     -file "P_similar" \
     -file "guide_words_for_84P.cPkl" \
-    -file "seed_train_for_84P.pkl" \
+    -file "seed_train_for_84P.cPkl" \
     -file "test_so_set.cPkl" \
     -cacheArchive "/app/ps/spider/kg-value/wangjianxiang01/tools.tar.gz#." \
     -jobconf mapred.job.priority="VERY_HIGH" \

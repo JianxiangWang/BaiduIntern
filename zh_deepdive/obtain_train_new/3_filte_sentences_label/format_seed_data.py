@@ -5,6 +5,7 @@ import os
 import uuid
 import sys
 import cPickle
+import random
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
@@ -121,6 +122,7 @@ def listdir_no_hidden(path):
             yield f
 
 
+# 17995.9352518
 def get_average_so_num_for_each_P(in_file):
     dict_P_to_seeds = cPickle.load(open(in_file, "rb"))
 
@@ -129,6 +131,26 @@ def get_average_so_num_for_each_P(in_file):
         total += len(dict_P_to_seeds[P])
 
     return total / float(len(dict_P_to_seeds))
+
+
+def sample_heyan_seed_data(in_file, N, to_file):
+
+    with open(in_file) as fin, \
+         open(to_file, "w") as fout:
+
+        s_o_p_list = []
+        for line in fin:
+            S, P, O, _ = line.strip().split("\t")
+            s_o_p_list.append((S, O, P))
+
+        sampled = random.sample(s_o_p_list, N)
+
+        fout.write("\n".join(["\t".join(item) for item in sampled]))
+
+
+
+
+
 
 
 if __name__ == '__main__':
@@ -145,7 +167,9 @@ if __name__ == '__main__':
     # format_84P_seed_to_json("../../data/seed.train.data.cleaned", "../../data/seed_22P_for_train", "seed_train_for_84P.json")
     # format_84P_seed_to_pkl("../../data/seed.train.data.cleaned", "../../data/seed_22P_for_train", "seed_train_for_84P.cPkl")
 
-    print get_average_so_num_for_each_P("seed_train_for_84P.cPkl")
+    # print get_average_so_num_for_each_P("seed_train_for_84P.cPkl")
+
+    sample_heyan_seed_data("../../data/heyan.train.all", 17000, "../../data/heyan.seed.utf8.train")
 
 
 

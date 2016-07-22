@@ -21,6 +21,8 @@ hadoop streaming \
     -jobconf stream.num.map.output.key.fields=9 \
     -jobconf mapred.output.compress=true \
     -jobconf mapred.compress.map.output=true \
+    -jobconf mapred.job.map.capacity=1000 \
+    -jobconf mapred.job.reduce.capacity=1000 \
     -jobconf mapred.map.tasks=3000 \
     -jobconf mapred.reduce.tasks=0 \
     -jobconf mapred.job.name="wangjianxiang_sentence_filter_label"
@@ -28,7 +30,5 @@ hadoop streaming \
 
 
 
-#    -jobconf mapred.job.reduce.capacity=400 \
-#    -jobconf mapred.job.map.capacity=400 \
 
 #"-jobconf mapred.output.compress=true \

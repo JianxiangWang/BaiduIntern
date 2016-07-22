@@ -129,8 +129,8 @@ if __name__ == '__main__':
     #
     # print dict_P_to_seeds["历史人物_配偶"]
 
-    format_84P_seed_to_json("../../data/seed.train.data", "../../data/seed_22P_for_train", "seed_84P_for_train.json")
-    format_84P_seed_to_pkl("../../data/seed.train.data", "../../data/seed_22P_for_train", "seed_84P_for_train.pkl")
+    format_84P_seed_to_json("../../data/seed.train.data", "../../data/seed_22P_for_train", "seed_train_for_84P.json")
+    format_84P_seed_to_pkl("../../data/seed.train.data", "../../data/seed_22P_for_train", "seed_train_for_84P.pkl")
 
 
 

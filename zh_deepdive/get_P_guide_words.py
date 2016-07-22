@@ -238,7 +238,7 @@ if __name__ == '__main__':
     # get_62P_guide_words("data/guide_words_for_62P.txt")
     # get_22P_guide_words("data/guide_words_for_22P.txt")
 
-    get_84P_positive_negative_guide_words_to_pkl("data/P_similar", "data/guide_words.cPkl")
-    get_84P_positive_negative_guide_words_to_json("data/P_similar", "data/guide_words.json")
+    get_84P_positive_negative_guide_words_to_pkl("data/P_similar", "data/guide_words_for_84P.cPkl")
+    get_84P_positive_negative_guide_words_to_json("data/P_similar", "data/guide_words_for_84P.json")
 
     pass

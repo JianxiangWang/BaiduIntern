@@ -133,7 +133,7 @@ def get_average_so_num_for_each_P(in_file):
     return total / float(len(dict_P_to_seeds))
 
 
-def sample_heyan_seed_data(in_file, N, to_file):
+def sample_heyan_seed_train_data(in_file, N, to_file):
 
     with open(in_file) as fin, \
          open(to_file, "w") as fout:
@@ -146,6 +146,20 @@ def sample_heyan_seed_data(in_file, N, to_file):
         sampled = random.sample(s_o_p_list, N)
 
         fout.write("\n".join(["\t".join(item) for item in sampled]))
+
+
+def format_heyan_seed_test_data(in_file, to_file):
+
+    with open(in_file) as fin, \
+         open(to_file, "w") as fout:
+
+        s_o_p_list = []
+        for line in fin:
+            S, P, O, _ = line.strip().split("\t")
+            s_o_p_list.append((S, O, P))
+
+
+        fout.write("\n".join(["\t".join(item) for item in s_o_p_list]))
 
 
 
@@ -169,7 +183,11 @@ if __name__ == '__main__':
 
     # print get_average_so_num_for_each_P("seed_train_for_84P.cPkl")
 
-    sample_heyan_seed_data("../../data/heyan.train.all", 17000, "../../data/seed_22P_for_train/heyan.seed.utf8.train")
+    # 对合演的train种子,进行采样
+    sample_heyan_seed_train_data("../../data/heyan.train.all", 17000, "../../data/seed_22P_for_train/heyan.seed.utf8.train")
+    # 对合演的test种子,全部
+    format_heyan_seed_test_data("../../data/heyan.test.seed", "../../data/seed_22P_for_test/heyan.seed.utf8.test")
+
 
 
 

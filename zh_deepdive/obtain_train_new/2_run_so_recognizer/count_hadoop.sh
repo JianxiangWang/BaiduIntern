@@ -18,7 +18,7 @@ hadoop streaming \
     -jobconf mapred.compress.map.output=true \
     -jobconf mapred.map.tasks=1000 \
     -jobconf mapred.job.map.capacity=400 \
-    -jobconf mapred.reduce.tasks=1 \
+    -jobconf mapred.reduce.tasks=100 \
     -jobconf mapred.job.reduce.capacity=400 \
     -jobconf mapred.job.name="wangjianxiang_sentence_filter_label"
 

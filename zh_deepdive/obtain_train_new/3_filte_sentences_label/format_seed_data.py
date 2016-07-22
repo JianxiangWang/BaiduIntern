@@ -169,7 +169,7 @@ if __name__ == '__main__':
 
     # print get_average_so_num_for_each_P("seed_train_for_84P.cPkl")
 
-    sample_heyan_seed_data("../../data/heyan.train.all", 17000, "../../data/heyan.seed.utf8.train")
+    sample_heyan_seed_data("../../data/heyan.train.all", 17000, "../../data/seed_22P_for_train/heyan.seed.utf8.train")
 
 
 

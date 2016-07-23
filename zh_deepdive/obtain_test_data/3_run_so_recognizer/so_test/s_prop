@@ -1,0 +1,12 @@
+电视剧	VDO	dianshiju
+电影	VDO	dianying
+综艺节目	VDO	zongyijiemu
+歌曲	SNG	gequ
+专辑	SNG	zhuanji
+历史人物	PER	lishirenwu
+明星	PER	mingxing
+体育人物	PER	tiyurenwu
+学者	PER	xuezhe
+小说	NVL	xiaoshuo
+学校	ORG	yuanxiao
+人物	PER	renwu

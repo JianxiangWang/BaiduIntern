@@ -2,7 +2,7 @@
 import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
-import json
+import json, pyprind
 from collections import Counter
 
 
@@ -10,7 +10,10 @@ def main(in_file, to_file):
 
     count = {}
 
+    process_bar = pyprind.ProgPercent(2500000)
     for line in open(in_file):
+        process_bar.update()
+
         label_info = json.loads(line.split("\t")[-1])
 
         for P in label_info:
@@ -19,25 +22,6 @@ def main(in_file, to_file):
                 count[P] = Counter()
 
             for so in label_info[P]["candidates"]:
-                label_rules = label_info[P]["candidates"][so]["label_info"]
-
-                # pos_exist = False
-                # neg_far_apart_exist = False
-                #
-                # label = 0
-                # for x, rule, _ in label_rules:
-                #     label += x
-                #     if rule.startswith("pos"):
-                #         pos_exist = True
-                #     if rule == "neg:far_apart":
-                #         neg_far_apart_exist = True
-
-                    # if rule == "neg: from seeds" or rule == "pos: from seeds":
-                    #     print P, so
-
-                # # 有pos了,那么neg: far apart 就不算了
-                # if pos_exist and neg_far_apart_exist:
-                #     label += 1
 
                 label = label_info[P]["candidates"][so]["label"]
 
@@ -64,4 +48,9 @@ if __name__ == '__main__':
     # main("../3_filte_sentences_label/SPO_train_data_for_deepdive_label", "../3_filte_sentences_label/SPO_test_data_for_deepdive_label.statistics.csv")
     # main("../../data/SPO_train_data_for_deepdive_label_sample", "../../data/SPO_train_data_for_deepdive_label_sample.statistics.csv")
     # main("../../data/SPO_train_data_for_deepdive_label_post_processing", "../../data/SPO_train_data_for_deepdive_label_post_processing.statistics.csv")
-    main("../../data/SPO_train_data_for_deepdive_label.new.post_processing_new_rule_score", "../../data/SPO_train_data_for_deepdive_label.new.post_processing_new_rule_score.statistics.csv")
+    # main("../../data/SPO_train_data_for_deepdive_label.new.post_processing_new_rule_score", "../../data/SPO_train_data_for_deepdive_label.new.post_processing_new_rule_score.statistics.csv")
+    # main("/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/SPO_train_data_84P_for_deepdive_label",
+    #      "/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/SPO_train_data_84P_for_deepdive_label.statistics.csv")
+
+    main("/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/SPO_train_data_84P_for_deepdive_label_top_250w",
+         "/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/SPO_train_data_84P_for_deepdive_label_top_250w.statistics.csv")

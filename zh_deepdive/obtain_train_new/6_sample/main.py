@@ -82,9 +82,10 @@ def get_1w_positive_5w_negative(in_file, to_file):
     fout = open(to_file, "w")
 
     count = {}
-    process_bar = pyprind.ProgPercent(12440969)
+    process_bar = pyprind.ProgPercent(3500000)
     for line in open(in_file):
         process_bar.update()
+
 
         wanted = False
         label_info = json.loads(line.split("\t")[-1])
@@ -101,7 +102,7 @@ def get_1w_positive_5w_negative(in_file, to_file):
 
                 label = label_info[P]["candidates"][so]["label"]
 
-                if label > 0 and count[P]["negative"] < 10000 :
+                if label > 0 and count[P]["positive"] < 10000 :
                     wanted = True
                     count[P]["positive"] += 1
 

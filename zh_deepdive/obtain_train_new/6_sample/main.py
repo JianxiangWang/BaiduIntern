@@ -76,6 +76,49 @@ def get_all_positive_20wNegative(in_file, to_file):
     fout.close()
 
 
+# 获取 1w 正样本, 5w的负样本
+def get_1w_positive_5w_negative(in_file, to_file):
+
+    fout = open(to_file, "w")
+
+    count = {}
+    process_bar = pyprind.ProgPercent(12440969)
+    for line in open(in_file):
+        process_bar.update()
+
+        wanted = False
+        label_info = json.loads(line.split("\t")[-1])
+
+        for P in label_info:
+
+            if P not in count:
+                count[P] = {}
+                count[P]["positive"] = 0
+                count[P]["negative"] = 0
+                count[P]["NULL"] = 0
+
+            for so in label_info[P]["candidates"]:
+
+                label = label_info[P]["candidates"][so]["label"]
+
+                if label > 0 and count[P]["negative"] < 10000 :
+                    wanted = True
+                    count[P]["positive"] += 1
+
+                if label < 0 and count[P]["negative"] < 50000 :
+                    wanted = True
+                    count[P]["negative"] += 1
+
+                if label == 0:
+                    count[P]["NULL"] += 1
+
+        if wanted:
+            fout.write(line)
+
+    fout.close()
+
+
+
 
 if __name__ == '__main__':
     # get_top_n(
@@ -90,7 +133,12 @@ if __name__ == '__main__':
     #     "/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/SPO_train_data_84P_for_deepdive_label_random.0.2",
     # )
 
-    get_all_positive_20wNegative(
-        "/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/SPO_train_data_84P_for_deepdive_label",
+    # get_all_positive_20wNegative(
+    #     "/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/SPO_train_data_84P_for_deepdive_label",
+    #     "/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/SPO_train_data_84P_for_deepdive_label_all_pos_20w_neg",
+    # )
+
+    get_1w_positive_5w_negative(
         "/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/SPO_train_data_84P_for_deepdive_label_all_pos_20w_neg",
+        "/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/SPO_train_data_84P_for_deepdive_label_1w_pos_20w_neg"
     )

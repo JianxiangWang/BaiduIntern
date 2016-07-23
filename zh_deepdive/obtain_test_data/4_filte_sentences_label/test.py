@@ -47,7 +47,18 @@ def main(in_file):
 
                 # 不为空
                 if s_mention_list != [] and o_mention_list != []:
-                    flag = 1
+
+
+                    # 去重, 真的有重复的 !!!!
+                    s_mention_list = list(set(s_mention_list))
+                    o_mention_list = list(set(o_mention_list))
+
+                    # 判断so pair 能不能被标注
+                    for s_mention in s_mention_list:
+                        for o_mention in o_mention_list:
+                            # 不能相同, surface level
+                            if s_mention[1] != o_mention[1]:
+                                flag = 1
 
 
         if flag == 0:

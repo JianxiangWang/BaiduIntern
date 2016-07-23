@@ -1,3 +1,9 @@
+# coding: utf-8
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
+import json, pyprind
+from collections import Counter
 import random
 
 import pyprind
@@ -28,6 +34,47 @@ def get_random(in_file, p, to_file):
                 fout.write(line)
 
 
+# 获取所有的正样本, 20w的负样本
+def get_all_positive_20wNegative(in_file, to_file):
+
+    fout = open(to_file, "w")
+
+    count = {}
+    process_bar = pyprind.ProgPercent(12440969)
+    for line in open(in_file):
+        process_bar.update()
+
+        wanted = False
+        label_info = json.loads(line.split("\t")[-1])
+
+        for P in label_info:
+
+            if P not in count:
+                count[P] = {}
+                count[P]["positive"] = 0
+                count[P]["negative"] = 0
+                count[P]["NULL"] = 0
+
+            for so in label_info[P]["candidates"]:
+
+                label = label_info[P]["candidates"][so]["label"]
+
+                if label > 0:
+                    wanted = True
+                    count[P]["positive"] += 1
+
+                if label < 0 and count[P]["negative"] < 200000 :
+                    wanted = True
+                    count[P]["negative"] += 1
+
+                if label == 0:
+                    count[P]["NULL"] += 1
+
+        if wanted:
+            fout.write(line)
+
+    fout.close()
+
 
 
 if __name__ == '__main__':
@@ -37,8 +84,13 @@ if __name__ == '__main__':
     #     "/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/SPO_train_data_84P_for_deepdive_label_top_250w",
     # )
 
-    get_random(
+    # get_random(
+    #     "/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/SPO_train_data_84P_for_deepdive_label",
+    #     0.2,
+    #     "/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/SPO_train_data_84P_for_deepdive_label_random.0.2",
+    # )
+
+    get_all_positive_20wNegative(
         "/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/SPO_train_data_84P_for_deepdive_label",
-        0.2,
-        "/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/SPO_train_data_84P_for_deepdive_label_random.0.2",
+        "/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/SPO_train_data_84P_for_deepdive_label_all_pos_20w_neg",
     )

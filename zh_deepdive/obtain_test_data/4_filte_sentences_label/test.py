@@ -62,7 +62,7 @@ def main(in_file):
 
 
         if flag == 0:
-            print line
+            print json.dumps(line, ensure_ascii=False)
             count += 1
 
     print count

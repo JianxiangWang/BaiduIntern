@@ -62,7 +62,7 @@ def main(in_file):
 
 
         if flag == 0:
-            print str(sent_text)
+            print line
             count += 1
 
     print count

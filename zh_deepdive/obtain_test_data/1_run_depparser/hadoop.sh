@@ -16,7 +16,7 @@ hadoop streaming \
     -jobconf stream.num.map.output.key.fields=8 \
     -jobconf mapred.output.compress=true \
     -jobconf mapred.compress.map.output=true \
-    -jobconf mapred.map.tasks=2000 \
+    -jobconf mapred.map.tasks=1 \
     -jobconf mapred.job.map.capacity=300 \
     -jobconf mapred.reduce.tasks=0 \
     -jobconf mapred.job.reduce.capacity=300 \

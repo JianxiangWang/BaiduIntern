@@ -141,5 +141,5 @@ if __name__ == '__main__':
 
     get_1w_positive_5w_negative(
         "/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/SPO_train_data_84P_for_deepdive_label_all_pos_20w_neg",
-        "/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/SPO_train_data_84P_for_deepdive_label_1w_pos_20w_neg"
+        "/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/SPO_train_data_84P_for_deepdive_label_1w_pos_5w_neg"
     )

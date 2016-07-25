@@ -10,12 +10,11 @@ def main(in_file, to_file):
 
     count = {}
 
-    process_bar = pyprind.ProgPercent(3500000)
+    process_bar = pyprind.ProgPercent(1175207)
     for line in open(in_file):
         process_bar.update()
 
         label_info = json.loads(line.split("\t")[-1])
-
         for P in label_info:
 
             if P not in count:
@@ -59,8 +58,8 @@ if __name__ == '__main__':
     # main("/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/SPO_train_data_84P_for_deepdive_label_random.0.2",
     #      "/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/SPO_train_data_84P_for_deepdive_label_random.0.2.statistics.csv")
 
-    # main("/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/SPO_train_data_84P_for_deepdive_label_1w_pos_20w_neg",
-    #          "/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/SPO_train_data_84P_for_deepdive_label_1w_pos_20w_neg.statistics.csv")
+    main("/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/SPO_train_data_84P_for_deepdive_label_1w_pos_5w_neg",
+             "/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/SPO_train_data_84P_for_deepdive_label_1w_pos_5w_neg.statistics.csv")
 
-    main("/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/SPO_train_data_84P_for_deepdive_label_all_pos_20w_neg",
-             "/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/SPO_train_data_84P_for_deepdive_label_all_pos_20w_neg.statistics.csv")
+    # main("/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/SPO_train_data_84P_for_deepdive_label_all_pos_20w_neg",
+    #          "/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/SPO_train_data_84P_for_deepdive_label_all_pos_20w_neg.statistics.csv")

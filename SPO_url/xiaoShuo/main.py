@@ -83,7 +83,7 @@ def get_title_by_pack_file(pack_file):
     if result == []:
         return "NULL"
 
-    title = result[-1].split(" | ")[-1]
+    title = result[-1].strip().split(" | ")[-1]
 
     return title
 

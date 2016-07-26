@@ -11,7 +11,7 @@ def main():
 def is_xiaoShuo(url):
 
     cmd = "../tools/run_wdbtools-pc.sh %s" % (url)
-    print cmd
+    print "===" * 30
     print os.popen(cmd).read()
 
 

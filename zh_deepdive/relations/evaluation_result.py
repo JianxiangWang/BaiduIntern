@@ -274,6 +274,20 @@ def _test_predict_SPO_to_json(in_file, to_file):
 
     json.dump(dict_predict, open(to_file, "w"), ensure_ascii=False)
 
+# 根据test过滤so, 只保留test中有的so
+def _test_predict_SPO_to_json_only_test_so(test_file, predict_file, to_file):
+
+    test_so = set([])
+    dict_test = json.load(open(test_file))
+    for P in dict_test:
+        test_so |= set(map(tuple, dict_test[P]))
+
+    dict_predict = json.load(open(predict_file))
+    for P in dict_predict:
+        dict_predict[P] = sorted(set([(s, o) for s, o, prob in dict_predict[P] if (s, o) in test_so]))
+
+    json.dump(dict_predict, open(to_file, "w"), ensure_ascii=False)
+
 
 def evaluate(statistics_file, predict_json_file, gold_json_file, to_file):
 
@@ -339,7 +353,7 @@ def evaluate(statistics_file, predict_json_file, gold_json_file, to_file):
             recall_molecular += 0
             recall_denominator += 0
 
-            N += 1
+            # N += 1
             macro_precision += 0
             macro_recall += 0
 
@@ -425,11 +439,11 @@ if __name__ == '__main__':
     # get_predict_result("models_84P", "predict_84P.json")
     # get_statistics("models_84P", "train_label_statistics.csv")
 
-    # _test_SPO_to_json("SPO.test.500.set.data", "SPO.test.500.set.json")
+    _test_SPO_to_json("SPO.all.set.data.all.res", "SPO.all.set.data.all.res.json")
+    _test_predict_SPO_to_json_only_test_so("SPO.all.set.data.all.res.json", "predict_84P.json", "predict_84P_only_test_so.json")
     # _test_predict_SPO_to_json("predict_84P.json", "predict_84P_only_so.json")
 
+    evaluate("train_label_statistics.csv", "predict_84P_only_test_so.json", "SPO.all.set.data.all.res.json", "evaluate_500_sents_only_test_so.gb18030.csv")
 
-    # evaluate("train_label_statistics.csv", "predict_84P_only_so.json", "SPO.test.500.set.json", "evaluate_500_sents_result.gb18030.csv")
-
-    get_predict_to_sent_spo("models_84P", "predict_sent_spo.txt")
+    # get_predict_to_sent_spo("models_84P", "predict_sent_spo.txt")
 

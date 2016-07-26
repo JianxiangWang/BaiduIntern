@@ -18,12 +18,5 @@ def is_xiaoShuo(url):
 
 
 
-
-
-
-
-as
-
-
 if __name__ == '__main__':
     is_xiaoShuo("http://www.2828dy.com/bbb/70728.html")

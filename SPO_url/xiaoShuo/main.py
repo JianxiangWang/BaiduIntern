@@ -56,7 +56,7 @@ def _get_pack_file_path(url):
     m.update(url)
     file_name = m.hexdigest()
 
-    pack_file_path = "packs/%s" % (file_name)
+    pack_file_path = os.getcwd() + "/packs/%s" % (file_name)
     if os.path.exists(pack_file_path):
         return pack_file_path
     else:
@@ -75,7 +75,7 @@ def get_title_by_pack_file(pack_file):
     # cat pack.test.input | /test_vareamark -t realtitle -o 0 | iconv -f gb18030 -t utf-8
     varemark_path = "/home/disk2/wangjianxiang01/tools/varemark"
 
-    cmd = "cat %s | %s/test_vareamark -t realtitle -o 0 | iconv -f gb18030 -t utf-8" % (pack_file, varemark_path)
+    cmd = "cd %s && cat %s | ./test_vareamark -t realtitle -o 0 | iconv -f gb18030 -t utf-8" % (varemark_path, pack_file)
     print cmd
     fin = os.popen(cmd)
     result = fin.readlines()

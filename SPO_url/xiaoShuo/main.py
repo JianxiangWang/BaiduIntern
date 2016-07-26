@@ -81,8 +81,4 @@ def get_title_by_pack_file(pack_file):
 
 
 if __name__ == '__main__':
-<<<<<<< HEAD
-    main()
-=======
     main("urls.txt", "predict.txt")
->>>>>>> 2fcf2b8344725fd9b18be841a9298ffa8771d87a

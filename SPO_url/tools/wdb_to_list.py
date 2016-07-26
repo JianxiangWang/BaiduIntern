@@ -17,3 +17,7 @@ def main():
             s.append(line)
 
     print "[" + ", ".join(['%s' % x for x in s]) + "]"
+
+
+if __name__ == '__main__':
+    main()

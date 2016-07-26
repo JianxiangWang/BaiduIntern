@@ -1,4 +1,5 @@
 #encoding: utf-8
+import subprocess
 import sys
 import os
 
@@ -11,8 +12,12 @@ def main():
 def is_xiaoShuo(url):
 
     cmd = "../tools/run_wdbtools-pc.sh %s" % (url)
-    print "===" * 30
     print os.popen(cmd).read()
+
+    print "===" * 30
+    result = subprocess.check_output(cmd, shell=True)
+    print "===" * 30
+    print result
 
 
 

@@ -61,7 +61,7 @@ def _get_pack_file_path(url):
         cwd = "%s/seekone %s PAGE > %s " % (wdbtools_path, url, pack_file_path)
         os.system(cwd)
         #  删除前2行
-        cwd = "sed '2d' %s > tmp.txt && mv tmp.txt %s" % (pack_file_path, pack_file_path)
+        cwd = "sed '1, 2d' %s > tmp.txt && mv tmp.txt %s" % (pack_file_path, pack_file_path)
         os.system(cwd)
         return pack_file_path
 
@@ -72,9 +72,12 @@ def get_title_by_pack_file(pack_file):
 
     cmd = "cat %s | %s/test_vareamark -t realtitle -o 0 | iconv -f gb18030 -t utf-8" % (pack_file, varemark_path)
     fin = os.popen(cmd)
-    result = fin.readlines()[-1]
+    result = fin.readlines()
 
-    title = result.split(" | ")[-1]
+    if result == []:
+        return "NULL"
+
+    title = result[-1].split(" | ")[-1]
 
     return title
 

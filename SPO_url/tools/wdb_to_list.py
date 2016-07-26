@@ -16,7 +16,7 @@ def main():
         if flag == 1:
             s.append(line)
 
-    print "[" + ", ".join(['%s' % x for x in s]) + "]"
+    print "[" + ", ".join(["'%s'" % x for x in s]) + "]"
 
 
 if __name__ == '__main__':

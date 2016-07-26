@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 # coding: utf-8
 import sys
+
+import pyprind
+
 reload(sys)
 sys.setdefaultencoding('utf-8')
 import codecs, json
@@ -21,7 +24,7 @@ def load_train_data(in_file):
     neg_count = 0
 
     P = unicode(this_P)
-    NUM_NEAGTIVE = 50000
+    NUM_NEAGTIVE = 100000
 
     print "==" * 20
     print "\t%s" % P
@@ -29,6 +32,7 @@ def load_train_data(in_file):
 
     print "load train data..."
 
+    process_bar = pyprind.ProgPercent(1175207)
     with open(in_file) as fin, \
         open("input/sentence.tsv", "w") as fout_sentence, \
         open("input/so_mention.tsv", "w") as fout_mention, \
@@ -36,7 +40,7 @@ def load_train_data(in_file):
         open("input/so_label.tsv", "w") as fout_label:
 
         for line in fin:
-
+            process_bar.update()
 
             sent_id, sent_sent, tokens, pos_tags, ner_tags, dep_types, dep_tokens,\
             S_O, dict_label_info = line.strip().split("\t")
@@ -152,8 +156,8 @@ def load_test_data(in_file):
 
 if __name__ == '__main__':
     # load_train_data("/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/SPO_train_data_for_deepdive_label")
-    load_train_data("/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/SPO_train_data_for_deepdive_label_post_processing")
-    load_test_data("/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/SPO_test_data_for_deepdive_label")
+    load_train_data("/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/SPO_train_data_84P_for_deepdive_label_1w_pos_5w_neg")
+    load_test_data("/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/SPO_test_data_84P_for_deepdive_label")
 
 
 

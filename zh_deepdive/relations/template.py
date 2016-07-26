@@ -40,7 +40,7 @@ def hanzi_to_pinyi(hanzi):
 
 if __name__ == '__main__':
     template_dir = "/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/relations/template_label"
-    models_dir   = "/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/relations/new_models"
-    train_P_file = "/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/train_P.txt_test"
+    models_dir   = "/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/relations/models_84P"
+    train_P_file = "/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/train_P.txt"
 
     main(template_dir, models_dir, train_P_file)

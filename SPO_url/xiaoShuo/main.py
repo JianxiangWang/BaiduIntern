@@ -1,4 +1,7 @@
 #encoding: utf-8
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
 import subprocess
 import sys
 import os
@@ -7,24 +10,26 @@ import os
 def main():
     for line in sys.stdin:
         url = line.strip()
+        if is_xiaoShuo(url):
+            S = "title"
+            P = "体裁/小说"
+            O = url
+
+            print("%s\t%s\t%s" % (S, P, O))
 
 
 def is_xiaoShuo(url):
 
     cmd = "../tools/run_wdbtools-pc.sh %s" % (url)
-    fin = os.popen(cmd)
-
-    print "***" * 40
-    print fin.read()
-
-
-
-    print "===" * 30
     result = subprocess.check_output(cmd, shell=True)
-    print "===" * 30
-    print result
+    page_type_list = eval(result.strip())
+
+    if {"小说首页", "小说列表页"} & set(page_type_list):
+        return True
+    else:
+        return False
 
 
 
 if __name__ == '__main__':
-    is_xiaoShuo("http://www.2828dy.com/bbb/70728.html")
+    main()

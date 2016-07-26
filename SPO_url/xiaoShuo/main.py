@@ -24,7 +24,6 @@ def is_xiaoShuo(url):
     result = subprocess.check_output(cmd, shell=True)
     page_type_list = eval(result.strip())
 
-    print " ".join(page_type_list)
     if {"小说首页", "小说列表页"} & set(page_type_list):
         return True
     else:

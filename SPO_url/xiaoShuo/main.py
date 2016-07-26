@@ -10,11 +10,9 @@ def main():
 
 def is_xiaoShuo(url):
 
-    cmd = "../../tools/run_wdbtools-pc.sh %s" % (url)
-    print os.popen(cmd)
-
-
-
+    cmd = "../tools/run_wdbtools-pc.sh %s" % (url)
+    print cmd
+    print os.popen(cmd).read()
 
 
 

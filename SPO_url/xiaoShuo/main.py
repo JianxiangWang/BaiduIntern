@@ -71,6 +71,7 @@ def get_title_by_pack_file(pack_file):
     varemark_path = "/home/disk2/wangjianxiang01/tools/varemark"
 
     cmd = "cat %s | %s/test_vareamark -t realtitle -o 0 | iconv -f gb18030 -t utf-8" % (pack_file, varemark_path)
+    print cmd
     fin = os.popen(cmd)
     result = fin.readlines()
 

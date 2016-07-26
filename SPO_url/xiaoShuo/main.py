@@ -11,6 +11,7 @@ def main(urls_file, predict_file):
 
     fout = open(predict_file, "w")
     for line in open(urls_file):
+
         url = line.strip()
         if is_xiaoShuo(url):
             title = get_url_title(url)
@@ -19,6 +20,10 @@ def main(urls_file, predict_file):
             O = url
 
             fout.write("%s\t%s\t%s\n" % (S, P, O))
+
+            print "==> %s: %s\t%s" % (url, S, P)
+        else:
+            print "==> %s: %s\t%s" % (url, "", "")
 
     fout.close()
 

@@ -8,6 +8,7 @@ sys.setdefaultencoding('utf-8')
 import codecs
 import glob
 import json
+import util
 
 
 #[{'first_name': 'Baked', 'last_name': 'Beans'}, {'first_name': 'Lovely', 'last_name': 'Spam'}]
@@ -211,11 +212,201 @@ def evaluation_with_statistics(model_dir, statistics_file , silver_all_seed_json
                                             dict_result[P]["recall"],
         )
     )
-
-
     fout.close()
 
 
+
+def get_predict_result(model_dir, to_file):
+
+    dict_predict = {}
+    for predict_file in glob.glob('%s/*/predict.json' % model_dir):
+        dict_predict.update(json.load(open(predict_file)))
+
+    print len(dict_predict)
+
+    json.dump(dict_predict, open(to_file, "w"), ensure_ascii=False)
+
+
+# 获取正负样本的统计
+def get_statistics(model_dir, to_file):
+
+    out_lines = []
+    for relation_dir in util.listdir_no_hidden(model_dir):
+        P = open("%s/%s/P" % (model_dir, relation_dir)).read().strip()
+
+        label_log = open("%s/%s/input/label.log" % (model_dir, relation_dir))
+        line = label_log.readlines()[0].strip()
+        positive = line.split(" vs ")[1].split(": ")[-1]
+        negative = line.split(" vs ")[-1]
+
+        out_lines.append("%s,%s,%s" % (P, positive, negative))
+
+    fout = open(to_file, "w")
+    fout.write("P,positive,negative\n")
+    fout.write("\n".join(out_lines))
+    fout.close()
+
+
+def _test_SPO_to_json(in_file, to_file):
+
+    with open(in_file) as fin, open(to_file, "w") as fout:
+
+        dict_P_to_so_list = {}
+        for line in fin:
+            s, P, o = line.strip().split("\t")
+
+            if P not in dict_P_to_so_list:
+                dict_P_to_so_list[P] = []
+            dict_P_to_so_list[P].append((s, o))
+
+        for P in dict_P_to_so_list:
+            dict_P_to_so_list[P] = sorted(set(dict_P_to_so_list[P]))
+
+        json.dump(dict_P_to_so_list, fout, ensure_ascii=False)
+
+
+def _test_predict_SPO_to_json(in_file, to_file):
+
+    dict_predict = json.load(open(in_file))
+
+    for P in dict_predict:
+        dict_predict[P] = sorted(set([(s, o) for s, o, prob in dict_predict[P]]))
+
+    json.dump(dict_predict, open(to_file, "w"), ensure_ascii=False)
+
+
+def evaluate(statistics_file, predict_json_file, gold_json_file, to_file):
+
+    dict_predict = json.load(open(predict_json_file))
+    dict_gold = json.load(open(gold_json_file))
+
+    # micro
+    # 分子, 也就是对的个数
+    precision_molecular = 0
+    # 分母, 也就是预测的个数
+    precision_denominator = 0
+
+    recall_molecular = 0
+    recall_denominator = 0
+
+    # Macro
+    N = 0
+    macro_precision = 0.0
+    macro_recall = 0.0
+
+    dict_result = {}
+    for P in dict_predict:
+
+        dict_result[P] = {}
+
+        predicts = set(map(tuple, dict_predict[P]))
+
+        if P in dict_gold:
+            golds = set(map(tuple, dict_gold[P]))
+
+            precision_molecular += len(predicts & golds)
+            precision_denominator += len(predicts)
+
+            recall_molecular += len(predicts & golds)
+            recall_denominator += len(golds)
+
+
+            if len(predicts) == 0:
+                precision = 0
+                recall = 0
+            else:
+                precision = len(predicts & golds) / float(len(predicts)) * 100
+                recall = len(predicts & golds) / float(len(golds)) * 100
+
+
+            N += 1
+            macro_precision += precision
+            macro_recall += recall
+
+            dict_result[P]["precision"] = "%d / %d = %.2f%%" % (
+                len(predicts & golds), len(predicts), precision
+            )
+
+            dict_result[P]["recall"] = "%d / %d = %.2f%%" % (
+                len(predicts & golds), len(golds), recall
+            )
+
+        else:
+
+            precision_molecular += 0
+            precision_denominator += len(predicts)
+
+            recall_molecular += 0
+            recall_denominator += 0
+
+            N += 1
+            macro_precision += 0
+            macro_recall += 0
+
+            dict_result[P]["precision"] = "0 / %d = 0%%" % (len(predicts))
+            dict_result[P]["recall"] = "0 / 0 = 0%"
+
+
+    micro_precision = precision_molecular / float(precision_denominator) * 100
+    micro_recall  = recall_molecular / float(recall_denominator) * 100
+    dict_result["Micro"] = {}
+    dict_result["Micro"]["positive"] = ""
+    dict_result["Micro"]["negative"] = ""
+    dict_result["Micro"]["precision"] = "%d / %d = %.2f%%" % (precision_molecular, precision_denominator, micro_precision)
+    dict_result["Micro"]["recall"] = "%d / %d = %.2f%%" % (recall_molecular, recall_denominator, micro_recall)
+
+    macro_precision = macro_precision / N
+    macro_recall = macro_recall / N
+    dict_result["Macro"] = {}
+    dict_result["Macro"]["positive"] = ""
+    dict_result["Macro"]["negative"] = ""
+    dict_result["Macro"]["precision"] = "%.2f%%" % (macro_precision)
+    dict_result["Macro"]["recall"] = "%.2f%%" % (macro_recall)
+
+
+
+    # 加统计
+    statistics_list = read_dict_from_csv(statistics_file)
+
+    for x in statistics_list:
+        P, positive, negative = x["P"], x["positive"], x["negative"]
+        P = unicode(P)
+        dict_result[P]["positive"] = int(positive)
+        dict_result[P]["negative"] = int(negative)
+
+
+    fout = codecs.open(to_file, "w", encoding="gb18030")
+    fout.write("P,训练集正例SPO个数,训练集负例SPO个数,precision,recall\n")
+    for P in sorted(dict_result.keys()):
+        fout.write("%s,%s,%s,%s,%s\n" % (P,
+                                            dict_result[P]["positive"],
+                                            dict_result[P]["negative"],
+                                            dict_result[P]["precision"],
+                                            dict_result[P]["recall"],
+        )
+    )
+    fout.close()
+
+
+def get_predict_to_sent_spo(model_dir, to_file):
+
+    dict_sent_to_spo_list = {}
+    for predict_file in glob.glob('%s/*/predict.sent.json' % model_dir):
+        dict_predict = json.load(open(predict_file))
+        for P in dict_predict:
+            for s, o, prob, sent_text in dict_predict[P]:
+
+                if sent_text not in dict_sent_to_spo_list:
+                    dict_sent_to_spo_list[sent_text] = []
+                dict_sent_to_spo_list[sent_text].append((s, P, o))
+
+    # 去重复 & 排序 & to_file
+    fout = open(to_file, "w")
+    for sent_text in sorted(dict_sent_to_spo_list.keys()):
+        spo_list = sorted(set(dict_sent_to_spo_list[sent_text]))
+        fout.write("%s\t[%s]\n" % (sent_text,", ".join(["[%s, %s, %s]" % (s, p, o) for s, p, o in spo_list])))
+
+    fout.close()
 
 if __name__ == '__main__':
     # main("evaluation.result")
@@ -225,8 +416,20 @@ if __name__ == '__main__':
     #             "evaluation.result")
 
 
-    evaluation_with_statistics("models",
-               "/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/SPO_train_data_for_deepdive_label_post_processing.statistics.csv",
-               "/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/seed.test.json",
-                "/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/seed.test.data.sample.json",
-                "evaluation.result.csv")
+    # evaluation_with_statistics("models",
+    #            "/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/SPO_train_data_for_deepdive_label_post_processing.statistics.csv",
+    #            "/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/seed.test.json",
+    #             "/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/seed.test.data.sample.json",
+    #             "evaluation.result.csv")
+
+    # get_predict_result("models_84P", "predict_84P.json")
+    # get_statistics("models_84P", "train_label_statistics.csv")
+
+    # _test_SPO_to_json("SPO.test.500.set.data", "SPO.test.500.set.json")
+    # _test_predict_SPO_to_json("predict_84P.json", "predict_84P_only_so.json")
+
+
+    # evaluate("train_label_statistics.csv", "predict_84P_only_so.json", "SPO.test.500.set.json", "evaluate_500_sents_result.gb18030.csv")
+
+    get_predict_to_sent_spo("models_84P", "predict_sent_spo.txt")
+

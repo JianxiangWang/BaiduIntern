@@ -54,6 +54,8 @@ sent = "领会词单"
 
 print len(unicode(sent))
 
+
+
 # print space_count(sent, 0, 37)
 #
 #

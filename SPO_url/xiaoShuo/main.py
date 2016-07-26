@@ -21,9 +21,12 @@ def main():
 def is_xiaoShuo(url):
 
     cmd = "../tools/run_wdbtools-pc.sh %s" % (url)
-    result = subprocess.check_output(cmd, shell=True)
-    page_type_list = eval(result.strip())
+    # result = subprocess.check_output(cmd, shell=True)
 
+    fin = os.popen(cmd)
+    result = fin.readlines()[-1]
+
+    page_type_list = eval(result.strip())
     if {"小说首页", "小说列表页"} & set(page_type_list):
         return True
     else:

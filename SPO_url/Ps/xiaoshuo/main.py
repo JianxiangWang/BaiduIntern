@@ -14,14 +14,6 @@ def is_xiaoShuo(url):
     print cmd
     print os.popen(cmd).read()
 
-    sc
-
-
-
-
-
-
-
 
 
 

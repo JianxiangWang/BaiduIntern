@@ -7,32 +7,29 @@ import subprocess
 import sys, hashlib
 import os
 
+
 # 输入url, 判断是不是 小说
 def main():
-
     for line in sys.stdin:
         url = line.strip()
-        if is_xiaoShuo(url):
+        if is_tupian(url):
             title = get_url_title(url)
             S = title
-            P = "体裁/小说"
+            P = "图片"
             O = url
 
             print "%s\t%s\t%s\t%s" % (url, S, P, O)
 
 
-def is_xiaoShuo(url):
+def is_tupian(url):
+    html_path = get_url_tagged_content_html_path(url)
 
-    cmd = "../tools/run_wdbtools-pc.sh %s 2>../tools/run_wdbtools-pc.stderr" % (url)
-    # result = subprocess.check_output(cmd, shell=True)
-    fin = os.popen(cmd)
-    result = fin.readlines()[-1]
+    print html_path
 
-    page_type_list = eval(result.strip())
-    if {"小说首页", "小说列表页"} & set(page_type_list):
-        return True
-    else:
-        return False
+    return False
+
+
+
 
 def get_url_title(url):
 
@@ -41,6 +38,23 @@ def get_url_title(url):
     title = get_title_from_pack_file(pack_file_path)
 
     return title
+
+
+# 获取标记了content的html文件路径
+def get_url_tagged_content_html_path(url):
+    pack_file_path = _get_pack_file_path(url)
+    html_file_path = pack_file_path + ".html"
+
+    if os.path.exists(html_file_path):
+        return html_file_path
+    else:
+
+        varemark_path = "/home/disk2/wangjianxiang01/tools/varemark"
+        cmd = "cd %s && cat %s | ./test_vareamark -t central -o 2 2>stderr.txt | iconv -f gb18030 -t utf-8 > %s"\
+              % (varemark_path, pack_file_path, html_file_path)
+        os.system(cmd)
+
+        return html_file_path
 
 
 

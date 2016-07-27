@@ -265,6 +265,32 @@ def _test_SPO_to_json(in_file, to_file):
         json.dump(dict_P_to_so_list, fout, ensure_ascii=False)
 
 
+def _test_SPO_to_json_new(in_file, to_file):
+
+    with open(in_file) as fin, open(to_file, "w") as fout:
+
+        dict_P_to_so_list = {}
+        for line in fin:
+            # print line.strip().split("\t")[-1]
+            spo_list = eval(line.strip().split("\t")[-1])
+
+            for x in spo_list:
+
+                if x.strip() == "":
+                    continue
+
+                s, P, o = x.split("-")
+
+                if P not in dict_P_to_so_list:
+                    dict_P_to_so_list[P] = []
+                dict_P_to_so_list[P].append((s, o))
+
+        for P in dict_P_to_so_list:
+            dict_P_to_so_list[P] = sorted(set(dict_P_to_so_list[P]))
+
+        json.dump(dict_P_to_so_list, fout, ensure_ascii=False)
+
+
 def _test_predict_SPO_to_json(in_file, to_file):
 
     dict_predict = json.load(open(in_file))
@@ -317,7 +343,8 @@ def evaluate(statistics_file, predict_json_file, gold_json_file, to_file):
     recall_denominator = 0
 
     # Macro
-    N = 0
+    precision_N = 0
+    recall_N = 0
     macro_precision = 0.0
     macro_recall = 0.0
 
@@ -340,15 +367,20 @@ def evaluate(statistics_file, predict_json_file, gold_json_file, to_file):
 
             if len(predicts) == 0:
                 precision = 0
+
                 recall = 0
+                recall_N += 1
+
             else:
+                precision_N += 1
+                recall_N += 1
                 precision = len(predicts & golds) / float(len(predicts)) * 100
                 recall = len(predicts & golds) / float(len(golds)) * 100
 
-
-            N += 1
             macro_precision += precision
             macro_recall += recall
+
+
 
             dict_result[P]["precision"] = "%d / %d = %.2f%%" % (
                 len(predicts & golds), len(predicts), precision
@@ -382,8 +414,8 @@ def evaluate(statistics_file, predict_json_file, gold_json_file, to_file):
     dict_result["Micro"]["precision"] = "%d / %d = %.2f%%" % (precision_molecular, precision_denominator, micro_precision)
     dict_result["Micro"]["recall"] = "%d / %d = %.2f%%" % (recall_molecular, recall_denominator, micro_recall)
 
-    macro_precision = macro_precision / N
-    macro_recall = macro_recall / N
+    macro_precision = macro_precision / precision_N
+    macro_recall = macro_recall / recall_N
     dict_result["Macro"] = {}
     dict_result["Macro"]["positive"] = ""
     dict_result["Macro"]["negative"] = ""
@@ -452,7 +484,8 @@ if __name__ == '__main__':
     # get_predict_result("models_84P", "predict_84P.json")
     # get_statistics("models_84P", "train_label_statistics.csv")
 
-    _test_SPO_to_json("SPO.all.set.data.all.res", "SPO.all.set.data.all.res.json")
+    # _test_SPO_to_json_new("SPO.all.set.data.all.res", "SPO.all.set.data.all.res.json")
+    _test_SPO_to_json_new("sent_all_SPO.format.res.all", "SPO.all.set.data.all.res.json")
     _test_predict_SPO_to_json_only_test_so("SPO.all.set.data.all.res.json", "predict_84P.json", "predict_84P_only_test_so.json")
     # _test_predict_SPO_to_json("predict_84P.json", "predict_84P_only_so.json")
 

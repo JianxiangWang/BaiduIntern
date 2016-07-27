@@ -17,4 +17,4 @@ def format(in_file, to_file):
             fout.write("%s\t%s\tpublishTime\tlinkFoundTime\n" % (sent, url))
 
 if __name__ == '__main__':
-    format("sampling.res.all", "test_500_sents")
+    format("sent_all_SPO.format.res.all", "test_500_sents")

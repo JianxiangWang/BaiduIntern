@@ -6,12 +6,31 @@ import subprocess
 import sys, hashlib
 import os
 
+# # 输入url, 判断是不是 小说
+# def main(urls_file, predict_file):
+#
+#     fout = open(predict_file, "w")
+#     for line in open(urls_file):
+#
+#         url = line.strip()
+#         if is_xiaoShuo(url):
+#             title = get_url_title(url)
+#             S = title
+#             P = "体裁/小说"
+#             O = url
+#
+#             fout.write("%s\t%s\t%s\n" % (S, P, O))
+#
+#             print "==> %s: %s\t%s" % (url, S, P)
+#         else:
+#             print "==> %s: %s\t%s" % (url, "", "")
+#
+#     fout.close()
+
 # 输入url, 判断是不是 小说
-def main(urls_file, predict_file):
+def main():
 
-    fout = open(predict_file, "w")
-    for line in open(urls_file):
-
+    for line in sys.stdin:
         url = line.strip()
         if is_xiaoShuo(url):
             title = get_url_title(url)
@@ -19,13 +38,7 @@ def main(urls_file, predict_file):
             P = "体裁/小说"
             O = url
 
-            fout.write("%s\t%s\t%s\n" % (S, P, O))
-
-            print "==> %s: %s\t%s" % (url, S, P)
-        else:
-            print "==> %s: %s\t%s" % (url, "", "")
-
-    fout.close()
+            print "%s\t%s\t%s\t%s" % (url, S, P, O)
 
 
 def is_xiaoShuo(url):
@@ -90,4 +103,4 @@ def get_title_by_pack_file(pack_file):
 
 
 if __name__ == '__main__':
-    main("urls.txt", "predict.txt")
+    main()

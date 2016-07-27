@@ -54,6 +54,11 @@ def get_url_tagged_content_html_path(url):
               % (varemark_path, pack_file_path, html_file_path)
         os.system(cmd)
 
+        # 需要删除前两行
+        cwd = "sed '1, 2d' %s > tmp.txt && mv tmp.txt %s" % (html_file_path, html_file_path)
+        os.system(cwd)
+
+
         return html_file_path
 
 

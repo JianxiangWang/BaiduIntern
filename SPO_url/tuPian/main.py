@@ -55,16 +55,15 @@ def is_tupian(url):
                 if height > 300 and width > 200:
                     satisfied_images.append(image)
 
-    print len(satisfied_images)
-
     if sum([_get_image_position(url, soup, image) for image in satisfied_images[:2]]) >= 1:
 
         # 文字与满足大小的图片的比例
         rate = len(content_string) / len(satisfied_images)
-        print content_string
-        print len(content_string), len(satisfied_images), len(content_string) / len(satisfied_images)
 
-        return True
+        if rate > 1000:
+            return False
+        else:
+            return True
     else:
 
         # 没有满足条件, 获取所有的前50%图片的位置,判断是不是都在页面的上半部分
@@ -86,9 +85,7 @@ def is_tupian(url):
             return False
 
 
-
 def get_all_images_and_content_string(soup):
-
     content_string = ""
     images = []
     for content in soup.find_all(attrs={"style": "border:3px solid red;overflow-y:auto;overflow-x:auto;"})[:3]:

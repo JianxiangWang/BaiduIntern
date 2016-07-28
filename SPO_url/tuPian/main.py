@@ -3,6 +3,7 @@
 import sys
 
 import bs4
+import re
 from bs4 import BeautifulSoup
 
 reload(sys)
@@ -94,7 +95,6 @@ def _get_image_position(url, soup, img):
         j_p_postlist = soup.find(id="j_p_postlist") # 直接对应到到用户发的帖子
         if j_p_postlist in img.parents:
             return _tag_to_parent_position(img, j_p_postlist)
-
         return 0
 
     # http://sh.xinhuanet.com/
@@ -106,10 +106,11 @@ def _get_image_position(url, soup, img):
             else:
                 return 0
 
-
-
-    if soup.find(id="center"):
+    if soup.find("div", id="center"):
         return _tag_to_parent_position(img, soup.find(id="center"))
+
+    if soup.find("div", class_=re.compile('''.*content.*''')):
+        return _tag_to_parent_position(img, soup.find("div", class_=re.compile('''.*content.*''')))
 
     return _tag_to_parent_position(img, soup.find("body"))
 

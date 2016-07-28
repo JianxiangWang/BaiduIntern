@@ -34,6 +34,7 @@ def is_tupian(url):
     images, content_string = get_all_images_and_content_string(soup)
 
     print content_string
+    print len(content_string)
 
     # 先获取满足大小的
     satisfied_images = []

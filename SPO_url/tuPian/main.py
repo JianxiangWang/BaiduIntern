@@ -84,6 +84,7 @@ def _get_image_position(url, soup, img):
 
         if j_p_postlist in img.parents:
             print "----.>"
+            print _tag_to_parent_position(img, j_p_postlist)
             return _tag_to_parent_position(img, j_p_postlist)
 
         return 0

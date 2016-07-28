@@ -81,6 +81,9 @@ def _get_image_position(url, soup, img):
     # 对于贴吧特殊处理
     if "tieba.baidu.com" in url:
         j_p_postlist = soup.find(id="j_p_postlist") # 直接对应到到用户发的帖子
+
+        print j_p_postlist
+
         if j_p_postlist in img.parents:
             return _tag_to_parent_position(img, j_p_postlist)
 

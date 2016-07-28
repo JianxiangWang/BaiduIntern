@@ -43,7 +43,7 @@ def is_tupian(url):
                     satisfied_images.append(image)
 
     satisfied_images = satisfied_images[:2]
-    if sum([_get_image_position(soup, image) for image in satisfied_images]) >= 1:
+    if sum([_get_image_position(url, soup, image) for image in satisfied_images]) >= 1:
         return True
     else:
         # 没有满足条件, 获取所有的前50%图片的位置,判断是不是都在页面的上半部分
@@ -54,12 +54,12 @@ def is_tupian(url):
             return False
         # 必须全部在上面
         if image_num >= 3 and image_num <=5:
-            if sum([_get_image_position(soup, image) for image in images]) == image_num:
+            if sum([_get_image_position(url, soup, image) for image in images]) == image_num:
                 return True
             else:
                 return False
         # 图片数量大于5的
-        if sum([_get_image_position(soup, image) for image in images[:len(images)/2]]) == len(images)/2:
+        if sum([_get_image_position(url, soup, image) for image in images[:len(images)/2]]) == len(images)/2:
             return True
         else:
             return False
@@ -76,23 +76,40 @@ def get_all_images(soup):
 
 # 1: 在页面的前半部分
 # 0: 在页面的后半部分
-def _get_image_position(soup, img):
-    x = img
-    while x.parent != soup.find("body"):
+def _get_image_position(url, soup, img):
+
+    # 对于贴吧特殊处理
+    if "tieba.baidu.com" in url:
+        j_p_postlist = soup.find(id="j_p_postlist") # 直接对应到到用户发的帖子
+        if j_p_postlist in img.parents:
+            return _tag_to_parent_position(img, j_p_postlist)
+
+        return 0
+
+    return _tag_to_parent_position(img, soup.boby)
+
+
+
+
+# tag 到 父节点的位置
+def _tag_to_parent_position(tag, parent):
+    x = tag
+    while x.parent != parent:
         x = x.parent
 
-    body_children = []
-    for child in soup.body.contents:
+    parent_children = []
+    for child in parent.contents:
         if isinstance(child, bs4.element.NavigableString):
             continue
         if child.name == "script":
             continue
-        body_children.append(child)
+        parent_children.append(child)
 
-    if body_children.index(x) + 1 / float(len(body_children)) < 0.5:
+    if parent_children.index(x) + 1 / float(len(parent_children)) < 0.5:
         return 1
-    else:
-        return 0
+
+    return 0
+
 
 # float:right; height:403px; width:267px
 def style_to_dict(style):

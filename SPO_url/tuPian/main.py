@@ -97,6 +97,7 @@ def _get_image_position(url, soup, img):
 
         return 0
 
+    print soup.find(id="center")
     if soup.find(id="center"):
         return _tag_to_parent_position(img, soup.find(id="center"))
 

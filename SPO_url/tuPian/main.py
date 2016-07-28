@@ -125,6 +125,8 @@ def _get_image_position(url, soup, img):
         return _tag_to_parent_position(img, soup.find(id="center"))
 
     if soup.find("div", class_="article"):
+        print "==" * 30
+        print len(img)
         print img
         return _tag_to_parent_position(img, soup.find("div", class_="article"))
 

@@ -135,8 +135,6 @@ def _get_image_position(url, soup, img):
 # tag 到 父节点的位置
 def _tag_to_parent_position(tag, parent):
 
-    print tag
-
     if parent not in tag.parents:
         return 0
 
@@ -150,14 +148,9 @@ def _tag_to_parent_position(tag, parent):
             continue
         if child.name == "script":
             continue
-        print child
         parent_children.append(child)
 
-    if len(parent_children) == 1:
-        return 1
-
-    print parent_children.index(x) + 1, len(parent_children)
-    if (parent_children.index(x) + 1) / float(len(parent_children)) <= 0.5:
+    if (parent_children.index(x) - 1) / float(len(parent_children)) <= 0.5:
         return 1
 
     return 0

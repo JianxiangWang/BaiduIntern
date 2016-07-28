@@ -43,7 +43,6 @@ def is_tupian(url):
                 flag = 1
                 height = int(dict_style["height"].lower().replace("px", ""))
                 width = int(dict_style["width"].lower().replace("px", ""))
-
                 if height > 300 and width > 200:
                     satisfied_images.append(image)
 
@@ -56,10 +55,8 @@ def is_tupian(url):
                     satisfied_images.append(image)
 
     if sum([_get_image_position(url, soup, image) for image in satisfied_images[:2]]) >= 1:
-
         # 文字与满足大小的图片的比例
         rate = len(content_string) / len(satisfied_images)
-
         if rate > 1000:
             return False
         else:

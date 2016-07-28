@@ -34,13 +34,24 @@ def is_tupian(url):
     # 先获取满足大小的
     satisfied_images = []
     for image in images:
+        flag = 0
         if "style" in image.attrs:
             dict_style = style_to_dict(image["style"])
             if "height" in dict_style and "weight" in dict_style:
+                flag = 1
                 height = int(dict_style["height"].replace("px", ""))
-                weight = int(dict_style["weight"].replace("px", ""))
-                if height > 300  and weight > 200:
+                width = int(dict_style["width"].replace("px", ""))
+                if height > 300  and width > 200:
                     satisfied_images.append(image)
+
+        # 没找到去 width="500" height="375"
+        if "width" in image.attrs and "height" in image.attrs:
+            height = int(image["height"])
+            width = int(image["width"])
+
+            if height > 300  and width > 200:
+                    satisfied_images.append(image)
+
 
     satisfied_images = satisfied_images[:2]
     print satisfied_images

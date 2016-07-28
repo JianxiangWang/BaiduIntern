@@ -146,7 +146,7 @@ def _get_pack_file_path(url):
     m.update(url)
     file_name = m.hexdigest()
 
-    pack_file_path = os.getcwd() + "/packs/%s" % (file_name)
+    pack_file_path = "/home/disk2/wangjianxiang01/BaiduIntern/SPO_url/data/packs/%s" % (file_name)
     if os.path.exists(pack_file_path):
         return pack_file_path
     else:

@@ -103,7 +103,7 @@ def get_all_images_and_content_string(soup):
 # 0: 在页面的后半部分
 def _get_image_position(url, soup, img):
 
-    print img
+
 
     # 对于贴吧特殊处理
     if "tieba.baidu.com" in url:
@@ -124,8 +124,9 @@ def _get_image_position(url, soup, img):
     if soup.find("div", id="center"):
         return _tag_to_parent_position(img, soup.find(id="center"))
 
-    # if soup.find("div", class_="article"):
-    #     return _tag_to_parent_position(img, soup.find("div", class_="article"))
+    if soup.find("div", class_="article"):
+        print img
+        return _tag_to_parent_position(img, soup.find("div", class_="article"))
 
     if soup.find("div", class_=re.compile('''.*content.*''')):
         return _tag_to_parent_position(img, soup.find("div", class_=re.compile('''.*content.*''')))

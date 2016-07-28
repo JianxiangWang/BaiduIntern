@@ -103,6 +103,8 @@ def get_all_images_and_content_string(soup):
 # 0: 在页面的后半部分
 def _get_image_position(url, soup, img):
 
+    print img
+
     # 对于贴吧特殊处理
     if "tieba.baidu.com" in url:
         j_p_postlist = soup.find(id="j_p_postlist") # 直接对应到到用户发的帖子

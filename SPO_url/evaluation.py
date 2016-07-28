@@ -28,12 +28,18 @@ def main(predict_file, gold_file):
             predicts = dict_predict[P]
             golds = dict_gold[P]
 
-            # errors
+            # predict errors
             for predict in predicts - golds:
                 url = predict
                 label = dict_url_to_P[url]
                 pred = P
                 print "%s\t%s-->%s" % (url, label, pred)
+
+            for gold in golds - predicts:
+                url = gold
+                label = dict_url_to_P[url]
+                print "%s\t%s-->%s" % (url, label, "NULL")
+
 
             precision = len((predicts & golds)) / float(len(predicts))
             recall = len((predicts & golds)) / float(len(golds))

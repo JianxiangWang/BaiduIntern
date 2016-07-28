@@ -124,8 +124,8 @@ def _get_image_position(url, soup, img):
     if soup.find("div", id="center"):
         return _tag_to_parent_position(img, soup.find(id="center"))
 
-    if soup.find("div", class_="article"):
-        return _tag_to_parent_position(img, soup.find("div", class_="article"))
+    # if soup.find("div", class_="article"):
+    #     return _tag_to_parent_position(img, soup.find("div", class_="article"))
 
     if soup.find("div", class_=re.compile('''.*content.*''')):
         return _tag_to_parent_position(img, soup.find("div", class_=re.compile('''.*content.*''')))

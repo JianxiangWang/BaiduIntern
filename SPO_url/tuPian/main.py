@@ -56,7 +56,7 @@ def is_tupian(url):
 
     # 文字与满足大小的图片的比例
     rate = len(content_string) / len(satisfied_images)
-    print len(content_string) , len(satisfied_images), len(content_string) / len(satisfied_images)
+    print len(content_string), len(satisfied_images), len(content_string) / len(satisfied_images)
 
     satisfied_images = satisfied_images[:2]
     if sum([_get_image_position(url, soup, image) for image in satisfied_images]) >= 1:
@@ -87,7 +87,7 @@ def get_all_images_and_content_string(soup):
 
     content_string = ""
     images = []
-    for content in soup.find_all(attrs={"style": "border:3px solid red;overflow-y:auto;overflow-x:auto;"})[:3]:
+    for content in soup.find_all(attrs={"style": "border:3px solid red;overflow-y:auto;overflow-x:auto;"})[:4]:
         for img in content.find_all("img"):
             images.append(img)
 

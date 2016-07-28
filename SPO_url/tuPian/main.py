@@ -43,6 +43,7 @@ def is_tupian(url):
         if "style" in image.attrs:
             print images
             dict_style = style_to_dict(image["style"])
+            print image["style"]
             print dict_style
             if "height" in dict_style and "weight" in dict_style:
                 flag = 1

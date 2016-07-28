@@ -31,7 +31,10 @@ def is_tupian(url):
     soup = BeautifulSoup(open(html_path), "html.parser")
 
     #
-    images = get_all_images(soup)
+    images, content_string = get_all_images_and_content_string(soup)
+
+    print content_string
+
     # 先获取满足大小的
     satisfied_images = []
     for image in images:
@@ -78,12 +81,18 @@ def is_tupian(url):
 
 
 
-def get_all_images(soup):
+def get_all_images_and_content_string(soup):
+
+    content_string = ""
     images = []
     for content in soup.find_all(attrs={"style": "border:3px solid red;overflow-y:auto;overflow-x:auto;"}):
         for img in content.find_all("img"):
             images.append(img)
-    return images
+
+        for s in content.stripped_strings:
+            content_string += s
+
+    return images, content_string
 
 
 # 1: 在页面的前半部分

@@ -55,7 +55,6 @@ def is_tupian(url):
                     satisfied_images.append(image)
 
 
-
     if sum([_get_image_position(url, soup, image) for image in satisfied_images[:2]]) >= 1:
 
         # 文字与满足大小的图片的比例
@@ -142,6 +141,7 @@ def _get_image_position(url, soup, img):
 def _tag_to_parent_position(tag, parent):
     x = tag
     while x.parent != parent:
+        print x
         x = x.parent
 
     parent_children = []

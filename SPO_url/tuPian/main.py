@@ -86,7 +86,7 @@ def get_all_images_and_content_string(soup):
 
     content_string = ""
     images = []
-    for content in soup.find_all(attrs={"style": "border:3px solid red;overflow-y:auto;overflow-x:auto;"}):
+    for content in soup.find_all(attrs={"style": "border:3px solid red;overflow-y:auto;overflow-x:auto;"})[:3]:
         for img in content.find_all("img"):
             images.append(img)
 
@@ -118,6 +118,9 @@ def _get_image_position(url, soup, img):
 
     if soup.find("div", id="center"):
         return _tag_to_parent_position(img, soup.find(id="center"))
+
+    if soup.find("div", class_="article"):
+        return _tag_to_parent_position(img, soup.find(class_="article"))
 
     if soup.find("div", class_=re.compile('''.*content.*''')):
         return _tag_to_parent_position(img, soup.find("div", class_=re.compile('''.*content.*''')))

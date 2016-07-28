@@ -137,7 +137,6 @@ def _tag_to_parent_position(tag, parent):
 
     x = tag
     while x.parent != parent:
-        print x
         x = x.parent
 
     parent_children = []

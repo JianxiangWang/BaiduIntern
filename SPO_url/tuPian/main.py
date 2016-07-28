@@ -97,6 +97,17 @@ def _get_image_position(url, soup, img):
 
         return 0
 
+    # http://sh.xinhuanet.com/
+    if "sh.xinhuanet.com" in url:
+        myTable = soup.find(id="myTable")
+        if myTable:
+            if myTable in img.parents:
+                return 1
+            else:
+                return 0
+
+
+
     if soup.find(id="center"):
         return _tag_to_parent_position(img, soup.find(id="center"))
 

@@ -97,6 +97,7 @@ def _get_image_position(url, soup, img):
 
         return 0
 
+    print soup.find(id="center")
     if soup.find(id="center"):
         return _tag_to_parent_position(img, soup.find(id="center"))
 
@@ -134,7 +135,7 @@ def style_to_dict(style):
     for item in style.split(";"):
         try:
             key, value = item.strip().split(":")
-            d[key.strip()] = value.strip()
+            d[key.strip().lower()] = value.strip().lower()
         except:
             continue
     return d

@@ -43,9 +43,13 @@ def is_tupian(url):
                     satisfied_images.append(image)
 
     satisfied_images = satisfied_images[:2]
+    print sum([_get_image_position(url, soup, image) for image in satisfied_images])
     if sum([_get_image_position(url, soup, image) for image in satisfied_images]) >= 1:
         return True
     else:
+
+        print "WAHT"
+
         # 没有满足条件, 获取所有的前50%图片的位置,判断是不是都在页面的上半部分
         image_num = len(images)
 
@@ -81,10 +85,7 @@ def _get_image_position(url, soup, img):
     # 对于贴吧特殊处理
     if "tieba.baidu.com" in url:
         j_p_postlist = soup.find(id="j_p_postlist") # 直接对应到到用户发的帖子
-
         if j_p_postlist in img.parents:
-            print "----.>"
-            print _tag_to_parent_position(img, j_p_postlist)
             return _tag_to_parent_position(img, j_p_postlist)
 
         return 0
@@ -107,8 +108,6 @@ def _tag_to_parent_position(tag, parent):
         if child.name == "script":
             continue
         parent_children.append(child)
-
-    print parent_children.index(x), len(parent_children), (parent_children.index(x) + 1) / float(len(parent_children))
 
     if len(parent_children) == 1:
         return 1

@@ -27,7 +27,7 @@ def main():
 
 def is_tupian(url):
     html_path = get_url_tagged_content_html_path(url)
-    soup = BeautifulSoup(open(html_path))
+    soup = BeautifulSoup(open(html_path), "html.parser")
 
     #
     images = get_all_images(soup)

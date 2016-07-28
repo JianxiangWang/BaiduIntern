@@ -135,7 +135,7 @@ def style_to_dict(style):
     for item in style.split(";"):
         try:
             key, value = item.strip().split(":")
-            d[key.strip()] = value.strip()
+            d[key.strip().lower()] = value.strip().lower()
         except:
             continue
     return d

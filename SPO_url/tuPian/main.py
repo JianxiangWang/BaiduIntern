@@ -102,14 +102,10 @@ def get_all_images_and_content_string(soup):
 # 0: 在页面的后半部分
 def _get_image_position(url, soup, img):
 
-
-
     # 对于贴吧特殊处理
     if "tieba.baidu.com" in url:
         j_p_postlist = soup.find(id="j_p_postlist") # 直接对应到到用户发的帖子
-        if j_p_postlist in img.parents:
-            return _tag_to_parent_position(img, j_p_postlist)
-        return 0
+        return _tag_to_parent_position(img, j_p_postlist)
 
     # http://sh.xinhuanet.com/
     if "sh.xinhuanet.com" in url:
@@ -124,9 +120,6 @@ def _get_image_position(url, soup, img):
         return _tag_to_parent_position(img, soup.find(id="center"))
 
     if soup.find("div", class_="article"):
-        print "==" * 30
-        print len(img)
-        print img
         return _tag_to_parent_position(img, soup.find("div", class_="article"))
 
     if soup.find("div", class_=re.compile('''.*content.*''')):
@@ -139,6 +132,9 @@ def _get_image_position(url, soup, img):
 
 # tag 到 父节点的位置
 def _tag_to_parent_position(tag, parent):
+    if parent not in tag.parents:
+        return 0
+
     x = tag
     while x.parent != parent:
         print x

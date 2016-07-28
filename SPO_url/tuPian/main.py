@@ -153,7 +153,7 @@ def _get_pack_file_path(url):
         # 抓url对应的pack
         wdbtools_path = "/home/disk2/wangjianxiang01/tools/wdbtools/output/client/bin"
         #  抓包 !
-        cmd = "%s/seekone %s PAGE 2>stderr.txt 1>%s" % (wdbtools_path, url, pack_file_path)
+        cmd = "%s/seekone '%s' PAGE 2>stderr.txt 1>%s" % (wdbtools_path, url, pack_file_path)
         print cmd
         os.system(cmd)
         #  删除前2行

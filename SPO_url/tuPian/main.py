@@ -134,6 +134,9 @@ def _get_image_position(url, soup, img):
 
 # tag 到 父节点的位置
 def _tag_to_parent_position(tag, parent):
+
+    print tag
+
     if parent not in tag.parents:
         return 0
 

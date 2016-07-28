@@ -54,7 +54,7 @@ def is_tupian(url):
                     satisfied_images.append(image)
 
 
-    print satisfied_images
+    print len(satisfied_images)
     satisfied_images = satisfied_images[:2]
     print satisfied_images
     print [_get_image_position(url, soup, image) for image in satisfied_images]

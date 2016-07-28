@@ -29,7 +29,6 @@ def is_tupian(url):
     html_path = get_url_tagged_content_html_path(url)
     soup = BeautifulSoup(open(html_path), "html.parser")
 
-    print html_path
     #
     images = get_all_images(soup)
     # 先获取满足大小的
@@ -38,7 +37,6 @@ def is_tupian(url):
         flag = 0
         if "style" in image.attrs:
             dict_style = style_to_dict(image["style"])
-            print dict_style
             if "height" in dict_style and "weight" in dict_style:
                 flag = 1
                 height = int(dict_style["height"].lower().replace("px", ""))
@@ -99,7 +97,17 @@ def _get_image_position(url, soup, img):
 
         return 0
 
-    print soup.find(id="center")
+    # http://sh.xinhuanet.com/
+    if "sh.xinhuanet.com" in url:
+        myTable = soup.find(id="myTable")
+        if myTable:
+            if myTable in img.parents:
+                return 1
+            else:
+                return 0
+
+
+
     if soup.find(id="center"):
         return _tag_to_parent_position(img, soup.find(id="center"))
 

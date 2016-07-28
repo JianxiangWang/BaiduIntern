@@ -15,8 +15,11 @@ def main(predict_file, gold_file):
             dict_predict[P].add(url)
 
         dict_gold = {}
+        dict_url_to_P = {}
         for line in fin_gold_file:
             P, url = line.strip().split("\t")
+            dict_url_to_P[url] = P
+
             if P not in dict_gold:
                 dict_gold[P] = set([])
             dict_gold[P].add(url)
@@ -24,9 +27,26 @@ def main(predict_file, gold_file):
         for P in dict_predict:
             predicts = dict_predict[P]
             golds = dict_gold[P]
+
+            # predict errors
+            for predict in predicts - golds:
+                url = predict
+                label = dict_url_to_P[url]
+                pred = P
+                print "%s\t%s-->%s" % (url, label, pred)
+
+            for gold in golds - predicts:
+                url = gold
+                label = dict_url_to_P[url]
+                print "%s\t%s-->%s" % (url, label, "NULL")
+
+
             precision = len((predicts & golds)) / float(len(predicts))
             recall = len((predicts & golds)) / float(len(golds))
-            print "%s\tprecision:%.2f%%\trecall:%.2f%%" % (P, precision * 100, recall*100)
+            print "%s\tprecision: %d / %d = %.2f%%\trecall: %d / %d = %.2f%%" \
+                  % (P,
+                     len((predicts & golds)), len(predicts), precision * 100,
+                     len((predicts & golds)), len(golds), recall*100)
 
 
 if __name__ == '__main__':

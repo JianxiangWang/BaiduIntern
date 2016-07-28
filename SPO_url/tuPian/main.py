@@ -1,6 +1,10 @@
 #!/usr/bin/env python
 # encoding: utf-8
 import sys
+
+import bs4
+from bs4 import BeautifulSoup
+
 reload(sys)
 sys.setdefaultencoding('utf-8')
 import subprocess
@@ -8,7 +12,7 @@ import sys, hashlib
 import os
 
 
-# 输入url, 判断是不是 小说
+# 输入url, 判断是不是 图片
 def main():
     for line in sys.stdin:
         url = line.strip()
@@ -23,10 +27,69 @@ def main():
 
 def is_tupian(url):
     html_path = get_url_tagged_content_html_path(url)
+    soup = BeautifulSoup(open(html_path), "lxml")
 
-    print html_path
+    #
+    images = get_all_images(soup)
+    # 先获取满足大小的
+    satisfied_images = []
+    for image in images:
+        if "style" in image.attrs:
+            dict_style = style_to_dict(image["style"])
+            if "height" in dict_style and "weight" in dict_style:
+                height = int(dict_style["height"].replace("px", ""))
+                weight = int(dict_style["weight"].replace("px", ""))
+                if height > 300  and weight > 200:
+                    satisfied_images.append(image)
 
-    return False
+    satisfied_images = satisfied_images[:2]
+    if sum([_get_image_position(soup, image) for image in satisfied_images]) >= 1:
+        return True
+    else:
+        # 没有满足条件, 获取所有的前50%图片的位置,判断是不是都在页面的上半部分
+        if sum([_get_image_position(soup, image) for image in images[:len(images)/2]]) == len(images)/2:
+            return True
+        else:
+            return False
+
+
+
+def get_all_images(soup):
+    images = []
+    for content in soup.find_all(attrs={"style": "border:3px solid red;overflow-y:auto;overflow-x:auto;"}):
+        for img in content.find_all("img"):
+            images.append(img)
+    return images
+
+
+# 1: 在页面的前半部分
+# 0: 在页面的后半部分
+def _get_image_position(soup, img):
+    x = img
+    while x.parent != soup.find("body"):
+        x = x.parent
+
+    body_children = []
+    for child in soup.body.contents:
+        if isinstance(child, bs4.element.NavigableString):
+            continue
+        if child.name == "script":
+            continue
+        body_children.append(child)
+
+    if body_children.index(x) + 1 / float(len(body_children)) < 0.5:
+        return 1
+    else:
+        return 0
+
+# float:right; height:403px; width:267px
+def style_to_dict(style):
+    d = {}
+    for item in style.split(";"):
+        key, value = item.strip().split(":")
+        d[key.strip()] = value.strip()
+    return d
+
 
 
 

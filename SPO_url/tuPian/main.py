@@ -49,20 +49,13 @@ def is_tupian(url):
             if "width" in image.attrs and "height" in image.attrs:
                 height = int(image["height"])
                 width = int(image["width"])
-
                 if height > 300 and width > 200:
                     satisfied_images.append(image)
 
-
-    print len(satisfied_images)
     satisfied_images = satisfied_images[:2]
-    print satisfied_images
-    print [_get_image_position(url, soup, image) for image in satisfied_images]
     if sum([_get_image_position(url, soup, image) for image in satisfied_images]) >= 1:
         return True
     else:
-
-        print "WAHT"
 
         # 没有满足条件, 获取所有的前50%图片的位置,判断是不是都在页面的上半部分
         image_num = len(images)

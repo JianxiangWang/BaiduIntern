@@ -41,7 +41,7 @@ def is_tupian(url):
                 flag = 1
                 height = int(dict_style["height"].replace("px", ""))
                 width = int(dict_style["width"].replace("px", ""))
-                if height > 300  and width > 200:
+                if height > 300 and width > 200:
                     satisfied_images.append(image)
 
         # 没找到去 width="500" height="375"
@@ -50,10 +50,11 @@ def is_tupian(url):
                 height = int(image["height"])
                 width = int(image["width"])
 
-                if height > 300  and width > 200:
-                        satisfied_images.append(image)
+                if height > 300 and width > 200:
+                    satisfied_images.append(image)
 
 
+    print satisfied_images
     satisfied_images = satisfied_images[:2]
     print satisfied_images
     print [_get_image_position(url, soup, image) for image in satisfied_images]

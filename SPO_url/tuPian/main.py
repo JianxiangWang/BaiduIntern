@@ -147,6 +147,7 @@ def _tag_to_parent_position(tag, parent):
             continue
         if child.name == "script":
             continue
+        print child
         parent_children.append(child)
 
     if len(parent_children) == 1:

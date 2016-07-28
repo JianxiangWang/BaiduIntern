@@ -108,6 +108,7 @@ def _tag_to_parent_position(tag, parent):
             continue
         parent_children.append(child)
 
+    print parent_children.index(x), len(parent_children)
     if parent_children.index(x) + 1 / float(len(parent_children)) < 0.5:
         return 1
 

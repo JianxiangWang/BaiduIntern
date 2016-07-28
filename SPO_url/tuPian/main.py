@@ -45,7 +45,7 @@ def is_tupian(url):
             dict_style = style_to_dict(image["style"])
             print image["style"]
             print dict_style
-            if "height" in dict_style and "weight" in dict_style:
+            if "height" in dict_style and "width" in dict_style:
                 flag = 1
                 height = int(dict_style["height"].lower().replace("px", ""))
                 width = int(dict_style["width"].lower().replace("px", ""))
@@ -58,7 +58,7 @@ def is_tupian(url):
 
         # 没找到去 width="500" height="375"
         if flag == 0:
-            if "width" in image.attrs and "height" in image.attrs:
+            if "height" in image.attrs and "width" in image.attrs:
                 height = int(image["height"].lower().replace("px", ""))
                 width = int(image["width"].lower().replace("px", ""))
                 print height, width

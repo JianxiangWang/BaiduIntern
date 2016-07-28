@@ -45,12 +45,13 @@ def is_tupian(url):
                     satisfied_images.append(image)
 
         # 没找到去 width="500" height="375"
-        if "width" in image.attrs and "height" in image.attrs:
-            height = int(image["height"])
-            width = int(image["width"])
+        if flag == 0:
+            if "width" in image.attrs and "height" in image.attrs:
+                height = int(image["height"])
+                width = int(image["width"])
 
-            if height > 300  and width > 200:
-                    satisfied_images.append(image)
+                if height > 300  and width > 200:
+                        satisfied_images.append(image)
 
 
     satisfied_images = satisfied_images[:2]

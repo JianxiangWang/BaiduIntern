@@ -56,7 +56,7 @@ def _get_pack_file_path(url):
         # 抓url对应的pack
         wdbtools_path = "/home/disk2/wangjianxiang01/tools/wdbtools/output/client/bin"
         #  抓包 !
-        cwd = "%s/seekone %s PAGE 2>stderr.txt 1>%s" % (wdbtools_path, url, pack_file_path)
+        cwd = "%s/seekone '%s' PAGE 2>stderr.txt 1>%s" % (wdbtools_path, url, pack_file_path)
         os.system(cwd)
         #  删除前2行
         cwd = "sed '1, 2d' %s > tmp.txt && mv tmp.txt %s" % (pack_file_path, pack_file_path)

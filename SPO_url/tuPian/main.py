@@ -86,7 +86,7 @@ def _get_image_position(url, soup, img):
 
         return 0
 
-    return _tag_to_parent_position(img, soup.boby)
+    return _tag_to_parent_position(img, soup.find("body"))
 
 
 

@@ -47,6 +47,18 @@ def is_tupian(url):
         return True
     else:
         # 没有满足条件, 获取所有的前50%图片的位置,判断是不是都在页面的上半部分
+        image_num = len(images)
+
+        # 图片数量小于3的, 直接不考虑
+        if image_num < 3:
+            return False
+        # 必须全部在上面
+        if image_num >= 3 and image_num <=5:
+            if sum([_get_image_position(soup, image) for image in images]) == image_num:
+                return True
+            else:
+                return False
+        # 图片数量大于5的
         if sum([_get_image_position(soup, image) for image in images[:len(images)/2]]) == len(images)/2:
             return True
         else:

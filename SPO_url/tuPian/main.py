@@ -98,8 +98,11 @@ def _get_image_position(soup, img):
 def style_to_dict(style):
     d = {}
     for item in style.split(";"):
-        key, value = item.strip().split(":")
-        d[key.strip()] = value.strip()
+        try:
+            key, value = item.strip().split(":")
+            d[key.strip()] = value.strip()
+        except:
+            continue
     return d
 
 

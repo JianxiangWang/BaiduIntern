@@ -4,6 +4,7 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 import codecs, json
+import pyprind
 
 def load_train_data(in_file, to_file, statistics_file):
 
@@ -11,17 +12,17 @@ def load_train_data(in_file, to_file, statistics_file):
 
     NUM_NEAGTIVE = 100000
 
-    # process_bar = pyprind.ProgPercent(1175207)
+    process_bar = pyprind.ProgPercent(1175207)
     with open(in_file) as fin, \
          open(to_file, "w") as fout:
 
         for line in fin:
-            # process_bar.update()
+            process_bar.update()
 
             sent_id, sent_text, tokens, pos_tags, ner_tags, dep_types, dep_tokens,\
-            S_O, dict_label_info = line.strip().split("\t")
+            S_O, dict_label_info_string = line.strip().split("\t")
 
-            dict_label_info = json.loads(dict_label_info)
+            dict_label_info = json.loads(dict_label_info_string)
 
             # 过滤一下SO识别
             dict_so = json.loads(S_O)
@@ -29,6 +30,7 @@ def load_train_data(in_file, to_file, statistics_file):
             for P in dict_so:
                 if P in dict_label_info:
                     dict_so_new[P] = dict_so[P]
+            dict_so_new_string = json.dumps(dict_so_new, ensure_ascii=False)
 
 
             # 加载每个P的正负样本:
@@ -48,8 +50,8 @@ def load_train_data(in_file, to_file, statistics_file):
                         dict_P_to_count[P]["positive"] += 1
 
                         fout.write("%s\t%s\t%s\t%s\t%s\t%s\t%s\n" % (sent_text, S_text, P, O_text, "1",
-                                                                 json.dumps(dict_label_info, ensure_ascii=False),
-                                                                 json.dumps(dict_so_new, ensure_ascii=False),
+                                                                 dict_label_info_string,
+                                                                 dict_so_new_string,
                                                                  )
                         )
 
@@ -57,8 +59,8 @@ def load_train_data(in_file, to_file, statistics_file):
                     if label < 0 and dict_P_to_count[P]["negative"] < NUM_NEAGTIVE:
                         dict_P_to_count[P]["negative"] += 1
                         fout.write("%s\t%s\t%s\t%s\t%s\t%s\t%s\n" % (sent_text, S_text, P, O_text, "-1",
-                                                                 json.dumps(dict_label_info, ensure_ascii=False),
-                                                                 json.dumps(dict_so_new, ensure_ascii=False),
+                                                                 dict_label_info_string,
+                                                                 dict_so_new_string,
                                                                  )
                         )
 
@@ -122,13 +124,13 @@ def load_train_data_hadoop():
 
 if __name__ == '__main__':
     # load_train_data("/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/SPO_train_data_for_deepdive_label")
-    # load_train_data(
-    #     "/home/disk2/wangjianxiang01/downloads/SPO_train_data_84P_for_deepdive_label_1w_pos_5w_neg.head1000",
-    #     "/home/disk2/wangjianxiang01/downloads/SPO_train_data_84P_for_deepdive_label_1w_pos_10w.spo.sent",
-    #     "/home/disk2/wangjianxiang01/downloads/SPO_train_data_84P_for_deepdive_label_1w_pos_10w.spo.sent.statistics",
-    # )
+    load_train_data(
+        "/home/disk2/wangjianxiang01/downloads/SPO_train_data_84P_for_deepdive_label_1w_pos_5w_neg",
+        "/home/disk2/wangjianxiang01/downloads/SPO_train_data_84P_for_deepdive_label_1w_pos_10w.spo.sent",
+        "/home/disk2/wangjianxiang01/downloads/SPO_train_data_84P_for_deepdive_label_1w_pos_10w.spo.sent.statistics",
+    )
 
-    load_train_data_hadoop()
+    # load_train_data_hadoop()
 
 
 

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-INPUT="/app/ps/spider/kg-value/lihe08/SPOMining/replace_trainData_experiment_all_trainData/jianxiang_trainData"
+INPUT="/app/ps/spider/kg-value/wangjianxiang01/data/SPO_train_data_so_84P_output"
 OUTPUT="/app/ps/spider/kg-value/wangjianxiang01/data/deepdive_train_data_84P"
 
 hadoop fs -rmr ${OUTPUT}
@@ -13,6 +13,7 @@ hadoop streaming \
     -file "load_deepdive_data.py" \
     -cacheArchive "/app/ps/spider/kg-value/wangjianxiang01/tools.tar.gz#." \
     -jobconf mapred.job.priority="VERY_HIGH" \
+    -jobconf stream.num.map.output.key.fields=7 \
     -jobconf mapred.output.compress=true \
     -jobconf mapred.compress.map.output=true \
     -jobconf mapred.job.map.capacity=1000 \

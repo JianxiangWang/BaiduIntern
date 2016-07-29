@@ -4,7 +4,7 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 import codecs
-import ujson as json
+import ujson
 import pyprind
 
 def load_train_data(in_file, to_file, statistics_file):
@@ -23,15 +23,15 @@ def load_train_data(in_file, to_file, statistics_file):
             sent_id, sent_text, tokens, pos_tags, ner_tags, dep_types, dep_tokens,\
             S_O, dict_label_info_string = line.strip().split("\t")
 
-            dict_label_info = json.loads(dict_label_info_string)
+            dict_label_info = ujson.loads(dict_label_info_string)
 
             # 过滤一下SO识别
-            # dict_so = json.loads(S_O)
-            # dict_so_new = {}
-            # for P in dict_so:
-            #     if P in dict_label_info:
-            #         dict_so_new[P] = dict_so[P]
-            # dict_so_new_string = json.dumps(dict_so_new, ensure_ascii=False)
+            dict_so = ujson.loads(S_O)
+            dict_so_new = {}
+            for P in dict_so:
+                if P in dict_label_info:
+                    dict_so_new[P] = dict_so[P]
+            dict_so_new_string = ujson.dumps(dict_so_new, ensure_ascii=False)
 
 
             # 加载每个P的正负样本:
@@ -50,15 +50,15 @@ def load_train_data(in_file, to_file, statistics_file):
                     if label > 0:
                         dict_P_to_count[P]["positive"] += 1
 
-                        S_position = "-".join(S_id.split("_")[-2:])
-                        O_position = "-".join(O_id.split("_")[-2:])
+                        S_position = "|_|".join(S_id.split("_")[-2:])
+                        O_position = "|_|".join(O_id.split("_")[-2:])
                         out_line = "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s" % (sent_text,
-                                                                   S_text+"_" + S_position,
+                                                                   S_text+"|_|" + S_position,
                                                                    P,
-                                                                   O_text+"_" + O_position,
+                                                                   O_text+"|_|" + O_position,
                                                                    "1",
                                                                     tokens,
-                                                                    S_O,
+                                                                    dict_so_new_string,
                                                                     dict_label_info_string,
 
                                                                  )
@@ -69,15 +69,15 @@ def load_train_data(in_file, to_file, statistics_file):
                     if label < 0 and dict_P_to_count[P]["negative"] < NUM_NEAGTIVE:
                         dict_P_to_count[P]["negative"] += 1
 
-                        S_position = "-".join(S_id.split("_")[-2:])
-                        O_position = "-".join(O_id.split("_")[-2:])
+                        S_position = "|_|".join(S_id.split("_")[-2:])
+                        O_position = "|_|".join(O_id.split("_")[-2:])
                         out_line = "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s" % (sent_text,
-                                                                   S_text+"_" + S_position,
+                                                                   S_text+"|_|" + S_position,
                                                                    P,
-                                                                   O_text+"_" + O_position,
+                                                                   O_text+"|_|" + O_position,
                                                                    "-1",
                                                                    tokens,
-                                                                   S_O,
+                                                                   dict_so_new_string,
                                                                    dict_label_info_string,
 
                                                                  )
@@ -102,10 +102,10 @@ def load_train_data_hadoop():
         sent_id, sent_text, tokens, pos_tags, ner_tags, dep_types, dep_tokens,\
         S_O, dict_label_info = line.strip().split("\t")
 
-        dict_label_info = json.loads(dict_label_info)
+        dict_label_info = ujson.loads(dict_label_info)
 
         # 过滤一下SO识别
-        dict_so = json.loads(S_O)
+        dict_so = ujson.loads(S_O)
         dict_so_new = {}
         for P in dict_so:
             if P in dict_label_info:
@@ -129,16 +129,16 @@ def load_train_data_hadoop():
                     dict_P_to_count[P]["positive"] += 1
 
                     print "%s\t%s\t%s\t%s\t%s\t%s\t%s" % (sent_text, S_text, P, O_text, "1",
-                                                             json.dumps(dict_label_info, ensure_ascii=False),
-                                                             json.dumps(dict_so_new, ensure_ascii=False),
+                                                             ujson.dumps(dict_label_info, ensure_ascii=False),
+                                                             ujson.dumps(dict_so_new, ensure_ascii=False),
                                                              )
 
 
                 if label < 0 and dict_P_to_count[P]["negative"] < NUM_NEAGTIVE:
                     dict_P_to_count[P]["negative"] += 1
                     print "%s\t%s\t%s\t%s\t%s\t%s\t%s" % (sent_text, S_text, P, O_text, "-1",
-                                                             json.dumps(dict_label_info, ensure_ascii=False),
-                                                             json.dumps(dict_so_new, ensure_ascii=False),
+                                                             ujson.dumps(dict_label_info, ensure_ascii=False),
+                                                             ujson.dumps(dict_so_new, ensure_ascii=False),
                                                              )
 
 

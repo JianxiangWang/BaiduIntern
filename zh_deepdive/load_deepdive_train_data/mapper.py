@@ -50,9 +50,6 @@ def main():
                     S_offset, S_length = get_char_offset(token_list, int(S_start_index), int(S_end_index))
                     O_offset, O_length = get_char_offset(token_list, int(O_start_index), int(O_end_index))
 
-                    print sent_text
-                    print S_text, S_offset, S_length
-
                     if S_text not in dict_T:
                         continue
                     S_T = dict_T[S_text]
@@ -68,9 +65,9 @@ def main():
                     #  正例
                     if label > 0:
                         out_line = "%s\t%s\t%s\t%s\t%s\t%s\t%s" % (sent_text,
-                                                                   json.dumps(s),
+                                                                   json.dumps(s, ensure_ascii=False),
                                                                    P,
-                                                                   json.dumps(o),
+                                                                   json.dumps(o, ensure_ascii=False),
                                                                    "1",
                                                                     dict_so_new_string,
                                                                     dict_label_info_string,
@@ -80,9 +77,9 @@ def main():
 
                     if label < 0:
                         out_line = "%s\t%s\t%s\t%s\t%s\t%s\t%s" % (sent_text,
-                                                                   json.dumps(s),
+                                                                   json.dumps(s, ensure_ascii=False),
                                                                    P,
-                                                                   json.dumps(o),
+                                                                   json.dumps(o, ensure_ascii=False),
                                                                    "-1",
                                                                     dict_so_new_string,
                                                                     dict_label_info_string,

@@ -8,12 +8,6 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 import codecs, json
 
-
-# 读取当前P
-fin = open("P")
-this_P = fin.read().strip()
-fin.close()
-
 def load_train_data(in_file, to_file, statistics_file):
 
     dict_P_to_count = {}

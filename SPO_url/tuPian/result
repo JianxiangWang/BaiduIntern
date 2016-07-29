@@ -1,0 +1,10 @@
+precision: 50%
+recall: 75%
+
+sent    {p1:{candidates:{}}, p2:{}}
+sent    {p1:{candidates:{}}, p2:{}}
+sent    {p1:{candidates:{}}, p2:{}}
+sent    {p1:{candidates:{}}, p2:{}}
+
+
+sent spo label

@@ -110,19 +110,19 @@ def get_char_offset(token_list, token_start_index, token_end_index):
 
 
 
-# def get_char_offset(sent_text, token_list, token_start_index, token_end_index):
-#     start_offset = -1
-#     for token in token_list[:token_start_index+1]:
-#         start_offset = sent_text.find(token, start_offset + 1)
-#
-#     end_offset = -1
-#     for token in token_list[:token_end_index+1]:
-#         end_offset = sent_text.find(token, end_offset + 1)
-#     end_offset += len(token_list[token_end_index])
-#
-#     length = end_offset - start_offset
-#
-#     return start_offset, length
+def get_char_offset(sent_text, token_list, token_start_index, token_end_index):
+    start_offset = -1
+    for token in token_list[:token_start_index+1]:
+        start_offset = sent_text.find(token, start_offset + 1)
+
+    end_offset = -1
+    for token in token_list[:token_end_index+1]:
+        end_offset = sent_text.find(token, end_offset + 1)
+    end_offset += len(token_list[token_end_index])
+
+    length = end_offset - start_offset
+
+    return start_offset, length
 
 if __name__ == '__main__':
     main()

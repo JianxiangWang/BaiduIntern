@@ -35,7 +35,7 @@ def is_ba(url):
 
     page_type_list = eval(result.strip())
 
-    if {"小说首页", "小说列表页"} & set(page_type_list):
+    if {"论坛帖子页"} & set(page_type_list):
         return True
     else:
         return False

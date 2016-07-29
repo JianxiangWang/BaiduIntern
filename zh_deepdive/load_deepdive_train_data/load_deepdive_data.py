@@ -16,6 +16,7 @@ def load_train_data(in_file, to_file, statistics_file):
     with open(in_file) as fin, \
          open(to_file, "w") as fout:
 
+        buffer_lines = []
         for line in fin:
             process_bar.update()
 
@@ -49,20 +50,31 @@ def load_train_data(in_file, to_file, statistics_file):
                     if label > 0:
                         dict_P_to_count[P]["positive"] += 1
 
-                        fout.write("%s\t%s\t%s\t%s\t%s\t%s\t%s\n" % (sent_text, S_text, P, O_text, "1",
+                        out_line = "%s\t%s\t%s\t%s\t%s\t%s\t%s" % (sent_text, S_text, P, O_text, "1",
                                                                  dict_label_info_string,
                                                                  dict_so_new_string,
                                                                  )
-                        )
+
+                        buffer_lines.append(out_line)
 
 
                     if label < 0 and dict_P_to_count[P]["negative"] < NUM_NEAGTIVE:
                         dict_P_to_count[P]["negative"] += 1
-                        fout.write("%s\t%s\t%s\t%s\t%s\t%s\t%s\n" % (sent_text, S_text, P, O_text, "-1",
+                        out_line = "%s\t%s\t%s\t%s\t%s\t%s\t%s" % (sent_text, S_text, P, O_text, "-1",
                                                                  dict_label_info_string,
                                                                  dict_so_new_string,
                                                                  )
-                        )
+                        buffer_lines.append(out_line)
+
+            if len(buffer_lines) == 100000:
+                fout.write("\n".join(buffer_lines))
+                fout.write("\n")
+                buffer_lines = []
+
+        if buffer_lines:
+            fout.write("\n".join(buffer_lines))
+            fout.write("\n")
+
 
     with open(statistics_file, "w") as fout:
         for P in dict_P_to_count:

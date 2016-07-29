@@ -31,8 +31,6 @@ def is_ba(url):
     fin = os.popen(cmd)
     result = fin.readlines()[-1]
 
-    print result
-
     page_type_list = eval(result.strip())
 
     if {"论坛帖子页"} & set(page_type_list):

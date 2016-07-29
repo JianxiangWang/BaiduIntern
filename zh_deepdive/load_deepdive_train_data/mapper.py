@@ -50,6 +50,8 @@ def main():
                     S_offset, S_length = get_char_offset(token_list, int(S_start_index), int(S_end_index))
                     O_offset, O_length = get_char_offset(token_list, int(O_start_index), int(O_end_index))
 
+                    print (S_text, S_offset, S_length)
+
                     if (S_text, S_offset, S_length) not in dict_T:
                         continue
                     S_T = dict_T[(S_text, S_offset, S_length)]

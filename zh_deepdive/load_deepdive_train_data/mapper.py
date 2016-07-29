@@ -17,7 +17,7 @@ def main():
         dict_T ={}
         for P in dict_SO:
             for name, T, offset, length in dict_SO[P]["s"] + dict_SO[P]["s"]:
-                   dict_T[(name, offset, length)] = T
+                   dict_T[name] = T
 
         # to_token_list
         tokens = unicode(tokens)
@@ -53,13 +53,13 @@ def main():
                     print sent_text
                     print S_text, S_offset, S_length
 
-                    if (S_text, S_offset, S_length) not in dict_T:
+                    if S_text not in dict_T:
                         continue
-                    S_T = dict_T[(S_text, S_offset, S_length)]
+                    S_T = dict_T[S_text]
 
-                    if (O_text, O_offset, O_length) not in dict_T:
+                    if O_text not in dict_T:
                         continue
-                    O_T = dict_T[(O_text, O_offset, O_length)]
+                    O_T = dict_T[O_text]
 
                     s = [S_text, S_T, S_offset, S_length]
                     o = [O_text, O_T, O_offset, O_length]

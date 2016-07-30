@@ -86,7 +86,6 @@ def get_1w_positive_5w_negative(in_file, to_file):
     for line in open(in_file):
         process_bar.update()
 
-
         wanted = False
         label_info = json.loads(line.split("\t")[-1])
 
@@ -135,11 +134,11 @@ if __name__ == '__main__':
     # )
 
     get_all_positive_20wNegative(
-        "/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/SPO_train_data_84P_for_deepdive_label",
-        "/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/SPO_train_data_84P_for_deepdive_label_all_pos_20w_neg",
+        "/home/disk2/wangjianxiang01/BaiduIntern/zh_deepdive/obtain_train_new/3_filte_sentences_label/SPO_train_data_84P_for_deepdive_label_lihe",
+        "/home/disk2/wangjianxiang01/BaiduIntern/zh_deepdive/obtain_train_new/3_filte_sentences_label/SPO_train_data_84P_for_deepdive_label_lihe_all_pos_20w_neg",
     )
 
     get_1w_positive_5w_negative(
-        "/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/SPO_train_data_84P_for_deepdive_label_all_pos_20w_neg",
-        "/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/SPO_train_data_84P_for_deepdive_label_1w_pos_5w_neg"
+        "/home/disk2/wangjianxiang01/BaiduIntern/zh_deepdive/obtain_train_new/3_filte_sentences_label/SPO_train_data_84P_for_deepdive_label_lihe_all_pos_20w_neg",
+        "/home/disk2/wangjianxiang01/BaiduIntern/zh_deepdive/obtain_train_new/3_filte_sentences_label/SPO_train_data_84P_for_deepdive_label_lihe_1w_pos_5w_neg"
     )

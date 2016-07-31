@@ -301,7 +301,7 @@ def _test_predict_SPO_to_json(in_file, to_file):
     json.dump(dict_predict, open(to_file, "w"), ensure_ascii=False)
 
 # 根据test过滤so, 只保留test中有的so
-def _test_predict_SPO_to_json_only_test_so(test_file, predict_file, to_file):
+def _test_predict_SPO_to_json_only_test_so(test_file, predict_file, threshold, to_file):
 
     fin = open("../data/reversed_P")
     reversed_P = set([unicode(line.strip()) for line in fin])
@@ -323,7 +323,7 @@ def _test_predict_SPO_to_json_only_test_so(test_file, predict_file, to_file):
                 t.append([o, s, prob])
             dict_predict[P] = t
 
-        dict_predict[P] = sorted(set([(s, o) for s, o, prob in dict_predict[P] if (s, o) in test_so]))
+        dict_predict[P] = sorted(set([(s, o) for s, o, prob in dict_predict[P] if (s, o) in test_so and prob >= threshold]))
 
     json.dump(dict_predict, open(to_file, "w"), ensure_ascii=False)
 
@@ -486,10 +486,10 @@ if __name__ == '__main__':
 
     # _test_SPO_to_json_new("SPO.all.set.data.all.res", "SPO.all.set.data.all.res.json")
     _test_SPO_to_json_new("sent_all_SPO.format.res.all", "SPO.all.set.data.all.res.json")
-    _test_predict_SPO_to_json_only_test_so("SPO.all.set.data.all.res.json", "predict_84P.json", "predict_84P_only_test_so.json")
+    _test_predict_SPO_to_json_only_test_so("SPO.all.set.data.all.res.json", "predict_84P.json", 0.99, "predict_84P_only_test_so_prob_0.99.json")
     # _test_predict_SPO_to_json("predict_84P.json", "predict_84P_only_so.json")
 
-    evaluate("train_label_statistics.csv", "predict_84P_only_test_so.json", "SPO.all.set.data.all.res.json", "evaluate_500_sents_only_test_so_reverseP.gb18030.csv")
+    evaluate("train_label_statistics.csv", "predict_84P_only_test_so_prob_0.99.json", "SPO.all.set.data.all.res.json", "evaluate_500_sents_only_test_so_reverseP_prob_0.99.gb18030.csv")
 
     # get_predict_to_sent_spo("models_84P", "predict_sent_spo.txt")
 

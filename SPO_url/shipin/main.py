@@ -29,9 +29,7 @@ def is_shipin(url):
 
     page_type_list = eval(result.strip())
 
-    print result
-
-    if {"论坛帖子页"} & set(page_type_list):
+    if {"视频播放页"} & set(page_type_list):
         return True
     else:
         return False

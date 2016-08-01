@@ -73,8 +73,8 @@ def has_download_a_tag_2(soup):
                     # while x.parent.name == "p":
                     #     x = x.parent
 
-                    if a_tag.parent.name == "p":
-                        a_tag = a_tag.parent
+                    # if a_tag.parent.name == "p":
+                    #     a_tag = a_tag.parent
 
 
                     # <a> 周围的文字

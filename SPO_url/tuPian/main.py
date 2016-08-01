@@ -1,11 +1,9 @@
 #!/usr/bin/env python
 # encoding: utf-8
 import sys
-
 import bs4
 import re
 from bs4 import BeautifulSoup
-
 reload(sys)
 sys.setdefaultencoding('utf-8')
 import subprocess

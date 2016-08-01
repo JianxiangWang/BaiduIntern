@@ -71,7 +71,7 @@ def has_download_a_tag_2(soup):
                     # <a> 周围的文字
                     surrounding_string = ""
 
-                    for sibling in list(a_tag.previous_siblings)[:2]:
+                    for sibling in list(a_tag.previous_siblings):
                         if isinstance(sibling, bs4.element.NavigableString):
                             surrounding_string += str(sibling).strip()
                         else:
@@ -79,7 +79,7 @@ def has_download_a_tag_2(soup):
                                 for x in sibling.stripped_strings:
                                     surrounding_string += x
 
-                    for sibling in list(a_tag.next_siblings)[:2]:
+                    for sibling in list(a_tag.next_siblings):
                         if isinstance(sibling, bs4.element.NavigableString):
                             surrounding_string += str(sibling).strip()
                         else:

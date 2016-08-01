@@ -27,6 +27,8 @@ def is_shipin(url):
     html_path = get_url_tagged_content_html_path(url)
     soup = BeautifulSoup(open(html_path), "html.parser")
 
+    print html_path
+
     # 基于meta的识别
     content = get_meta_content(soup)
     if "音乐" not in content and "播放器" not in content and "电台" not in content:

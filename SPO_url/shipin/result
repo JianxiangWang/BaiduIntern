@@ -1,6 +1,5 @@
-1. precision: 37 / 38 = 0.9736
-   对于38 非吧 url, 其中 1 条判断为 吧:
-   http://tieba.baidu.com/p/3629707340     炼神领域的结局在哪里?   吧      http://tieba.baidu.com/p/3629707340
-   这url确实为吧, 但是 title-s 不关联 (不是 海贼王吧)
+1. precision: 8 / 9 = 0.8889
 
-2. recall: 1 / 1 = 100%
+title-s不相关
+
+2. recall: 3 / 3 = 100%

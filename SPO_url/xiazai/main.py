@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # encoding: utf-8
 import sys
+import bs4
 reload(sys)
 sys.setdefaultencoding('utf-8')
 from bs4 import BeautifulSoup
@@ -8,9 +9,9 @@ import subprocess
 import sys, hashlib
 import os
 
+
 # 输入url, 判断是不是 下载页
 def main():
-
     for line in sys.stdin:
         url = line.strip()
         if is_xiazai(url):
@@ -25,17 +26,69 @@ def main():
 def is_xiazai(url):
 
     html_path = get_url_tagged_content_html_path(url)
+    soup = BeautifulSoup(open(html_path), "html.parser")
 
-    print html_path
+    if has_download_a_tag_1(soup) or has_download_a_tag_2(soup):
+        return True
 
     return False
 
-def get_meta_content(soup):
-    content = ""
-    for meta in soup.find_all("meta"):
-        if "content" in meta.attrs:
-            content += meta["content"] + "\t"
-    return content.strip()
+
+# 1. 正文中, 下载被<a>包围, 至少得有href/onclick/id属性 且href指向的不是html
+def has_download_a_tag_1(soup):
+
+    for content in soup.find_all(attrs={"style": "border:3px solid red;overflow-y:auto;overflow-x:auto;"}):
+        for a_tag in content.find_all("a"):
+            if "下载" in "\t".join(a_tag.stripped_strings):
+                # 至少得有这些标签之一
+                if set(map(lambda x: x.lower(), a_tag.attrs.keys())) & {"href", "onclick", "id"}:
+                    # 如果有href,指向的不能是html, htm
+                    if "href" in a_tag.attrs:
+                        if not a_tag.attrs["href"].endswith("htm") and not a_tag.attrs["href"].endswith("html"):
+                            return True
+                        else:
+                            return False
+                    return True
+    return False
+
+
+# 如果1.不成立, 对于满足要求的<a>, 判断周围是不是有 下载 关键字
+def has_download_a_tag_2(soup):
+    for content in soup.find_all(attrs={"style": "border:3px solid red;overflow-y:auto;overflow-x:auto;"}):
+        for a_tag in content.find_all("a"):
+            # 至少得有这些标签之一
+            if set(map(lambda x: x.lower(), a_tag.attrs.keys())) & {"href", "onclick", "id"}:
+                # 如果有href,指向的不能是html, htm
+                flag = 1
+                if "href" in a_tag.attrs:
+                    if not a_tag.attrs["href"].endswith("htm") and not a_tag.attrs["href"].endswith("html"):
+                        pass
+                    else:
+                        flag = 0
+
+                if flag == 1:
+
+                    # <a> 周围的文字
+                    surrounding_string = ""
+
+                    for sibling in a_tag.previous_siblings:
+                        if isinstance(sibling, bs4.element.NavigableString):
+                            surrounding_string += str(sibling).strip()
+                        else:
+                            for x in sibling.stripped_strings:
+                                surrounding_string += x
+
+                    for sibling in a_tag.next_siblings:
+                        if isinstance(sibling, bs4.element.NavigableString):
+                            surrounding_string += str(sibling).strip()
+                        else:
+                            for x in sibling.stripped_strings:
+                                surrounding_string += x
+                    #
+                    if "下载" in surrounding_string:
+                        return True
+    return False
+
 
 
 

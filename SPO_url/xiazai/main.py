@@ -87,7 +87,7 @@ def has_download_a_tag_2(soup):
                                 for x in sibling.stripped_strings:
                                     surrounding_string += x
                     #
-                    if "下载地址" in surrounding_string:
+                    if "下载地址" in surrounding_string or "下载链接" in surrounding_string or "链接下载" in surrounding_string:
                         return True
     return False
 

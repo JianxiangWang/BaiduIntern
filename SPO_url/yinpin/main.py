@@ -27,7 +27,23 @@ def is_shipin(url):
     html_path = get_url_tagged_content_html_path(url)
     soup = BeautifulSoup(open(html_path), "html.parser")
 
-    print html_path
+    # 基于meta的识别
+    content = get_meta_content(soup)
+    if "音乐" not in content:
+        return False
+
+    # 判断页面是否有播放元素
+    if len(soup.find_all("a", attrs={"title": "播放"})) > 0:
+        return True
+
+    return False
+
+def get_meta_content(soup):
+    content = ""
+    for meta in soup.find_all("meta"):
+        if "content" in meta.attrs:
+            content += meta["content"] + "\t"
+    return content.strip()
 
 
 

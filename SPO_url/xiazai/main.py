@@ -68,11 +68,13 @@ def has_download_a_tag_2(soup):
 
                 if flag == 1:
 
-                    # 如果父节点是P, a_tag 往上走
-                    x = a_tag
-                    while x.parent.name == "p":
-                        x = x.parent
-                    a_tag = x
+                    # 如果父节点是P, a_tag 往上走一步
+                    # x = a_tag
+                    # while x.parent.name == "p":
+                    #     x = x.parent
+
+                    if a_tag.parent.name == "p":
+                        a_tag = a_tag.parent
 
 
                     # <a> 周围的文字

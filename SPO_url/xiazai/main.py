@@ -75,15 +75,17 @@ def has_download_a_tag_2(soup):
                         if isinstance(sibling, bs4.element.NavigableString):
                             surrounding_string += str(sibling).strip()
                         else:
-                            for x in sibling.stripped_strings:
-                                surrounding_string += x
+                            if sibling.name in ["span", "p", "b", "font"]:
+                                for x in sibling.stripped_strings:
+                                    surrounding_string += x
 
                     for sibling in a_tag.next_siblings:
                         if isinstance(sibling, bs4.element.NavigableString):
                             surrounding_string += str(sibling).strip()
                         else:
-                            for x in sibling.stripped_strings:
-                                surrounding_string += x
+                            if sibling.name in ["span", "p", "b", "font"]:
+                                for x in sibling.stripped_strings:
+                                    surrounding_string += x
                     #
                     if "下载" in surrounding_string:
                         return True

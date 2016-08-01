@@ -44,7 +44,7 @@ def has_download_a_tag_1(soup):
                 if set(map(lambda x: x.lower(), a_tag.attrs.keys())) & {"href", "onclick", "id"}:
                     # 如果有href,指向的不能是html, htm
                     if "href" in a_tag.attrs:
-                        if not a_tag.attrs["href"].endswith("htm") and not a_tag.attrs["href"].endswith("html"):
+                        if not a_tag.attrs["href"].endswith("htm") and not a_tag.attrs["href"].endswith("html") and not a_tag.attrs["href"].endswith("/"):
                             return True
                         else:
                             return False
@@ -61,7 +61,7 @@ def has_download_a_tag_2(soup):
                 # 如果有href,指向的不能是html, htm
                 flag = 1
                 if "href" in a_tag.attrs:
-                    if not a_tag.attrs["href"].endswith("htm") and not a_tag.attrs["href"].endswith("html"):
+                    if not a_tag.attrs["href"].endswith("htm") and not a_tag.attrs["href"].endswith("html") and not a_tag.attrs["href"].endswith("/"):
                         pass
                     else:
                         flag = 0

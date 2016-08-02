@@ -12,7 +12,7 @@ TOOLS_PATH    = "tools"
 WDBTOOLS_PATH = "tools/wdbtools/output/client/bin"
 VAREMARK_PATH = "tools/varemark"
 # PACK_PATH     = "/app/ps/spider/kg-value/wangjianxiang01/packs"
-PACK_PATH     = "data/packs"
+PACK_PATH     = "/home/disk2/wangjianxiang01/BaiduIntern/SPO_url/data/packs"
 
 # 输入url, 判断是不是 小说
 def main():

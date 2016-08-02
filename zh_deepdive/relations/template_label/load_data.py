@@ -157,7 +157,7 @@ def load_test_data(in_file):
 if __name__ == '__main__':
     # load_train_data("/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/SPO_train_data_for_deepdive_label")
     load_train_data("/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/SPO_train_data_84P_for_deepdive_label_1w_pos_5w_neg")
-    load_test_data("/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/SPO_test_data_84P_for_deepdive_label")
+    load_test_data("/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/SPO_test_data_84P_for_deepdive_label_new_so")
 
 
 

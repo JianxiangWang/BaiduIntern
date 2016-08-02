@@ -26,7 +26,7 @@ def is_ba(url):
     if "tieba.baidu.com" not in url:
         return False
 
-    cmd = "/home/disk2/wangjianxiang01/BaiduIntern/SPO_url/tools/run_wdbtools-pc.sh '%s' 2>/home/disk2/wangjianxiang01/BaiduIntern/SPO_url/tools/run_wdbtools-pc.stderr" % (url)
+    cmd = "/home/disk2/wangjianxiang01/BaiduIntern/SPO_url/tools/run_wdbtools-pc.sh '%s' 2>>/home/disk2/wangjianxiang01/BaiduIntern/SPO_url/tools/run_wdbtools-pc.stderr" % (url)
     fin = os.popen(cmd)
     result = fin.readlines()[-1]
 
@@ -59,7 +59,7 @@ def _get_pack_file_path(url):
         # 抓url对应的pack
         wdbtools_path = "/home/disk2/wangjianxiang01/tools/wdbtools/output/client/bin"
         #  抓包 !
-        cwd = "%s/seekone '%s' PAGE 2>stderr.txt 1>%s" % (wdbtools_path, url, pack_file_path)
+        cwd = "%s/seekone '%s' PAGE 2>>stderr.txt 1>%s" % (wdbtools_path, url, pack_file_path)
         os.system(cwd)
         #  删除前2行
         cwd = "sed '1, 2d' %s > tmp.txt && mv tmp.txt %s" % (pack_file_path, pack_file_path)
@@ -71,7 +71,7 @@ def get_title_from_pack_file(pack_file):
     # cat pack.test.input | /test_vareamark -t realtitle -o 0 | iconv -f gb18030 -t utf-8
     varemark_path = "/home/disk2/wangjianxiang01/tools/varemark"
 
-    cmd = "cd %s && cat %s | ./test_vareamark -t realtitle -o 0 2>stderr.txt | iconv -f gb18030 -t utf-8" % (varemark_path, pack_file)
+    cmd = "cd %s && cat %s | ./test_vareamark -t realtitle -o 0 2>>stderr.txt | iconv -f gb18030 -t utf-8" % (varemark_path, pack_file)
     fin = os.popen(cmd)
     result = fin.readlines()
 

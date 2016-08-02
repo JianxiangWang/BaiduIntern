@@ -182,7 +182,7 @@ def get_url_tagged_content_html_path(url):
     else:
 
         varemark_path = "/home/disk2/wangjianxiang01/tools/varemark"
-        cmd = "cd %s && cat %s | ./test_vareamark -t central -o 2 2>stderr.txt | iconv -f gb18030 -t utf-8 > %s"\
+        cmd = "cd %s && cat %s | ./test_vareamark -t central -o 2 2>>stderr.txt | iconv -f gb18030 -t utf-8 > %s"\
               % (varemark_path, pack_file_path, html_file_path)
         os.system(cmd)
 
@@ -207,7 +207,7 @@ def _get_pack_file_path(url):
         # 抓url对应的pack
         wdbtools_path = "/home/disk2/wangjianxiang01/tools/wdbtools/output/client/bin"
         #  抓包 !
-        cmd = "%s/seekone '%s' PAGE 2>stderr.txt 1>%s" % (wdbtools_path, url, pack_file_path)
+        cmd = "%s/seekone '%s' PAGE 2>>stderr.txt 1>%s" % (wdbtools_path, url, pack_file_path)
         os.system(cmd)
         #  删除前2行
         cmd = "sed '1, 2d' %s > tmp.txt && mv tmp.txt %s" % (pack_file_path, pack_file_path)
@@ -219,7 +219,7 @@ def get_title_from_pack_file(pack_file):
     # cat pack.test.input | /test_vareamark -t realtitle -o 0 | iconv -f gb18030 -t utf-8
     varemark_path = "/home/disk2/wangjianxiang01/tools/varemark"
 
-    cmd = "cd %s && cat %s | ./test_vareamark -t realtitle -o 0 2>stderr.txt | iconv -f gb18030 -t utf-8" % (varemark_path, pack_file)
+    cmd = "cd %s && cat %s | ./test_vareamark -t realtitle -o 0 2>>stderr.txt | iconv -f gb18030 -t utf-8" % (varemark_path, pack_file)
     fin = os.popen(cmd)
     result = fin.readlines()
 

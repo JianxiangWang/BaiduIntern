@@ -23,6 +23,5 @@ cat ${local_temp_dir}/tmp3 | ./Python-2.7.7/bin/python iconv.py gb18030 utf8 >${
 ./Python-2.7.7/bin/python merge_sent_ner_test.py ${local_temp_dir}/tmp4 ${local_file} >${local_temp_dir}/tmp5
 #统一进行ner决策
 cat ${local_temp_dir}/tmp5 | ./Python-2.7.7/bin/python mars_ner.py >${local_temp_dir}/tmp6
-cat ${local_temp_dir}/tmp6 | ./Python-2.7.7/bin/python buchong_s.py s_prop >${local_temp_dir}/tmp7
-cat ${local_temp_dir}/tmp7 | ./Python-2.7.7/bin/python add_white_so.py o_prop s_prop white_sent
+cat ${local_temp_dir}/tmp6 | ./Python-2.7.7/bin/python buchong_s.py s_prop
 

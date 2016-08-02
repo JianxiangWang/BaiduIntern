@@ -8,8 +8,7 @@ import os
 
 
 # 一些工具的PATH
-
-
+TOOLS_PATH ="/home/disk2/wangjianxiang01/BaiduIntern/SPO_url/tools"
 
 
 # 输入url, 判断是不是 贴吧
@@ -31,7 +30,7 @@ def is_ba(url):
     if "tieba.baidu.com" not in url:
         return False
 
-    cmd = "/home/disk2/wangjianxiang01/BaiduIntern/SPO_url/tools/run_wdbtools-pc.sh '%s' 2>>/home/disk2/wangjianxiang01/BaiduIntern/SPO_url/tools/run_wdbtools-pc.stderr" % (url)
+    cmd = "cd %s && ./run_wdbtools-pc.sh '%s' 2>>%s/run_wdbtools-pc.stderr" % (TOOLS_PATH, TOOLS_PATH, url)
     fin = os.popen(cmd)
     result = fin.readlines()[-1]
 

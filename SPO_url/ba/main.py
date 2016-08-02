@@ -8,9 +8,9 @@ import os
 
 
 # 一些PATH
-TOOLS_PATH    = "tools"
-WDBTOOLS_PATH = "tools/wdbtools/output/client/bin"
-VAREMARK_PATH = "tools/varemark"
+TOOLS_PATH    = "../tools"
+WDBTOOLS_PATH = "../tools/wdbtools/output/client/bin"
+VAREMARK_PATH = "../tools/varemark"
 PACK_PATH     = "/home/disk2/wangjianxiang01/BaiduIntern/SPO_url/data/packs"
 
 

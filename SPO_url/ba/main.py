@@ -54,7 +54,6 @@ def get_url_title(url):
     return title
 
 
-
 def _get_pack_file_path(url):
     m = hashlib.md5()
     m.update(url)

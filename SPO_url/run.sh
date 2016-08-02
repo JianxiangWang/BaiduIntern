@@ -5,6 +5,7 @@
 
 while read line
 do
+  echo ${line}
   echo ${line} | ba/main.py
   echo ${line} | shipin/main.py
 done

@@ -16,4 +16,5 @@ do
     echo ${line} | xiazai/main.py
     # 音频
     echo ${line} | yinpin/main.py
+
 done

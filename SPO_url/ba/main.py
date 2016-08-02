@@ -31,6 +31,7 @@ def is_ba(url):
         return False
 
     cmd = "cd %s && ./run_wdbtools-pc.sh '%s' 2>>%s/run_wdbtools-pc.stderr" % (TOOLS_PATH, TOOLS_PATH, url)
+    print cmd
     fin = os.popen(cmd)
     result = fin.readlines()[-1]
 

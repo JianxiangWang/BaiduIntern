@@ -8,10 +8,10 @@ import os
 
 
 # 一些PATH
-TOOLS_PATH    = "/home/disk2/wangjianxiang01/BaiduIntern/SPO_url/tools"
-WDBTOOLS_PATH = "/home/disk2/wangjianxiang01/BaiduIntern/SPO_url/tools/wdbtools/output/client/bin"
-VAREMARK_PATH = "/home/disk2/wangjianxiang01/BaiduIntern/SPO_url/tools/varemark"
-PACK_PATH = "/home/disk2/wangjianxiang01/BaiduIntern/SPO_url/data/packs"
+TOOLS_PATH    = "tools"
+WDBTOOLS_PATH = "tools/wdbtools/output/client/bin"
+VAREMARK_PATH = "tools/varemark"
+PACK_PATH     = "/home/disk2/wangjianxiang01/BaiduIntern/SPO_url/data/packs"
 
 
 # 输入url, 判断是不是 贴吧

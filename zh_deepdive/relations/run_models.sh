@@ -3,7 +3,7 @@
 log_file="/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/relations/run.log"
 rm ${log_file}
 
-for model_path in models_84P/*; do
+for model_path in models_84P_new_so/*; do
     model_name=`basename $model_path`
     cd $model_path
 

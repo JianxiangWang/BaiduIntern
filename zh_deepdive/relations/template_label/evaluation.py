@@ -114,13 +114,13 @@ def write_predict_with_sentence_to_json(threshold, to_file):
             print "can not connect to the database..."
 
 if __name__ == '__main__':
-    # write_predict_to_json(0.5, "predict.json")
-    # calculate_P_R("predict.json",
-    #               "/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/seed.test.json",
-    #               "/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/seed.test.data.sample.json",
-    #               "evaluation.result"
-    # )
+    write_predict_to_json(0.5, "predict.json")
+    calculate_P_R("predict.json",
+                  "/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/seed.test.json",
+                  "/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/seed.test.data.sample.json",
+                  "evaluation.result"
+    )
 
-    write_predict_with_sentence_to_json(0.5, "predict.sent.json")
+    # write_predict_with_sentence_to_json(0.5, "predict.sent.json")
 
 

@@ -13,8 +13,7 @@ import os
 TOOLS_PATH    = "tools"
 WDBTOOLS_PATH = "tools/wdbtools/output/client/bin"
 VAREMARK_PATH = "tools/varemark"
-PACK_PATH     = "/home/disk2/wangjianxiang01/BaiduIntern/SPO_url/data/packs"
-
+PACK_PATH     = "/app/ps/spider/kg-value/wangjianxiang01/packs"
 
 # 输入url, 判断是不是 下载页
 def main():

@@ -29,7 +29,7 @@ def main(template_dir, model_dir, train_P_file):
         cmd = "echo '%s' > %s/P" % (P, P_dir)
         os.system(cmd)
 
-        cmd = "echo 'postgresql://jianxiang@localhost:5432/%sDB' > %s/db.url" % (P_pinyi, P_dir)
+        cmd = "echo 'postgresql://jianxiang@localhost:5432/%s_new_so_DB' > %s/db.url" % (P_pinyi, P_dir)
         os.system(cmd)
 
 
@@ -40,7 +40,7 @@ def hanzi_to_pinyi(hanzi):
 
 if __name__ == '__main__':
     template_dir = "/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/relations/template_label"
-    models_dir   = "/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/relations/models_84P"
+    models_dir   = "/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/relations/models_84P_new_so"
     train_P_file = "/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/train_P.txt"
 
     main(template_dir, models_dir, train_P_file)

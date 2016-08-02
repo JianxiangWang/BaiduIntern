@@ -6,6 +6,12 @@ sys.setdefaultencoding('utf-8')
 import sys, hashlib
 import os
 
+
+# 一些工具的PATH
+
+
+
+
 # 输入url, 判断是不是 贴吧
 def main():
 
@@ -18,7 +24,6 @@ def main():
             O = url
 
             print "%s\t%s\t%s\t%s" % (url, S, P, O)
-
 
 def is_ba(url):
 

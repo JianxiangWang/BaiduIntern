@@ -23,7 +23,7 @@ def main():
 
 def is_xiaoShuo(url):
 
-    cmd = "../tools/run_wdbtools-pc.sh '%s' 2>../tools/run_wdbtools-pc.stderr" % (url)
+    cmd = "/home/disk2/wangjianxiang01/BaiduIntern/SPO_url/tools/run_wdbtools-pc.sh '%s' 2>/home/disk2/wangjianxiang01/BaiduIntern/SPO_url/tools/run_wdbtools-pc.stderr" % (url)
     # result = subprocess.check_output(cmd, shell=True)
     fin = os.popen(cmd)
     result = fin.readlines()[-1]

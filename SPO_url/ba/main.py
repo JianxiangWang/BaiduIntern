@@ -3,7 +3,6 @@
 import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
-import subprocess
 import sys, hashlib
 import os
 

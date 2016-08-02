@@ -25,7 +25,4 @@ hadoop streaming \
     -jobconf mapred.job.name="wangjianxiang_sentence_filter"
 
 
-
-
-
 #"-jobconf mapred.output.compress=true \

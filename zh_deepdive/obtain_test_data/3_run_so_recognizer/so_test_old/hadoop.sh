@@ -17,8 +17,6 @@ hadoop streaming \
     -file "s_prop" \
     -file "o_prop" \
     -file "buchong_s.py" \
-    -file "add_white_so.py" \
-    -file "white_sent" \
     -cacheArchive "/app/ps/spider/kg-value/yubingyang/relation/new_module/so_recognizer/tools/Python-2.7.7.tar.gz#." \
     -cacheArchive "/app/ps/spider/kg-value/yubingyang/relation/new_module/so_recognizer/tools/test.tar.gz#." \
     -partitioner org.apache.hadoop.mapred.lib.KeyFieldBasedPartitioner \
@@ -26,14 +24,14 @@ hadoop streaming \
     -jobconf num.key.fields.for.partition=3 \
     -jobconf stream.memory.limit=2000 \
     -jobconf mapred.job.priority="VERY_HIGH" \
-    -jobconf mapred.map.tasks=10 \
+    -jobconf mapred.map.tasks=1 \
     -jobconf mapred.job.map.capacity=300 \
     -jobconf mapred.reduce.tasks=0 \
     -jobconf mapred.job.reduce.capacity=300 \
     -jobconf mapred.textoutputformat.ignoreseparator=true \
     -jobconf mapred.compress.map.output=true \
     -jobconf mapred.output.compress=true \
-    -jobconf mapred.job.name="yubingyang_so_recognizer"
+    -jobconf mapred.job.name="wangjianxiang01_so_recognizer"
 
 #INPUT="/app/ps/spider/kg-value/yubingyang/relation/confidence/so_recog/buchong_s/merge_depparser_sorec"
 ##OUTPUT="/app/ps/spider/kg-value/yubingyang/relation/confidence/so_recog/buchong_s/buchong_s"

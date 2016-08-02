@@ -30,7 +30,7 @@ def is_ba(url):
     if "tieba.baidu.com" not in url:
         return False
 
-    cmd = "cd %s && ./run_wdbtools-pc.sh '%s' 2>>%s/run_wdbtools-pc.stderr" % (TOOLS_PATH, TOOLS_PATH, url)
+    cmd = "cd %s && ./run_wdbtools-pc.sh '%s' 2>>%s/run_wdbtools-pc.stderr" % (TOOLS_PATH, url, TOOLS_PATH)
     print cmd
     fin = os.popen(cmd)
     result = fin.readlines()[-1]

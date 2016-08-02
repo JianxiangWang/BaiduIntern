@@ -8,6 +8,14 @@ import subprocess
 import sys, hashlib
 import os
 
+# 一些PATH
+TOOLS_PATH    = "tools"
+WDBTOOLS_PATH = "tools/wdbtools/output/client/bin"
+VAREMARK_PATH = "tools/varemark"
+PACK_PATH     = "/home/disk2/wangjianxiang01/BaiduIntern/SPO_url/data/packs"
+
+
+
 # 输入url, 判断是不是 音频页
 def main():
 
@@ -57,41 +65,6 @@ def get_url_title(url):
 
 
 
-def _get_pack_file_path(url):
-    m = hashlib.md5()
-    m.update(url)
-    file_name = m.hexdigest()
-
-    pack_file_path = "/home/disk2/wangjianxiang01/BaiduIntern/SPO_url/data/packs/%s" % (file_name)
-    if os.path.exists(pack_file_path):
-        return pack_file_path
-    else:
-        # 抓url对应的pack
-        wdbtools_path = "/home/disk2/wangjianxiang01/tools/wdbtools/output/client/bin"
-        #  抓包 !
-        cwd = "%s/seekone '%s' PAGE 2>>stderr.txt 1>%s" % (wdbtools_path, url, pack_file_path)
-        os.system(cwd)
-        #  删除前2行
-        cwd = "sed '1, 2d' %s > tmp.txt && mv tmp.txt %s" % (pack_file_path, pack_file_path)
-        os.system(cwd)
-        return pack_file_path
-
-
-def get_title_from_pack_file(pack_file):
-    # cat pack.test.input | /test_vareamark -t realtitle -o 0 | iconv -f gb18030 -t utf-8
-    varemark_path = "/home/disk2/wangjianxiang01/tools/varemark"
-
-    cmd = "cd %s && cat %s | ./test_vareamark -t realtitle -o 0 2>>stderr.txt | iconv -f gb18030 -t utf-8" % (varemark_path, pack_file)
-    fin = os.popen(cmd)
-    result = fin.readlines()
-
-    if result == []:
-        return "NULL"
-
-    title = result[-1].strip().split(" | ")[-1]
-
-    return title
-
 # 获取标记了content的html文件路径
 def get_url_tagged_content_html_path(url):
     pack_file_path = _get_pack_file_path(url)
@@ -101,9 +74,8 @@ def get_url_tagged_content_html_path(url):
         return html_file_path
     else:
 
-        varemark_path = "/home/disk2/wangjianxiang01/tools/varemark"
         cmd = "cd %s && cat %s | ./test_vareamark -t central -o 2 2>>stderr.txt | iconv -f gb18030 -t utf-8 > %s"\
-              % (varemark_path, pack_file_path, html_file_path)
+              % (VAREMARK_PATH, pack_file_path, html_file_path)
         os.system(cmd)
 
         # 需要删除前两行
@@ -112,6 +84,40 @@ def get_url_tagged_content_html_path(url):
 
 
         return html_file_path
+
+
+
+def _get_pack_file_path(url):
+    m = hashlib.md5()
+    m.update(url)
+    file_name = m.hexdigest()
+
+    pack_file_path = "%s/%s" % (PACK_PATH, file_name)
+    if os.path.exists(pack_file_path):
+        return pack_file_path
+    else:
+        #  抓包 !
+        cwd = "%s/seekone '%s' PAGE 2>>stderr.txt 1>%s" % (WDBTOOLS_PATH, url, pack_file_path)
+        os.system(cwd)
+        #  删除前2行
+        cwd = "sed '1, 2d' %s > %s.tmp && mv %s.tmp %s" % (pack_file_path, pack_file_path, pack_file_path, pack_file_path)
+        os.system(cwd)
+        return pack_file_path
+
+
+def get_title_from_pack_file(pack_file):
+    # cat pack.test.input | /test_vareamark -t realtitle -o 0 | iconv -f gb18030 -t utf-8
+
+    cmd = "cd %s && cat %s | ./test_vareamark -t realtitle -o 0 2>>stderr.txt | iconv -f gb18030 -t utf-8" % (VAREMARK_PATH, pack_file)
+    fin = os.popen(cmd)
+    result = fin.readlines()
+
+    if result == []:
+        return "NULL"
+
+    title = result[-1].strip().split(" | ")[-1]
+
+    return title
 
 
 

@@ -160,6 +160,5 @@ def style_to_dict(style):
     return d
 
 
-
 if __name__ == '__main__':
     main()

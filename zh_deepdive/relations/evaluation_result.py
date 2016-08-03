@@ -481,15 +481,15 @@ if __name__ == '__main__':
     #             "/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/seed.test.data.sample.json",
     #             "evaluation.result.csv")
 
-    # get_predict_result("models_84P", "predict_84P.json")
+    # get_predict_result("models_84P_new_so", "predict_84P_new_so.json")
     # get_statistics("models_84P", "train_label_statistics.csv")
 
     # _test_SPO_to_json_new("SPO.all.set.data.all.res", "SPO.all.set.data.all.res.json")
     _test_SPO_to_json_new("sent_all_SPO.format.res.all", "SPO.all.set.data.all.res.json")
-    _test_predict_SPO_to_json_only_test_so("SPO.all.set.data.all.res.json", "predict_84P.json", 0.99, "predict_84P_only_test_so_prob_0.99.json")
+    _test_predict_SPO_to_json_only_test_so("SPO.all.set.data.all.res.json", "predict_84P_new_so.json", 0.9, "predict_84P_only_test_so_prob_0.9.json")
     # _test_predict_SPO_to_json("predict_84P.json", "predict_84P_only_so.json")
 
-    evaluate("train_label_statistics.csv", "predict_84P_only_test_so_prob_0.99.json", "SPO.all.set.data.all.res.json", "evaluate_500_sents_only_test_so_reverseP_prob_0.99.gb18030.csv")
+    evaluate("train_label_statistics.csv", "predict_84P_only_test_so_prob_0.9.json", "SPO.all.set.data.all.res.json", "evaluate_500_sents_only_test_so_reverseP_new_so_prob_0.9.gb18030.csv")
 
     # get_predict_to_sent_spo("models_84P", "predict_sent_spo.txt")
 

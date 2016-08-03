@@ -8,11 +8,10 @@ hadoop fs -rmr ${OUTPUT}
 hadoop streaming \
     -input "${INPUT}"  \
     -output "${OUTPUT}" \
-    -mapper "sh -x run.sh" \
+    -mapper "sh -x run_on_hadoop.sh" \
     -reducer "NONE" \
     -file "run.sh" \
     -cacheArchive "/app/ps/spider/kg-value/wangjianxiang01/python.tar.gz#." \
-    -cacheArchive "/app/ps/spider/kg-value/wangjianxiang01/tools.tar.gz#." \
     -cacheArchive "/app/ps/spider/kg-value/wangjianxiang01/sword.tar.gz#." \
     -jobconf mapred.job.priority="VERY_HIGH" \
     -jobconf mapred.textoutputformat.ignoreseparator=true \

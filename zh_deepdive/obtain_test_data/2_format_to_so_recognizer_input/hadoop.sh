@@ -1,6 +1,6 @@
 #!/bin/bash
 
-INPUT ="/app/ps/spider/kg-value/wangjianxiang01/data/test_new_sents_data_depparser"
+INPUT="/app/ps/spider/kg-value/wangjianxiang01/data/test_new_sents_data_depparser"
 OUTPUT="/app/ps/spider/kg-value/wangjianxiang01/data/test_new_sents_data_so_input"
 
 hadoop fs -rmr ${OUTPUT}

@@ -15,7 +15,6 @@ VAREMARK_PATH = "tools/varemark"
 PACK_PATH     = os.getcwd() + "/data/packs"
 
 
-
 # 输入url, 判断是不是 贴吧
 def main():
 

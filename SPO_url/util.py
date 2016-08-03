@@ -1,0 +1,3 @@
+
+def A():
+    print "a"

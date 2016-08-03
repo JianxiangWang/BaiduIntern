@@ -8,14 +8,14 @@ def cover_1():
 
     golds_set = set()
 
-    fin = open("data/org.positive")
+    fin = open("data/org.all.urls")
     for line in fin:
         P, url = line.strip().split("\t")
         golds_set.add(url)
     fin.close()
 
     predicts_set = set()
-    fin = open("data/org.positive.predicts")
+    fin = open("data/org.all.urls.predicts")
     for line in fin:
         url, s, p, o = line.strip().split("\t")
         predicts_set.add(url)
@@ -31,14 +31,14 @@ def cover_2():
 
     golds_set = set()
 
-    fin = open("data/org.positive")
+    fin = open("data/org.all.urls")
     for line in fin:
         p, url = line.strip().split("\t")
         golds_set.add((url, p))
     fin.close()
 
     predicts_set = set()
-    fin = open("data/org.positive.predicts")
+    fin = open("data/org.all.urls.predicts")
     for line in fin:
         url, s, p, o = line.strip().split("\t")
         predicts_set.add((url, p))

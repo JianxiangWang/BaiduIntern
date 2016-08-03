@@ -43,18 +43,25 @@ def is_tupian(url):
             dict_style = style_to_dict(image["style"])
             if "height" in dict_style and "width" in dict_style:
                 flag = 1
-                height = int(dict_style["height"].lower().replace("px", ""))
-                width = int(dict_style["width"].lower().replace("px", ""))
-                if height > 300 and width > 200:
-                    satisfied_images.append(image)
+                try:
+                    height = int(dict_style["height"].lower().replace("px", ""))
+                    width = int(dict_style["width"].lower().replace("px", ""))
+                    if height > 300 and width > 200:
+                        satisfied_images.append(image)
+                except:
+                    continue
+
 
         # 没找到去 width="500" height="375"
         if flag == 0:
             if "height" in image.attrs and "width" in image.attrs:
-                height = int(image["height"].lower().replace("px", ""))
-                width = int(image["width"].lower().replace("px", ""))
-                if height > 300 and width > 200:
-                    satisfied_images.append(image)
+                try:
+                    height = int(image["height"].lower().replace("px", ""))
+                    width = int(image["width"].lower().replace("px", ""))
+                    if height > 300 and width > 200:
+                        satisfied_images.append(image)
+                except:
+                    continue
 
     if sum([_get_image_position(url, soup, image) for image in satisfied_images[:2]]) >= 1:
         # 文字与满足大小的图片的比例

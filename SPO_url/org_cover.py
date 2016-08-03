@@ -10,7 +10,7 @@ def cover_1():
 
     fin = open("data/org.all.urls")
     for line in fin:
-        P, url = line.strip().split("\t")
+        url = line.strip().split("\t")[0]
         golds_set.add(url)
     fin.close()
 
@@ -51,7 +51,7 @@ def cover_2():
 
 if __name__ == '__main__':
     cover_1()
-    cover_2()
+    # cover_2()
 
 
 

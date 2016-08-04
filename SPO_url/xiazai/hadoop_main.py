@@ -14,7 +14,9 @@ def main():
     for line in sys.stdin:
         line_list = line.strip().split("\t")
         url = line_list[0]
-        dict_info = json.loads(line_list[-1].decode("gb18030", errors="ignore"))
+
+        print line_list[-1].decode("gb18030", errors="ignore")
+        dict_info = json.loads(line_list[-1])
 
         print url
         x, confidence = is_xiazai(url, dict_info)

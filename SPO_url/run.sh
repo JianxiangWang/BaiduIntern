@@ -3,8 +3,7 @@
 #[ $# -ge 1 -a -f "$1" ] && input="$1" || input="-"
 
 work_dir=`pwd`/qiandaohu
-s='2c work_dir='$work_dir
-sed -e ${s} qiandaohu/qianparamaters.conf.temp > qiandaohu/qianparamaters.conf
+sed -e '2c\work_dir='$work_dir qiandaohu/paramaters.conf.temp > qiandaohu/paramaters.conf
 
 while read line
 do

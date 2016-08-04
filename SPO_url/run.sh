@@ -4,7 +4,7 @@
 
 work_dir=`pwd`/qiandaohu
 s='2c work_dir='$work_dir
-sed -e s qiandaohu/qianparamaters.conf.temp > qiandaohu/qianparamaters.conf
+sed -e ${s} qiandaohu/qianparamaters.conf.temp > qiandaohu/qianparamaters.conf
 
 while read line
 do

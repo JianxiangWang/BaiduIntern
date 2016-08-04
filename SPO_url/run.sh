@@ -2,6 +2,9 @@
 
 #[ $# -ge 1 -a -f "$1" ] && input="$1" || input="-"
 
+work_dir=`pwd`/qiandaohu
+sed -e '2c/work_dir='$work_dir qiandaohu/qianparamaters.conf.temp > qianparamaters.conf
+
 while read line
 do
     # 吧
@@ -16,5 +19,10 @@ do
     echo ${line} | xiazai/main.py
     # 音频
     echo ${line} | yinpin/main.py
+
+    # 介峰部分
+    cd qiandaohu/bin
+    echo ${line} | ./main.py
+    cd ../..
 
 done

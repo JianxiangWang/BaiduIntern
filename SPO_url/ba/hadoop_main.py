@@ -27,12 +27,12 @@ def main():
 
 def is_ba(url, dict_info):
 
-    # 首先, 域名过滤
-    if "tieba.baidu.com" not in url:
-        return (False, 0)
+    # # 首先, 域名过滤
+    # if "tieba.baidu.com" not in url:
+    #     return (False, 0)
+
 
     page_type_list = dict_info["page_type"]
-
     print "\t".join(page_type_list)
     if {unicode("论坛帖子页")} & set(page_type_list):
         return (True, 1)

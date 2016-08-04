@@ -14,7 +14,8 @@ def main():
         url = line_list[0]
         dict_info = json.loads(line_list[-1])
 
-        if is_shipin(url, dict_info):
+        x, confidence = is_shipin(url, dict_info)
+        if x:
             title = dict_info["realtitle"]
             S = title
             P = "视频"
@@ -28,9 +29,9 @@ def is_shipin(url, dict_info):
     page_type_list = dict_info["page_type"]
 
     if {u"视频播放页"} & set(page_type_list):
-        return True
+        return (True, 1)
     else:
-        return False
+        return (False, 0)
 
 
 if __name__ == '__main__':

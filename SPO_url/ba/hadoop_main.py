@@ -39,7 +39,5 @@ def is_ba(url, dict_info):
         return (False, 0)
 
 
-
-
 if __name__ == '__main__':
     main()

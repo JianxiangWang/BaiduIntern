@@ -50,9 +50,5 @@ def get_meta_content(soup):
     return content.strip()
 
 
-
-
-
-
 if __name__ == '__main__':
     main()

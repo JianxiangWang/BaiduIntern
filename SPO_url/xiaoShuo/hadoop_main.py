@@ -33,6 +33,5 @@ def is_xiaoShuo(url, dict_info):
         return (False, 0)
 
 
-
 if __name__ == '__main__':
     main()

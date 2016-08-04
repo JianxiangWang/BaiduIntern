@@ -15,4 +15,9 @@ do
     echo ${line} | xiazai/hadoop_main.py
     # 音频
     echo ${line} | yinpin/hadoop_main.py
+#    # 介峰部分
+#    cd
+#        ...
+#    cd
+
 done

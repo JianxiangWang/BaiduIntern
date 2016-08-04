@@ -45,7 +45,7 @@ def has_download_a_tag_1(soup):
 
     for content in soup.find_all(attrs={"style": "border:3px solid red;overflow-y:auto;overflow-x:auto;"}):
         for a_tag in content.find_all("a"):
-            print a_tag.stripped_strings
+            print "\t".join(a_tag.stripped_strings)
             if u"下载" in "\t".join(a_tag.stripped_strings):
 
                 # 至少得有这些标签之一

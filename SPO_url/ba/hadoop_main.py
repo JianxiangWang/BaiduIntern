@@ -33,7 +33,7 @@ def is_ba(url, dict_info):
 
     page_type_list = dict_info["page_type"]
 
-    if {"论坛帖子页"} & set(page_type_list):
+    if {u"论坛帖子页"} & set(page_type_list):
         return (True, 1)
     else:
         return (False, 0)

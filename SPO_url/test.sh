@@ -1,7 +1,4 @@
 #!/usr/bin/env bash
 
-# Absolute path to this script, e.g. /home/user/bin/foo.sh
-SCRIPT=$(readlink -f "$0")
-# Absolute path this script is in, thus /home/user/bin
-SCRIPTPATH=$(dirname "$SCRIPT")
-echo $SCRIPTPATH
+work_dir=`pwd`/qiandaohu
+echo '2c/work_dir='$work_dir

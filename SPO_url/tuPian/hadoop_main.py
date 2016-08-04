@@ -31,7 +31,7 @@ def main():
 
 
 def is_tupian(url, dict_info):
-    soup = BeautifulSoup(dict_info["cont_html"], "html.parser")
+    soup = BeautifulSoup(dict_info["cont_html"].decode("gb18030", errors="ignore"), "html.parser")
 
     #
     images, content_string = get_all_images_and_content_string(soup)

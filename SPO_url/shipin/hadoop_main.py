@@ -27,7 +27,7 @@ def is_shipin(url, dict_info):
 
     page_type_list = dict_info["page_type"]
 
-    if {"视频播放页"} & set(page_type_list):
+    if {u"视频播放页"} & set(page_type_list):
         return True
     else:
         return False

@@ -27,11 +27,10 @@ def main():
 def is_xiaoShuo(url, dict_info):
 
     page_type_list = dict_info["page_type"]
-    if {"小说首页", "小说列表页"} & set(page_type_list):
+    if {u"小说首页", u"小说列表页"} & set(page_type_list):
         return (True, 1)
     else:
         return (False, 0)
-
 
 
 if __name__ == '__main__':

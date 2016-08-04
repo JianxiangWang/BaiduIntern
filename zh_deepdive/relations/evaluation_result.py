@@ -291,6 +291,35 @@ def _test_SPO_to_json_new(in_file, to_file):
         json.dump(dict_P_to_so_list, fout, ensure_ascii=False)
 
 
+def _test_SPO_to_json_new_data(in_file, to_file):
+
+    with open(in_file) as fin, open(to_file, "w") as fout:
+
+        dict_P_to_so_list = {}
+        for line in fin:
+            # print line.strip().split("\t")[-1]
+            if line.strip().split("\t")[-1] == "0":
+                continue
+
+            spo_list = eval(line.strip().split("\t")[-1])
+
+            for x in spo_list:
+
+                if x.strip() == "":
+                    continue
+
+                s, P, o = x.split("-")
+
+                if P not in dict_P_to_so_list:
+                    dict_P_to_so_list[P] = []
+                dict_P_to_so_list[P].append((s, o))
+
+        for P in dict_P_to_so_list:
+            dict_P_to_so_list[P] = sorted(set(dict_P_to_so_list[P]))
+
+        json.dump(dict_P_to_so_list, fout, ensure_ascii=False)
+
+
 def _test_predict_SPO_to_json(in_file, to_file):
 
     dict_predict = json.load(open(in_file))
@@ -350,6 +379,12 @@ def evaluate(statistics_file, predict_json_file, gold_json_file, to_file):
 
     dict_result = {}
     for P in dict_predict:
+
+        if P.startswith(unicode("人物")):
+            continue
+        print P
+
+
 
         dict_result[P] = {}
 
@@ -430,11 +465,15 @@ def evaluate(statistics_file, predict_json_file, gold_json_file, to_file):
     for x in statistics_list:
         P, positive, negative = x["P"], x["positive"], x["negative"]
         P = unicode(P)
+
+        if P not in dict_result:
+            continue
+
         dict_result[P]["positive"] = int(positive)
         dict_result[P]["negative"] = int(negative)
 
 
-    fout = codecs.open(to_file, "w", encoding="gb18030")
+    fout = codecs.open(to_file, "w", encoding="utf-8")
     fout.write("P,训练集正例SPO个数,训练集负例SPO个数,precision,recall\n")
     for P in sorted(dict_result.keys()):
         fout.write("%s,%s,%s,%s,%s\n" % (P,
@@ -481,15 +520,16 @@ if __name__ == '__main__':
     #             "/home/jianxiang/pycharmSpace/BaiduIntern/zh_deepdive/data/seed.test.data.sample.json",
     #             "evaluation.result.csv")
 
-    # get_predict_result("models_84P_new_so", "predict_84P_new_so.json")
+    get_predict_result("models_84P_new_data_new_so", "predict_84P_new_data_new_so.json")
     # get_statistics("models_84P", "train_label_statistics.csv")
 
     # _test_SPO_to_json_new("SPO.all.set.data.all.res", "SPO.all.set.data.all.res.json")
-    _test_SPO_to_json_new("sent_all_SPO.format.res.all", "SPO.all.set.data.all.res.json")
-    _test_predict_SPO_to_json_only_test_so("SPO.all.set.data.all.res.json", "predict_84P_new_so.json", 0.9, "predict_84P_only_test_so_prob_0.9.json")
+    # _test_SPO_to_json_new("sent_all_SPO.format.res.all", "SPO.all.set.data.all.res.json")
+    _test_SPO_to_json_new_data("all_sent_all_SPO.format.res.all", "all_sent_all_SPO.format.res.all.json")
+    _test_predict_SPO_to_json_only_test_so("all_sent_all_SPO.format.res.all.json", "predict_84P_new_data_new_so.json", 0.5, "predict_84P_only_test_so_prob_0.9.json")
     # _test_predict_SPO_to_json("predict_84P.json", "predict_84P_only_so.json")
 
-    evaluate("train_label_statistics.csv", "predict_84P_only_test_so_prob_0.9.json", "SPO.all.set.data.all.res.json", "evaluate_500_sents_only_test_so_reverseP_new_so_prob_0.9.gb18030.csv")
+    evaluate("train_label_statistics.csv", "predict_84P_only_test_so_prob_0.9.json", "all_sent_all_SPO.format.res.all.json", "evaluate_only_test_so_reverseP_new_data_new_so_prob_0.9.gb18030.csv")
 
     # get_predict_to_sent_spo("models_84P", "predict_sent_spo.txt")
 

@@ -29,7 +29,7 @@ def main():
 
 def is_xiazai(url, dict_info):
 
-    soup = BeautifulSoup(dict_info["cont_html"].decode("gb18030", errors="ignore"), "html.parser")
+    soup = BeautifulSoup(dict_info["cont_html"], "html.parser")
 
     print soup.title
 

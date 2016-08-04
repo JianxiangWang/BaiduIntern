@@ -16,6 +16,7 @@ def main():
         url = line_list[0]
         dict_info = json.loads(line_list[-1])
 
+        print url
         x, confidence = is_xiazai(url, dict_info)
         if x:
             title = dict_info["realtitle"]

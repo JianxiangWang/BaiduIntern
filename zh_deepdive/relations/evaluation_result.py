@@ -380,8 +380,8 @@ def evaluate(statistics_file, predict_json_file, gold_json_file, to_file):
     dict_result = {}
     for P in dict_predict:
 
-        if P.startswith(unicode("人物")):
-            continue
+        # if P.startswith(unicode("人物")):
+        #     continue
         print P
 
 
@@ -526,7 +526,7 @@ if __name__ == '__main__':
     # _test_SPO_to_json_new("SPO.all.set.data.all.res", "SPO.all.set.data.all.res.json")
     # _test_SPO_to_json_new("sent_all_SPO.format.res.all", "SPO.all.set.data.all.res.json")
     _test_SPO_to_json_new_data("all_sent_all_SPO.format.res.all", "all_sent_all_SPO.format.res.all.json")
-    _test_predict_SPO_to_json_only_test_so("all_sent_all_SPO.format.res.all.json", "predict_84P_new_data_new_so.json", 0.5, "predict_84P_only_test_so_prob_0.9.json")
+    _test_predict_SPO_to_json_only_test_so("all_sent_all_SPO.format.res.all.json", "predict_84P_new_data_new_so.json", 0.99, "predict_84P_only_test_so_prob_0.9.json")
     # _test_predict_SPO_to_json("predict_84P.json", "predict_84P_only_so.json")
 
     evaluate("train_label_statistics.csv", "predict_84P_only_test_so_prob_0.9.json", "all_sent_all_SPO.format.res.all.json", "evaluate_only_test_so_reverseP_new_data_new_so_prob_0.9.gb18030.csv")

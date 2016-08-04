@@ -20,19 +20,20 @@ def main():
 
     for line in sys.stdin:
         url = line.strip()
-        if is_ba(url):
+        x, confidence = is_ba(url)
+        if x:
             title = get_url_title(url)
             S = title
             P = "吧"
             O = url
 
-            print "%s\t%s\t%s\t%s" % (url, S, P, O)
+            print "%s\t%s\t%s\t%s\t%.4f" % (url, S, P, O, confidence)
 
 def is_ba(url):
 
     # 首先, 域名过滤
     if "tieba.baidu.com" not in url:
-        return False
+        return (False, 0)
 
     cmd = "cd %s && ./run_wdbtools-pc.sh '%s' 2>>run_wdbtools-pc.stderr" % (TOOLS_PATH, url)
     fin = os.popen(cmd)
@@ -41,9 +42,9 @@ def is_ba(url):
     page_type_list = eval(result.strip())
 
     if {"论坛帖子页"} & set(page_type_list):
-        return True
+        return (True, 1)
     else:
-        return False
+        return (False, 0)
 
 def get_url_title(url):
 

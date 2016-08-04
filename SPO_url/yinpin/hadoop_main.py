@@ -16,13 +16,14 @@ def main():
         url = line_list[0]
         dict_info = json.loads(line_list[-1])
 
-        if is_shipin(url, dict_info):
+        x, confidence= is_shipin(url, dict_info)
+        if x:
             title = dict_info["realtitle"]
             S = title
             P = "音频"
             O = url
 
-            print "%s\t%s\t%s\t%s" % (url, S, P, O)
+            print "%s\t%s\t%s\t%s\t%.4f" % (url, S, P, O, confidence)
 
 
 def is_shipin(url, dict_info):
@@ -32,13 +33,13 @@ def is_shipin(url, dict_info):
     # 基于meta的识别
     content = get_meta_content(soup)
     if "音乐" not in content and "播放器" not in content and "电台" not in content:
-        return False
+        return (False, 0)
 
     # 判断页面是否有播放元素
     if len(soup.find_all("a", attrs={"title": "播放"})) > 0:
-        return True
+        return (True, 0.8)
 
-    return False
+    return (False, 0)
 
 
 def get_meta_content(soup):

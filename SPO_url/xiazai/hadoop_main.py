@@ -16,23 +16,27 @@ def main():
         url = line_list[0]
         dict_info = json.loads(line_list[-1])
 
-        if is_xiazai(url, dict_info):
+        x, confidence = is_xiazai(url, dict_info)
+        if x:
             title = dict_info["realtitle"]
             S = title
             P = "下载"
             O = url
 
-            print "%s\t%s\t%s\t%s" % (url, S, P, O)
+            print "%s\t%s\t%s\t%s\t%.4f" % (url, S, P, O, confidence)
 
 
 def is_xiazai(url, dict_info):
 
     soup = BeautifulSoup(dict_info["html"], "html.parser")
 
-    if has_download_a_tag_1(soup) or has_download_a_tag_2(soup):
-        return True
+    if has_download_a_tag_1(soup):
+        return (True, 0.9)
 
-    return False
+    if has_download_a_tag_2(soup):
+        return (True, 0.8)
+
+    return (False, 0)
 
 
 # 1. 正文中, 下载被<a>包围, 至少得有href/onclick/id属性 且href指向的不是html

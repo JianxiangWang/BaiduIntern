@@ -20,13 +20,14 @@ def main():
 
     for line in sys.stdin:
         url = line.strip()
-        if is_xiaoShuo(url):
+        x, confidence = is_xiaoShuo(url)
+        if x:
             title = get_url_title(url)
             S = title
             P = "体裁/小说"
             O = url
 
-            print "%s\t%s\t%s\t%s" % (url, S, P, O)
+            print "%s\t%s\t%s\t%s\t%.4f" % (url, S, P, O, confidence)
 
 
 def is_xiaoShuo(url):
@@ -37,9 +38,9 @@ def is_xiaoShuo(url):
 
     page_type_list = eval(result.strip())
     if {"小说首页", "小说列表页"} & set(page_type_list):
-        return True
+        return (True, 1)
     else:
-        return False
+        return (False, 0)
 
 def get_url_title(url):
 

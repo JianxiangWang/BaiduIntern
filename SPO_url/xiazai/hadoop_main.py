@@ -29,7 +29,9 @@ def main():
 
 def is_xiazai(url, dict_info):
 
-    soup = BeautifulSoup(dict_info["cont_html"].decode("gb18030", errors="ignore"), "html.parser")
+    soup = BeautifulSoup(dict_info["cont_html"], "html.parser")
+
+    print soup.title
 
     if has_download_a_tag_1(soup):
         return (True, 0.9)
@@ -45,8 +47,7 @@ def has_download_a_tag_1(soup):
 
     for content in soup.find_all(attrs={"style": "border:3px solid red;overflow-y:auto;overflow-x:auto;"}):
         for a_tag in content.find_all("a"):
-            print "\t".join(a_tag.stripped_strings)
-            if u"下载" in "\t".join(a_tag.stripped_strings):
+            if "下载" in "\t".join(a_tag.stripped_strings):
 
                 # 至少得有这些标签之一
                 if set(map(lambda x: x.lower(), a_tag.attrs.keys())) & {"href", "onclick", "id"}:

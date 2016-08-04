@@ -14,22 +14,23 @@ def main():
         url = line_list[0]
         dict_info = json.loads(line_list[-1])
 
-        if is_xiaoShuo(url, dict_info):
+        x, confidence = is_xiaoShuo(url, dict_info)
+        if x:
             title = dict_info["realtitle"]
             S = title
             P = "体裁/小说"
             O = url
 
-            print "%s\t%s\t%s\t%s" % (url, S, P, O)
+            print "%s\t%s\t%s\t%s\t%.4f" % (url, S, P, O, confidence)
 
 
 def is_xiaoShuo(url, dict_info):
 
     page_type_list = dict_info["page_type"]
     if {"小说首页", "小说列表页"} & set(page_type_list):
-        return True
+        return (True, 1)
     else:
-        return False
+        return (False, 0)
 
 
 

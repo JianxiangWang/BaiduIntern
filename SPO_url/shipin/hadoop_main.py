@@ -20,7 +20,7 @@ def main():
             P = "视频"
             O = url
 
-            print "%s\t%s\t%s\t%s" % (url, S, P, O)
+            print "%s\t%s\t%s\t%s\t%.4f" % (url, S, P, O, confidence)
 
 
 def is_shipin(url, dict_info):

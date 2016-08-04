@@ -17,13 +17,14 @@ def main():
         url = line_list[0]
         dict_info = json.loads(line_list[-1])
 
-        if is_tupian(url, dict_info):
+        x, confidence = is_tupian(url, dict_info)
+        if x:
             title = dict_info["realtitle"]
             S = title
             P = "图片"
             O = url
 
-            print "%s\t%s\t%s\t%s" % (url, S, P, O)
+            print "%s\t%s\t%s\t%s\t%.4f" % (url, S, P, O, confidence)
 
 
 def is_tupian(url, dict_info):
@@ -40,26 +41,33 @@ def is_tupian(url, dict_info):
             dict_style = style_to_dict(image["style"])
             if "height" in dict_style and "width" in dict_style:
                 flag = 1
-                height = int(dict_style["height"].lower().replace("px", ""))
-                width = int(dict_style["width"].lower().replace("px", ""))
-                if height > 300 and width > 200:
-                    satisfied_images.append(image)
+                try:
+                    height = int(dict_style["height"].lower().replace("px", ""))
+                    width = int(dict_style["width"].lower().replace("px", ""))
+                    if height > 300 and width > 200:
+                        satisfied_images.append(image)
+                except:
+                    continue
+
 
         # 没找到去 width="500" height="375"
         if flag == 0:
             if "height" in image.attrs and "width" in image.attrs:
-                height = int(image["height"].lower().replace("px", ""))
-                width = int(image["width"].lower().replace("px", ""))
-                if height > 300 and width > 200:
-                    satisfied_images.append(image)
+                try:
+                    height = int(image["height"].lower().replace("px", ""))
+                    width = int(image["width"].lower().replace("px", ""))
+                    if height > 300 and width > 200:
+                        satisfied_images.append(image)
+                except:
+                    continue
 
     if sum([_get_image_position(url, soup, image) for image in satisfied_images[:2]]) >= 1:
         # 文字与满足大小的图片的比例
         rate = len(content_string) / len(satisfied_images)
         if rate > 1000:
-            return False
+            return (False, 0)
         else:
-            return True
+            return (True, 1)
     else:
 
         # 没有满足条件, 获取所有的前50%图片的位置,判断是不是都在页面的上半部分
@@ -67,18 +75,19 @@ def is_tupian(url, dict_info):
 
         # 图片数量小于3的, 直接不考虑
         if image_num < 3:
-            return False
+            return (False, 0)
         # 必须全部在上面
         if image_num >= 3 and image_num <=5:
             if sum([_get_image_position(url, soup, image) for image in images]) == image_num:
-                return True
+                return (True, 0.8)
             else:
-                return False
+                return (False, 0)
         # 图片数量大于5的
         if sum([_get_image_position(url, soup, image) for image in images[:len(images)/2]]) == len(images)/2:
-            return True
+            return (True, 0.7)
         else:
-            return False
+            return (False, 0)
+
 
 
 def get_all_images_and_content_string(soup):

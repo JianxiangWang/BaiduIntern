@@ -15,27 +15,28 @@ def main():
         url = line_list[0]
         dict_info = json.loads(line_list[-1])
 
-        if is_ba(url, dict_info):
+        x, confidence = is_ba(url, dict_info)
+        if x:
             title = dict_info["realtitle"]
             S = title
             P = "吧"
             O = url
 
-            print "%s\t%s\t%s\t%s" % (url, S, P, O)
+            print "%s\t%s\t%s\t%s\t%.4f" % (url, S, P, O, confidence)
 
 
 def is_ba(url, dict_info):
 
     # 首先, 域名过滤
     if "tieba.baidu.com" not in url:
-        return False
+        return (False, 0)
 
     page_type_list = dict_info["page_type"]
 
     if {"论坛帖子页"} & set(page_type_list):
-        return True
+        return (True, 1)
     else:
-        return False
+        return (False, 0)
 
 
 

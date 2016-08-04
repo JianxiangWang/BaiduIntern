@@ -19,13 +19,14 @@ PACK_PATH     = os.getcwd() + "/data/packs"
 def main():
     for line in sys.stdin:
         url = line.strip()
-        if is_tupian(url):
+        x, confidence = is_tupian(url)
+        if x:
             title = get_url_title(url)
             S = title
             P = "图片"
             O = url
 
-            print "%s\t%s\t%s\t%s" % (url, S, P, O)
+            print "%s\t%s\t%s\t%s\t%.4f" % (url, S, P, O, confidence)
 
 
 def is_tupian(url):
@@ -67,9 +68,9 @@ def is_tupian(url):
         # 文字与满足大小的图片的比例
         rate = len(content_string) / len(satisfied_images)
         if rate > 1000:
-            return False
+            return (False, 0)
         else:
-            return True
+            return (True, 1)
     else:
 
         # 没有满足条件, 获取所有的前50%图片的位置,判断是不是都在页面的上半部分
@@ -77,18 +78,18 @@ def is_tupian(url):
 
         # 图片数量小于3的, 直接不考虑
         if image_num < 3:
-            return False
+            return (False, 0)
         # 必须全部在上面
         if image_num >= 3 and image_num <=5:
             if sum([_get_image_position(url, soup, image) for image in images]) == image_num:
-                return True
+                return (True, 0.8)
             else:
-                return False
+                return (False, 0)
         # 图片数量大于5的
         if sum([_get_image_position(url, soup, image) for image in images[:len(images)/2]]) == len(images)/2:
-            return True
+            return (True, 0.7)
         else:
-            return False
+            return (False, 0)
 
 
 def get_all_images_and_content_string(soup):

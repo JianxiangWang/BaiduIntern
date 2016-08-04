@@ -20,13 +20,14 @@ def main():
 
     for line in sys.stdin:
         url = line.strip()
-        if is_shipin(url):
+        x, confidence = is_shipin(url)
+        if x:
             title = get_url_title(url)
             S = title
             P = "视频"
             O = url
 
-            print "%s\t%s\t%s\t%s" % (url, S, P, O)
+            print "%s\t%s\t%s\t%s\t%.4f" % (url, S, P, O, confidence)
 
 
 def is_shipin(url):
@@ -38,9 +39,9 @@ def is_shipin(url):
     page_type_list = eval(result.strip())
 
     if {"视频播放页"} & set(page_type_list):
-        return True
+        return (True, 1)
     else:
-        return False
+        return (False, 0)
 
 def get_url_title(url):
 

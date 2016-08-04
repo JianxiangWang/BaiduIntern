@@ -20,13 +20,14 @@ PACK_PATH     = os.getcwd() + "/data/packs"
 def main():
     for line in sys.stdin:
         url = line.strip()
-        if is_xiazai(url):
+        x, confidence = is_xiazai(url)
+        if x:
             title = get_url_title(url)
             S = title
             P = "下载"
             O = url
 
-            print "%s\t%s\t%s\t%s" % (url, S, P, O)
+            print "%s\t%s\t%s\t%s\t%.4f" % (url, S, P, O, confidence)
 
 
 def is_xiazai(url):
@@ -34,13 +35,16 @@ def is_xiazai(url):
     html_path = get_url_tagged_content_html_path(url)
     soup = BeautifulSoup(open(html_path), "html.parser")
 
-    if has_download_a_tag_1(soup) or has_download_a_tag_2(soup):
-        return True
+    if has_download_a_tag_1(soup):
+        return (True, 0.9)
 
-    return False
+    if has_download_a_tag_2(soup):
+        return (True, 0.8)
+
+    return (False, 0)
 
 
-# 1. 正文中, 下载被<a>包围, 至少得有href/onclick/id属性 且href指向的不是html
+# 1. 正文中, 下载被<a>包围, 至少得有href/onclick/id属性 且href指向的不是html, confidence: 0.9
 def has_download_a_tag_1(soup):
 
     for content in soup.find_all(attrs={"style": "border:3px solid red;overflow-y:auto;overflow-x:auto;"}):
@@ -58,7 +62,7 @@ def has_download_a_tag_1(soup):
     return False
 
 
-# 如果1.不成立, 对于满足要求的<a>, 判断周围是不是有 下载 关键字
+# 如果1.不成立, 对于满足要求的<a>, 判断周围是不是有 下载 关键字, confidence: 0.8
 def has_download_a_tag_2(soup):
     for content in soup.find_all(attrs={"style": "border:3px solid red;overflow-y:auto;overflow-x:auto;"}):
         for a_tag in content.find_all("a"):

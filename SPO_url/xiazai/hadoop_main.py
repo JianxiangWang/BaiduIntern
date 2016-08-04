@@ -28,7 +28,7 @@ def main():
 
 def is_xiazai(url, dict_info):
 
-    soup = BeautifulSoup(dict_info["html"], "html.parser")
+    soup = BeautifulSoup(dict_info["cont_html"].decode("gb18030", errors="ignore"), "html.parser")
 
     if has_download_a_tag_1(soup):
         return (True, 0.9)

@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# 先打包, 上传至 hadoop ...
+
+
 INPUT="/app/ps/spider/kg-value/wangjianxiang01/data/SPO_url/test_urls_in"
 OUTPUT="/app/ps/spider/kg-value/wangjianxiang01/data/SPO_url/test_urls_output"
 

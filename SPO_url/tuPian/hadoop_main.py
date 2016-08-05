@@ -16,8 +16,6 @@ def main():
         line_list = line.strip().split("\t")
         url = line_list[0]
 
-        print url
-
         dict_info = json.loads(line_list[-1])
 
         x, confidence = is_tupian(url, dict_info)

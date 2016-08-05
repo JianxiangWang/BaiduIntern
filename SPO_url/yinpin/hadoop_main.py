@@ -32,7 +32,7 @@ def is_shipin(url, dict_info):
 
     # 基于meta的识别
     content = get_meta_content(soup)
-    print content, type(content)
+    print content, type(content), "的" in content
     if "音乐" not in content and "播放器" not in content and "电台" not in content:
         return (False, 0)
 

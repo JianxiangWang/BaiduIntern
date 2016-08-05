@@ -28,7 +28,7 @@ def main():
 
 def is_shipin(url, dict_info):
 
-    soup = BeautifulSoup(dict_info["html"], "html.parser")
+    soup = BeautifulSoup(dict_info["cont_html"], "html.parser")
 
     # 基于meta的识别
     content = get_meta_content(soup)

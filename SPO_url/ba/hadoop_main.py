@@ -11,6 +11,9 @@ import sys
 def main():
 
     for line in sys.stdin:
+
+        print line
+
         line_list = line.strip().split("\t")
         url = line_list[0]
         dict_info = json.loads(line_list[-1])

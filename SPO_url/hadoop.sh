@@ -1,7 +1,9 @@
 #!/bin/bash
 
 # 先打包, 上传至 hadoop ...
-
+tar zcvf qdh.tar.gz ba shipin tuPian xiaoShuo xiazai yinpin qiandaohu_hadoop
+hadoop fs -rm /app/ps/spider/kg-value/wangjianxiang01/qdh.tar.gz
+hadoop fs -put qdh.tar.gz /app/ps/spider/kg-value/wangjianxiang01/
 
 INPUT="/app/ps/spider/kg-value/wangjianxiang01/data/SPO_url/test_urls_in"
 OUTPUT="/app/ps/spider/kg-value/wangjianxiang01/data/SPO_url/test_urls_output"
@@ -11,11 +13,11 @@ hadoop fs -rmr ${OUTPUT}
 hadoop streaming \
     -input "${INPUT}"  \
     -output "${OUTPUT}" \
-    -mapper "sh -x run_on_hadoop.sh" \
+    -mapper "run_on_hadoop.sh" \
     -reducer "NONE" \
     -file "run.sh" \
     -cacheArchive "/app/ps/spider/kg-value/wangjianxiang01/python.tar.gz#." \
-    -cacheArchive "/app/ps/spider/kg-value/wangjianxiang01/sword.tar.gz#." \
+    -cacheArchive "/app/ps/spider/kg-value/wangjianxiang01/qdh.tar.gz#." \
     -jobconf mapred.job.priority="VERY_HIGH" \
     -jobconf mapred.textoutputformat.ignoreseparator=true \
     -jobconf stream.num.map.output.key.fields=4 \

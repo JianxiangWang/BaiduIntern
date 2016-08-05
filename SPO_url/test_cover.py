@@ -66,4 +66,5 @@ def main(url_parsed_file, url_predict_file):
 
 
 if __name__ == '__main__':
-    main("data/org.all", "data/org.all.spo")
+    # main("data/org.all", "data/org.all.spo")
+    main("data/req1.all", "data/req1.all.spo")

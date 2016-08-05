@@ -1,10 +1,5 @@
 #!/usr/bin/env bash
 
-cd qiandaohu
-work_dir=`pwd`
-sed -e '2c\work_dir='$work_dir paramaters.conf.temp > paramaters.conf
-cd ../
-
 while read -r line
 do
     # 吧
@@ -21,9 +16,7 @@ do
     echo -nE "${line}" | yinpin/hadoop_main.py
 
     # 介峰部分
-    cd qiandaohu/bin
+    cd qiandaohu_hadoop/bin
         echo -nE "${line}" | ./main.py
     cd ../..
-
-
 done

@@ -3,7 +3,7 @@
 [ $# -ge 1 -a -f "$1" ] && input="$1" || input="-"
 #cat $input | tee >(ba/hadoop_main.py)  | tuPian/hadoop_main.py
 
-mkfifo pipe pipe1 pipe2 pipe3 pipe4 pipe5
+mkfifo pipe1 pipe2 pipe3 pipe4 pipe5
 
 cat pipe1 | (ba/hadoop_main.py) &
 cat pipe2 | (shipin/hadoop_main.py) &

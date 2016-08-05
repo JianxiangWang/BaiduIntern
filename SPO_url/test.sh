@@ -4,5 +4,7 @@
 #cat $input | tee >(ba/hadoop_main.py)  | tuPian/hadoop_main.py
 
 mkfifo pipe
-cat pipe | (ba/hadoop_main.py) & (xiaoShuo/hadoop_main.py) &
-cat $input | tee pipe | tuPian/hadoop_main.py
+cat pipe | (ba/hadoop_main.py) &
+mkfifo pipe1
+cat pipe1 | (xiaoShuo/hadoop_main.py) &
+cat $input | tee pipe pipe1 | tuPian/hadoop_main.py

@@ -13,6 +13,7 @@ def main():
     for line in sys.stdin:
         line_list = line.strip().split("\t")
         url = line_list[0]
+        print line_list[-1]
         dict_info = json.loads(line_list[-1])
 
         x, confidence = is_ba(url, dict_info)

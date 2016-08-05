@@ -35,7 +35,7 @@ def main(url_parsed_file, url_predict_file):
     spo_urls = set(dict_url_to_spo.keys())
 
     # SPO 提取数
-    print "========SPO提取数=============="
+    print "==========SPO提取数============"
     print num_extract
 
     # 覆盖率

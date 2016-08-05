@@ -30,14 +30,35 @@ def main(url_parsed_file, url_predict_file):
         dict_url_to_spo[url].append((s, p, o))
     fin.close()
 
-    # 覆盖率
-    print "%d / %d = %.2f%%" % (len(set(dict_url_to_page_type.keys()) & set(dict_url_to_spo.keys())),
-                                len(dict_url_to_page_type),
-                                len(set(dict_url_to_page_type.keys()) & set(dict_url_to_spo.keys())) / float(len(dict_url_to_page_type))
-    )
+    #
+    all_urls = set(dict_url_to_page_type.keys())
+    spo_urls = set(dict_url_to_spo.keys())
 
+    # 覆盖率
+    print "====覆盖率======"
+    print "%d / %d = %.2f%%" % (len(spo_urls & all_urls), len(all_urls), float(len(spo_urls & all_urls)) / len(all_urls) * 100)
     # 未覆盖
-    # for url
+    no_page_type_num = 0
+    dict_page_type_count = {}
+    for url in all_urls - spo_urls:
+        for page_type in dict_url_to_page_type[url]:
+            if page_type not in dict_page_type_count:
+                dict_page_type_count[page_type] = 0
+            dict_page_type_count[page_type] += 1
+
+        # 没有page type 的
+        if dict_url_to_page_type[url] == []:
+            no_page_type_num += 1
+
+    print "====未覆盖的 page type 统计======"
+    for page_type in dict_page_type_count:
+        print page_type, dict_page_type_count[page_type]
+    print "无page type: %d" % (no_page_type_num)
+
+
+
+
+
 
 
 if __name__ == '__main__':

@@ -34,8 +34,12 @@ def main(url_parsed_file, url_predict_file):
     all_urls = set(dict_url_to_page_type.keys())
     spo_urls = set(dict_url_to_spo.keys())
 
+    # SPO 提取数
+    print "========SPO提取数=============="
+    print num_extract
+
     # 覆盖率
-    print "====覆盖率======"
+    print "===========覆盖率=============="
     print "%d / %d = %.2f%%" % (len(spo_urls & all_urls), len(all_urls), float(len(spo_urls & all_urls)) / len(all_urls) * 100)
     # 未覆盖
     no_page_type_num = 0

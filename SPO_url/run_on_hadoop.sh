@@ -2,11 +2,11 @@
 
 
 
-while read line
+while read -r  line
 do
 #    echo ${line}
     # 吧
-    echo -E "${line}" | ba/hadoop_main.py
+    echo -nE "${line}" | ba/hadoop_main.py
 #    # 视频
 #    echo ${line} | shipin/hadoop_main.py
 #    # 图片

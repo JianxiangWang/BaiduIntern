@@ -8,8 +8,8 @@ import sys
 
 
 # 输入url, 判断是不是 视频
-def main():
-    for line in sys.stdin:
+def main(fin):
+    for line in fin:
 
         line_list = line.strip().split("\t")
         url = line_list[0]
@@ -36,4 +36,4 @@ def is_shipin(url, dict_info):
 
 
 if __name__ == '__main__':
-    main()
+    main(sys.stdin)

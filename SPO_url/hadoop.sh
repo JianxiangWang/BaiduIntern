@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # 先打包, 上传至 hadoop ...
-tar zcvf qdh.tar.gz ba shipin tuPian xiaoShuo xiazai yinpin jiefeng
+tar zcf qdh.tar.gz ba shipin tuPian xiaoShuo xiazai yinpin jiefeng
 hadoop fs -rm /app/ps/spider/kg-value/wangjianxiang01/qdh.tar.gz
 hadoop fs -put qdh.tar.gz /app/ps/spider/kg-value/wangjianxiang01/
 
@@ -16,8 +16,8 @@ hadoop streaming \
     -mapper "main.py" \
     -reducer "NONE" \
     -file "main.py" \
-    -cacheArchive "/app/ps/spider/kg-value/wangjianxiang01/python.tar.gz#." \
     -cacheArchive "/app/ps/spider/kg-value/wangjianxiang01/qdh.tar.gz#." \
+    -cacheArchive "/app/ps/spider/kg-value/wangjianxiang01/python.tar.gz#." \
     -jobconf mapred.job.priority="VERY_HIGH" \
     -jobconf mapred.textoutputformat.ignoreseparator=true \
     -jobconf stream.num.map.output.key.fields=4 \

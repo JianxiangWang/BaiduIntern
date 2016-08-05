@@ -3,6 +3,7 @@
 
 while read line
 do
+    echo ${line}
     # 吧
     echo ${line} | ba/hadoop_main.py
     # 视频

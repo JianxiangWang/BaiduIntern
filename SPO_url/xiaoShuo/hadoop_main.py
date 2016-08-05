@@ -14,15 +14,18 @@ def main():
         url = line_list[0]
         dict_info = json.loads(line_list[-1])
 
-        x, confidence = is_xiaoShuo(url, dict_info)
-        if x:
-            title = dict_info["realtitle"]
-            S = title
-            P = "体裁/小说"
-            O = url
+        do_extraction(url, dict_info)
 
-            print "%s\t%s\t%s\t%s\t%.4f" % (url, S, P, O, confidence)
 
+def do_extraction(url, dict_info):
+    x, confidence = is_xiaoShuo(url, dict_info)
+    if x:
+        title = dict_info["realtitle"]
+        S = title
+        P = "体裁/小说"
+        O = url
+
+        print "%s\t%s\t%s\t%s\t%.4f" % (url, S, P, O, confidence)
 
 def is_xiaoShuo(url, dict_info):
 

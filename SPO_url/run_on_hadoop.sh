@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-cd qiandaohu_new
+cd qiandaohu
 work_dir=`pwd`
 sed -e '2c\work_dir='$work_dir paramaters.conf.temp > paramaters.conf
 cd ../
@@ -21,7 +21,7 @@ do
     echo -nE "${line}" | yinpin/hadoop_main.py
 
     # 介峰部分
-    cd qiandaohu_new/bin
+    cd qiandaohu/bin
         echo -nE "${line}" | ./main.py
     cd ../..
 

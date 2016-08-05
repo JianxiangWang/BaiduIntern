@@ -15,7 +15,7 @@ def main():
         line_list = line.strip().split("\t")
         url = line_list[0]
 
-        print line_list[-1].decode("gb18030", errors="ignore")
+        print line_list[-1].decode("gbk", errors="ignore")
         dict_info = json.loads(line_list[-1])
 
         print url

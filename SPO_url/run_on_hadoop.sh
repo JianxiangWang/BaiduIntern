@@ -21,9 +21,8 @@ do
     echo -nE "${line}" | yinpin/hadoop_main.py
 
     # 介峰部分
-    # 介峰部分
     cd qiandaohu_new/bin
-    echo ${line} | ./main.py
+        echo -nE "${line}" | ./main.py
     cd ../..
 
 

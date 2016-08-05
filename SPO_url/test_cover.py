@@ -27,7 +27,7 @@ def main(url_parsed_file, url_predict_file):
         url, s, p, o = line_list[0], line_list[1], line_list[2], line_list[3]
         if url not in dict_url_to_spo:
             dict_url_to_spo[url] = []
-        dict_url_to_spo[url].appped((s, p, o))
+        dict_url_to_spo[url].append((s, p, o))
     fin.close()
 
     # 覆盖率
@@ -35,6 +35,10 @@ def main(url_parsed_file, url_predict_file):
                                 len(dict_url_to_page_type),
                                 len(set(dict_url_to_page_type.keys()) & set(dict_url_to_spo.keys())) / float(len(dict_url_to_page_type))
     )
+
+    # 未覆盖
+    # for url
+
 
 if __name__ == '__main__':
     main("data/org.all", "data/org.all.spo")

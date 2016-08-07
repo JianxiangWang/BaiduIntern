@@ -26,7 +26,7 @@ def do_extraction(url, dict_info):
         title = dict_info["realtitle"]
         S = title
         P = u"图片"
-        O = unicode(url)
+        O = unicode(url, errors="ignore")
 
         print "%s\t%s\t%s\t%s\t%.4f" % (url, S, P, O, confidence)
 

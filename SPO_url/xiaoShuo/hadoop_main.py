@@ -21,11 +21,11 @@ def do_extraction(url, dict_info):
     x, confidence = is_xiaoShuo(url, dict_info)
     if x:
         title = dict_info["realtitle"]
-        S = unicode(title, errors="ignore")
+        S = title
         P = u"体裁/小说"
         O = unicode(url, errors="ignore")
 
-        print "%s\t%s\t%s\t%s\t%.4f" % (url, S, P, O, confidence)
+        print u"%s\t%s\t%s\t%s\t%.4f" % (url, S, P, O, confidence)
 
 def is_xiaoShuo(url, dict_info):
 

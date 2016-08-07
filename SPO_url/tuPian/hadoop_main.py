@@ -24,7 +24,7 @@ def do_extraction(url, dict_info):
     x, confidence = is_tupian(url, dict_info)
     if x:
         title = dict_info["realtitle"]
-        S = title
+        S = unicode(title, errors="ignore")
         P = u"图片"
         O = unicode(url, errors="ignore")
 

@@ -24,7 +24,7 @@ def do_extraction(url, dict_info):
     x, confidence= is_shipin(url, dict_info)
     if x:
         title = dict_info["realtitle"]
-        S = title
+        S = unicode(title, errors="ignore")
         P = u"音频"
         O = unicode(url, errors="ignore")
 

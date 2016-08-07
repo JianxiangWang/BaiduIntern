@@ -32,8 +32,8 @@ for line in sys.stdin:
     dict_info = json.loads(line_list[-1])
 
     # go go go!
-    for extraction in extractions:
-        extraction(url, dict_info)
+    for do_extraction in extractions:
+        do_extraction(url, dict_info)
 
     # 介峰部分
     p.predict(line.strip())

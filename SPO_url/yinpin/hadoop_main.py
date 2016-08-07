@@ -25,7 +25,7 @@ def do_extraction(url, dict_info):
     if x:
         title = dict_info["realtitle"]
         S = title
-        P = "音频"
+        P = u"音频"
         O = url
 
         print "%s\t%s\t%s\t%s\t%.4f" % (url, S, P, O, confidence)

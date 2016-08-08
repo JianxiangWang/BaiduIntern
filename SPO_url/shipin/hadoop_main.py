@@ -22,10 +22,11 @@ def do_extraction(url, dict_info):
 
     x, confidence = is_shipin(url, dict_info)
     if x:
+        url = unicode(url, errors="ignore")
         title = dict_info["realtitle"]
         S = title
         P = u"视频"
-        O = unicode(url, errors="ignore")
+        O = url
 
         print u"%s\t%s\t%s\t%s\t%.4f" % (url, S, P, O, confidence)
 

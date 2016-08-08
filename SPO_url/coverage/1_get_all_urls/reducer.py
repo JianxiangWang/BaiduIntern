@@ -6,4 +6,6 @@ sys.setdefaultencoding('utf-8')
 from itertools import groupby
 
 for key, group in groupby(sys.stdin, key=lambda x: x.strip()):
-    print key
+    for line in group:
+        print line
+        break

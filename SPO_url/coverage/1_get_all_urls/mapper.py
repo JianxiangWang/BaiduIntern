@@ -3,8 +3,21 @@
 import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
+# import ujson as json
+import json
 
+# 我 i
 for line in sys.stdin:
-    url = line.split("\t")[0].strip()
+    line_list = line.strip().split("\t")
+
+    url = line_list[0].strip()
     url = unicode(url, errors="ignore")
-    print url
+
+    try:
+        dict_info = json.loads(line_list[-1])
+        page_type = dict_info["page_type"]
+        print "%s\t%s" % (url, json.dumps(page_type, ensure_ascii=False))
+    except:
+        continue
+
+

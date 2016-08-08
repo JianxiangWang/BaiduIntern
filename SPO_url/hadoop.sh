@@ -5,7 +5,8 @@ tar zcf qdh.tar.gz ba shipin tuPian xiaoShuo xiazai yinpin jiefeng main.py
 hadoop fs -rm /app/ps/spider/kg-value/wangjianxiang01/qdh.tar.gz
 hadoop fs -put qdh.tar.gz /app/ps/spider/kg-value/wangjianxiang01/
 
-INPUT="/app/ps/spider/wdm-site-offline/relation-extraction/dom_extraction/qiandaohu2"
+#INPUT="/app/ps/spider/wdm-site-offline/relation-extraction/dom_extraction/qiandaohu2"
+INPUT="/app/ps/spider/kg-value/wangjianxiang01/data/SPO_url/test_urls_in"
 OUTPUT="/app/ps/spider/kg-value/wangjianxiang01/data/qiandaohu_spo"
 
 hadoop fs -rmr ${OUTPUT}

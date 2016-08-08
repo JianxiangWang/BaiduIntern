@@ -27,20 +27,21 @@ p = PageClassify('prepared')
 
 
 for line in sys.stdin:
-    line_list = line.strip().split("\t")
-    url = line_list[0]
-
     try:
+        line_list = line.strip().split("\t")
+        url = line_list[0]
+
         dict_info = json.loads(line_list[-1])
+
+        # go go go!
+        for do_extraction in extractions:
+            do_extraction(url, dict_info)
+
+        # 介峰部分
+        p.predict(line.strip())
+
     except:
         continue
-
-    # go go go!
-    for do_extraction in extractions:
-        do_extraction(url, dict_info)
-
-    # 介峰部分
-    p.predict(line.strip())
 
 
 

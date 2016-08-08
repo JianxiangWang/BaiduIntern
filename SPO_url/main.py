@@ -3,7 +3,6 @@
 import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
-import ujson as json
 from ba.hadoop_main import do_extraction as ba_extraction
 from shipin.hadoop_main import do_extraction as shipin_extraction
 from tuPian.hadoop_main import do_extraction as tuPian_extraction

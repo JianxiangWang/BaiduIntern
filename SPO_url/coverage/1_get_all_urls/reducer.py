@@ -7,5 +7,5 @@ from itertools import groupby
 
 for key, group in groupby(sys.stdin, key=lambda x: x.strip()):
     for line in group:
-        print line
+        print line.strip()
         break

@@ -28,7 +28,7 @@ hadoop streaming \
     -jobconf mapred.reduce.tasks=0 \
     -jobconf mapred.job.reduce.capacity=300 \
     -jobconf mapred.map.max.attempts=10 \
-    -jobconf mapred.max.map.failures.percent="1" \  # 设置map任务失败率容忍率
+    -jobconf mapred.max.map.failures.percent="1" \
     -jobconf mapred.job.name="wangjianxiang_qdh"
 
 #    -file "main.py" \

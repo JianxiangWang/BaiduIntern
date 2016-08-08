@@ -28,6 +28,10 @@ def do_extraction(url, dict_info):
         P = u"图片"
         O = unicode(url, errors="ignore")
 
+        print url, type(url)
+        print S, type(S)
+        print P, type(P)
+        print O, type(O)
         print u"%s\t%s\t%s\t%s\t%.4f" % (url, S, P, O, confidence)
 
 

@@ -34,7 +34,8 @@ def do_extraction(url, dict_info):
 
 
 def is_tupian(url, dict_info):
-    soup = BeautifulSoup(dict_info["cont_html"], "html.parser")
+    # soup = BeautifulSoup(dict_info["cont_html"], "html.parser")
+    soup = BeautifulSoup(dict_info["cont_html"], "lxml")
 
     #
     images, content_string = get_all_images_and_content_string(soup)

@@ -5,6 +5,6 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 
 for line in sys.stdin:
-    url = line.split("\t")[0]
+    url = line.split("\t")[0].strip()
     url = unicode(url, errors="ignore")
     print url

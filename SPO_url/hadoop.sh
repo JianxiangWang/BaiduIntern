@@ -5,8 +5,8 @@ tar zcf qdh.tar.gz ba shipin tuPian xiaoShuo xiazai yinpin jiefeng main.py
 hadoop fs -rm /app/ps/spider/kg-value/wangjianxiang01/qdh.tar.gz
 hadoop fs -put qdh.tar.gz /app/ps/spider/kg-value/wangjianxiang01/
 
-#INPUT="/app/ps/spider/wdm-site-offline/relation-extraction/dom_extraction/qiandaohu2"
-INPUT="/app/ps/spider/kg-value/wangjianxiang01/data/SPO_url/test_urls_in"
+INPUT="/app/ps/spider/wdm-site-offline/relation-extraction/dom_extraction/qiandaohu2"
+#INPUT="/app/ps/spider/kg-value/wangjianxiang01/data/SPO_url/test_urls_in"
 OUTPUT="/app/ps/spider/kg-value/wangjianxiang01/data/qiandaohu_spo"
 
 hadoop fs -rmr ${OUTPUT}
@@ -23,7 +23,7 @@ hadoop streaming \
     -jobconf stream.num.map.output.key.fields=4 \
     -jobconf mapred.output.compress=true \
     -jobconf mapred.compress.map.output=true \
-    -jobconf mapred.map.tasks=3000 \
+    -jobconf mapred.map.tasks=5000 \
     -jobconf mapred.job.map.capacity=400 \
     -jobconf mapred.reduce.tasks=0 \
     -jobconf mapred.job.reduce.capacity=400 \

@@ -23,10 +23,11 @@ def main():
 def do_extraction(url, dict_info):
     x, confidence = is_tupian(url, dict_info)
     if x:
+        url = unicode(url, errors="ignore")
         title = dict_info["realtitle"]
         S = title
         P = u"图片"
-        O = unicode(url, errors="ignore")
+        O = url
 
         print url, type(url)
         print S, type(S)

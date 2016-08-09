@@ -21,9 +21,10 @@ def main(fin):
             dict_p_to_spo_set[p] = set()
         dict_p_to_spo_set[p].add((s, p, o))
 
-    print "url: %d" % len(url_set)
-    print "spo: %d" % len(spo_set)
+    print "url 数量: %d" % len(url_set)
+    print "spo 数量: %d" % len(spo_set)
     print "==" * 40
+    print "P: 数量"
     for p in dict_p_to_spo_set:
         print "%s: %d" % (p, len(dict_p_to_spo_set[p]))
 

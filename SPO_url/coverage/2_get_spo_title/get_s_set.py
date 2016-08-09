@@ -3,13 +3,23 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-def main(fin):
+def main():
+
+    fin1 = open("spo_titles.ner")
+    fin2 = open("../1_get_all_urls/qiandaohu_spo2")
+
 
     s_set = set()
-    for line in fin:
-        line_list = line.strip().split("\t")
+    for line1, line2 in zip(fin1, fin2):
+
+        # 获取 P
+        P = line2.strip().split("\t")[2]
+        if P in ["新闻", "图片"]:
+            continue
+
+        line_list = line1.strip().split("\t")
         if len(line_list) == 1:
-            s = line.strip().replace("query = ", "")
+            s = line1.strip().replace("query = ", "")
             s_set.add(s)
             continue
 

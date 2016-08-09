@@ -6,10 +6,11 @@ sys.setdefaultencoding('utf-8')
 def main(fin):
 
     s_set = set()
-
     for line in fin:
         line_list = line.strip().split("\t")
         if len(line_list) == 1:
+            s = line.strip().replace("query = ", "")
+            s_set.add(s)
             continue
 
         # 获取第一个NER识别结果
@@ -23,6 +24,7 @@ def main(fin):
             if k == "name":
                 s_set.add(v)
                 break
+
 
     for s in sorted(s_set):
         print s

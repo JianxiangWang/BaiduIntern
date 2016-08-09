@@ -19,8 +19,8 @@ def main(to_file):
 
         line_list = line1.strip().split("\t")
         if len(line_list) == 1:
-            s = line1.strip().replace("query = ", "")
-            s_set.add(s)
+            # s = line1.strip().replace("query = ", "")
+            # s_set.add(s)
             continue
 
         # 获取第一个NER识别结果

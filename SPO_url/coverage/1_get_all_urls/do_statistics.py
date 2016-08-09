@@ -14,6 +14,9 @@ def main(fin):
         line_list = line.strip().split("\t")
         url, s, p, o = line_list[0], line_list[1], line_list[2], line_list[3]
 
+        if p in ["新闻", "图片"]:
+            continue
+
         url_set.add(url)
         spo_set.add((s, p, o))
 

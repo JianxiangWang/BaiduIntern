@@ -34,7 +34,10 @@ def do_extraction(url, dict_info):
 
 def is_xiazai(url, dict_info):
 
-    soup = BeautifulSoup(dict_info["cont_html"], "html.parser")
+    try:
+        soup = BeautifulSoup(dict_info["cont_html"], "html.parser")
+    except:
+        return (False, 0)
 
     if has_download_a_tag_1(soup):
         return (True, 0.9)

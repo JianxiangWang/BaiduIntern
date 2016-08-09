@@ -15,7 +15,8 @@ def main(fin):
         # 获取第一个NER识别结果
         r = line_list[1][1:-1].strip()
         for x in r.split("  "):
-            k, v = x.split(" : ")
+            k, v = x.split(" : ", 1)
+
             if k == "name":
                 s_set.add(v)
                 break

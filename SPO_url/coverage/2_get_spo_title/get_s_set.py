@@ -3,7 +3,7 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-def main():
+def main(to_file):
 
     fin1 = open("spo_titles.ner")
     fin2 = open("../1_get_all_urls/qiandaohu_spo2")
@@ -35,8 +35,9 @@ def main():
                 s_set.add(v)
                 break
 
+    fout = open(to_file, "w")
     for s in sorted(s_set):
-        print s
+        fout.write("%s\n" % s)
 
 if __name__ == '__main__':
-    main(sys.stdin)
+    main("qdh.s.no_tupian_xinwen")

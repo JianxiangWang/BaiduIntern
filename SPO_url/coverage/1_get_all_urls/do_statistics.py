@@ -14,12 +14,12 @@ def main(fin):
         line_list = line.strip().split("\t")
         url, s, p, o = line_list[0], line_list[1], line_list[2], line_list[3]
 
-        url_set |= url
-        spo_set |= (s, p, o)
+        url_set.add(url)
+        spo_set.add((s, p, o))
 
         if p not in dict_p_to_spo_set:
             dict_p_to_spo_set[p] = set()
-        dict_p_to_spo_set[p] |= (s, p, o)
+        dict_p_to_spo_set[p].add((s, p, o))
 
     print "url: %d" % len(url_set)
     print "spo: %d" % len(spo_set)

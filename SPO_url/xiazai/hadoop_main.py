@@ -28,7 +28,7 @@ def do_extraction(url, dict_info, str_info):
         P = u"下载"
         O = url
 
-        print u"%s\t%s\t%s\t%s\t%.4f\t%s" % (url, S, P, O, confidence, str_info)
+        print u"%s\t%s\t%s\t%s\t%.4f" % (url, S, P, O, confidence)
 
 
 def is_xiazai(url, dict_info):

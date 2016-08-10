@@ -317,7 +317,7 @@ class PageClassify:
                             + '\t' + page_info['domain']\
                             + '\t' + page_info['url']\
                             + '\t' + "1.0" \
-                            + '\t' + input.strip().split('\t')[-1]
+                            # + '\t' + input.strip().split('\t')[-1]
 
                 print print_str
                 

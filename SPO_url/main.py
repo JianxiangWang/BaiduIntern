@@ -16,7 +16,7 @@ from jiefeng.PageClassify import PageClassify
 extractions = [
     ba_extraction,
     shipin_extraction,
-    tuPian_extraction,
+    # tuPian_extraction,
     xiaoShuo_extraction,
     xiazai_extraction,
     yinpin_extraction
@@ -31,11 +31,12 @@ for line in sys.stdin:
         line_list = line.strip().split("\t")
         url = line_list[0]
 
-        dict_info = json.loads(line_list[-1])
+        str_info = line_list[-1]
+        dict_info = json.loads(str_info)
 
         # go go go!
         for do_extraction in extractions:
-            do_extraction(url, dict_info)
+            do_extraction(url, dict_info, str_info)
 
         # 介峰部分
         p.predict(line.strip())

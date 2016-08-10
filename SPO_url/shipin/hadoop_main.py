@@ -15,10 +15,10 @@ def main(fin):
         url = line_list[0]
         dict_info = json.loads(line_list[-1])
 
-        do_extraction(url, dict_info)
+        do_extraction(url, dict_info, line_list[-1])
 
 
-def do_extraction(url, dict_info):
+def do_extraction(url, dict_info, str_info):
 
     x, confidence = is_shipin(url, dict_info)
     if x:
@@ -28,7 +28,7 @@ def do_extraction(url, dict_info):
         P = u"视频"
         O = url
 
-        print u"%s\t%s\t%s\t%s\t%.4f" % (url, S, P, O, confidence)
+        print u"%s\t%s\t%s\t%s\t%.4f\t%s" % (url, S, P, O, confidence, str_info)
 
 
 def is_shipin(url, dict_info):

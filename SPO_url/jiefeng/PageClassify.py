@@ -311,12 +311,19 @@ class PageClassify:
         def print_res(func):
             res, page_info = func
             if res == 1:
-                print_str = page_info['url'] + '\t' + page_info['realtitle'] + '\t' + page_info['domain'] + '\t' + page_info['url']
+
+                print_str = page_info['url']\
+                            + '\t' + page_info['realtitle']\
+                            + '\t' + page_info['domain']\
+                            + '\t' + page_info['url']\
+                            + '\t' + "1.0" \
+                            + '\t' + input.strip().split('\t')[-1]
+
                 print print_str
                 
         print_res(self.classify_evaluating(input))
         print_res(self.classify_introduction(input))
-        print_res(self.classify_news(input))
+        # print_res(self.classify_news(input))
         print_res(self.classify_personalprofile(input))
         print_res(self.classify_baike(input))
         print_res(self.classify_weibo(input))

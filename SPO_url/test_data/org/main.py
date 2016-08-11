@@ -83,19 +83,27 @@ def evaluate(gold_file, pred_file):
         # 评估
         for P in sorted(dict_P_to_url_label.keys()):
 
+            error_cases = []
             confusionMatrix = ConfusionMatrix(alphabet)
+
             for url, label in dict_P_to_url_label[P]:
 
                 pred = "0"
                 if (url, P) in predict_set:
                     pred = "1"
 
+                if label != pred:
+                    error_cases.append("%s\t%s->%s" % (url, label, pred))
+
                 confusionMatrix.add(pred, label)
 
             print "==" * 40
             print P
-            print "==" * 40
             confusionMatrix.print_out()
+
+            print "\n".join(error_cases)
+
+            print "==" * 40
 
 
 

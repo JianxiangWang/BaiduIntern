@@ -74,6 +74,7 @@ def evaluate(gold_file, pred_file):
         predict_set = set()
         for line in fin_pred:
             url, s, p, o, confidence = line.strip().split("\t")
+            print "%s_%s" % (url, p)
             predict_set.add("%s_%s" % (url, p))
 
         alphabet = Alphabet()
@@ -89,6 +90,7 @@ def evaluate(gold_file, pred_file):
                 pred = "0"
 
                 k = "%s_%s" % (url, P)
+                print k
                 if k in predict_set:
                     pred = "1"
 

@@ -1,5 +1,8 @@
 # encoding: utf-8
 import sys
+
+from confusion_matrix import Alphabet, ConfusionMatrix
+
 reload(sys)
 sys.setdefaultencoding('utf-8')
 import random
@@ -57,6 +60,46 @@ def filter_no_pack_urls(in_file, to_file):
 
 
 
+def evaluate(gold_file, pred_file):
+
+    with open(gold_file) as fin_gold, open(pred_file) as fin_pred:
+
+        dict_P_to_url_label = {}
+        for line in fin_gold:
+            P, url, label, _ = line.strip().split("\t")
+
+            if P not in dict_P_to_url_label:
+                dict_P_to_url_label[P] = set()
+            dict_P_to_url_label[P].add((url, label))
+
+        #
+        predict_set = set()
+        for line in fin_pred:
+            url, s, p, o, confidence = line.strip().split("\t")
+            predict_set.add((url, p))
+
+        alphabet = Alphabet()
+        alphabet.add("0")
+        alphabet.add("1")
+
+        # 评估
+        for P in sorted(dict_P_to_url_label.keys()):
+
+            confusionMatrix = ConfusionMatrix(alphabet)
+            for url, label in dict_P_to_url_label[P]:
+                pred = "0"
+                if (url, P) in predict_set:
+                    pred = "1"
+
+                confusionMatrix.add(pred, label)
+
+            print "==" * 40
+            print P
+            print "==" * 40
+            confusionMatrix.print_out()
+
+
+
 
 if __name__ == '__main__':
     # main("吧", "吧", "ba.test.data")
@@ -71,4 +114,6 @@ if __name__ == '__main__':
     # main("微博", "微博", "weibo.test.data")
     # main("商品", "商品", "shangpin.test.data")
 
-    filter_no_pack_urls("org.test.data", "org.test.data.filtered")
+    # filter_no_pack_urls("org.test.data", "org.test.data.filtered")
+
+    evaluate("org.test.data.filtered", "org.test.data.filtered.spo")

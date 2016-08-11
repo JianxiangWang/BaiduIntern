@@ -2,6 +2,9 @@
 # encoding: utf-8
 import json
 import sys
+
+import re
+
 reload(sys)
 sys.setdefaultencoding('utf-8')
 from bs4 import BeautifulSoup
@@ -52,7 +55,7 @@ def is_yinpin(url, dict_info):
 
     if flag == 1:
         # 判断页面是否有播放元素
-        if len(soup.find_all("a", attrs={"title": "播放"})) > 0:
+        if len(soup.find_all("a", title=re.compile("播放.*"))) > 0:
             return (True, 0.8)
 
     return (False, 0)

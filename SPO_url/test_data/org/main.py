@@ -41,5 +41,6 @@ if __name__ == '__main__':
     # main("小说", "小说", "xiaoshuo.test.data")
     # main("下载", "下载", "xiazai.test.data")
     # main("歌曲", "音频", "yinpin.test.data")
-    main("评测", "评测", "pingce.test.data")
-    main("简介", "简介", "jianjie.test.data")
+    # main("评测", "评测", "pingce.test.data")
+    # main("简介", "简介", "jianjie.test.data")
+    main("个人资料", "个人资料", "gerenziliao.test.data")

@@ -26,9 +26,10 @@ def main(end_words, p, to_file):
                     pos.append(x)
                 if label == "0":
                     neg.append(x)
-
-        pos = random.sample(pos, 60)
-        neg = random.sample(neg, 60)
+        if len(pos) > 60:
+            pos = random.sample(pos, 60)
+        if len(neg) > 60:
+            neg = random.sample(neg, 60)
 
         fout.write("\n".join(pos) + "\n")
         fout.write("\n".join(neg) + "\n")

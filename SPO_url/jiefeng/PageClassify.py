@@ -76,6 +76,7 @@ class PageClassify:
             return 0, ''
 
         if page_info['realtitle'].find('测评') != -1 or page_info['realtitle'].find('评测') != -1:
+            page_info['confidence'] = 1
             return 1, page_info
 
         valid_count = 0
@@ -84,18 +85,22 @@ class PageClassify:
             if page_info['content'].find(item) != -1:
                 valid_count += 1
         if valid_count >= 4:
+            confidence = valid_count * 0.15
+            if confidence > 1:
+                confidence = 1
+            page_info['confidence'] = confidence
             return 1, page_info
         else:
             return 0, ''
-        
+
     def classify_introduction(self, input):
         """简介"""
         page_flag, page_info = self.get_pageinfo(input)
-        if page_flag == -1:      
+        if page_flag == -1:
             return -1, ''
         elif page_flag == -2:
             return -2, ''
-        
+
         page_info['domain'] = '简介'
         baike_res, baike_title = self.classify_baike(input)
         if '文章内容页' not in page_info['page_type'] and baike_res==0 and page_info['url'].find('zhidao.baidu.com')==-1:
@@ -108,18 +113,25 @@ class PageClassify:
         for item in title_words:
             if page_info['realtitle'].find(item) != -1:
                 title_count += 1
+        if title_count > 0:
+            page_info['confidence'] = 1
+            return 1, page_info
 
         cont_words = ['简介', '介绍', '剧情']
         for item in cont_words:
             if page_info['content'].find(item) != -1:
                 cont_count += 1
 
-        valid_count = title_count*1 + cont_count*1
-        if valid_count >= 1:
+        valid_count = cont_count*1
+        if valid_count >= 2:
+            confidence = valid_count * 0.3
+            if confidence > 1:
+                confidence = 1
+            page_info['confidence'] = confidence
             return 1, page_info
         else:
             return 0, ''
-        
+
     def classify_news(self, input):
         """新闻"""
         page_flag, page_info = self.get_pageinfo(input)
@@ -127,9 +139,10 @@ class PageClassify:
             return -1, ''
         elif page_flag == -2:
             return -2, ''
-        
+
         page_info['domain'] = '新闻'
         if '新闻内容页' in page_info['page_type']:
+            page_info['confidence'] = 1
             return 1, page_info
         else:
             return 0, ''
@@ -141,25 +154,30 @@ class PageClassify:
             return -1, ''
         elif page_flag == -2:
             return -2, ''
-        
+
         page_info['domain'] = '个人资料'
         kv_count    = 0
         cont_count  = 0
         if page_info['realtitle'].find('个人资料') != -1:
+            page_info['confidence'] = 1
             return 1, page_info
 
         kv_words = ['姓名', '生日', '出生日期', '出生地', '民族', '身高', '体重', '爱好', '职业']
         for item in kv_words:
             if item in page_info['kv_dict']:
                 kv_count += 1
-                            
+
         cont_words = ['个人经历', '个人简介', '个人资料', '主要作品', '基本信息', '人物评价']
         for item in cont_words:
             if page_info['content'].find(item) != -1:
                 cont_count += 1
-                                            
+
         valid_count = kv_count*1 + cont_count*2
         if valid_count >= 4:
+            confidence = 0.15 * valid_count
+            if confidence > 1:
+                confidence = 1
+            page_info['confidence'] = confidence
             return 1, page_info
         else:
             return 0, ''
@@ -172,12 +190,14 @@ class PageClassify:
         elif page_flag == -2:
             return -2, ''
 
+        page_info['confidence'] = 1
+
         page_info['domain'] = '百科'
         if page_info['url'][:7] == 'http://':
             url = page_info['url'][7:]
         else:
             url = page_info['url']
-            
+
         main_site = url.split('/')[0]
         if main_site == 'baike.sogou.com':
             if url[16] == 'v':
@@ -209,13 +229,14 @@ class PageClassify:
             return -1, ''
         elif page_flag == -2:
             return -2, ''
-        
+
         page_info['domain'] = '微博'
+        page_info['confidence'] = 1
         if page_info['url'][:7] == 'http://':
             url = page_info['url'][7:]
         else:
             url = page_info['url']
-            
+
         main_site = url.split('/')[0]
         if main_site == 'weibo.com':
             if url[9:12] == '/u/':
@@ -249,7 +270,7 @@ class PageClassify:
                 return 0, ''
         else:
             return 0, ''
-        
+
     def classify_commidity(self, input):
         """商品"""
         page_flag, page_info = self.get_pageinfo(input)
@@ -259,11 +280,12 @@ class PageClassify:
             return -2, ''
 
         page_info['domain'] = '商品'
+        page_info['confidence'] = 1
         if '商品详情页' in page_info['page_type']:
             return 1, page_info
         else:
             return 0, ''
-        
+
     def test_precision_recall(self, test_dict):
         """准招计算"""
         func_dict = {
@@ -305,22 +327,20 @@ class PageClassify:
             recall    = get_pr('recall')
             print 'precision : ' + precision
             print 'recall : ' + recall
-        
+
     def predict(self, input):
         """页面类型预测"""
         def print_res(func):
             res, page_info = func
             if res == 1:
-
                 print_str = page_info['url']\
-                            + '\t' + page_info['realtitle']\
-                            + '\t' + page_info['domain']\
-                            + '\t' + page_info['url']\
-                            + '\t' + "1.0" \
-                            # + '\t' + input.strip().split('\t')[-1]
-
+                          + '\t' + page_info['realtitle']\
+                          + '\t' + page_info['domain']\
+                          + '\t' + page_info['url']\
+                          + '\t' + str(page_info['confidence'])\
+                          + '\t' + input.strip().split('\t')[-1]
                 print print_str
-                
+
         print_res(self.classify_evaluating(input))
         print_res(self.classify_introduction(input))
         # print_res(self.classify_news(input))

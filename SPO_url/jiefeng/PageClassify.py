@@ -337,8 +337,8 @@ class PageClassify:
                           + '\t' + page_info['realtitle']\
                           + '\t' + page_info['domain']\
                           + '\t' + page_info['url']\
-                          + '\t' + str(page_info['confidence'])\
-                          + '\t' + input.strip().split('\t')[-1]
+                          + '\t' + str(page_info['confidence'])
+                          # + '\t' + input.strip().split('\t')[-1]
                 print print_str
 
         print_res(self.classify_evaluating(input))

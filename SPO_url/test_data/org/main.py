@@ -35,6 +35,26 @@ def main(end_words, p, to_file):
         fout.write("\n".join(pos) + "\n")
         fout.write("\n".join(neg) + "\n")
 
+
+def filter_no_pack_urls(in_file, to_file):
+
+    url_set = set()
+    # org  文件
+    fin_org = open("../../org.all")
+    for line in fin_org:
+        url = line.strip().split("\t", 1)[0]
+        url_set.add(url)
+
+    with open(in_file) as fin, open(to_file, "w") as fout:
+        for line in fin:
+            url = line.strip().split("\t")[1]
+            if url in url_set:
+                fout.write(line)
+
+
+
+
+
 if __name__ == '__main__':
     # main("吧", "吧", "ba.test.data")
     # main("视频", "视频", "shipin.test.data")
@@ -46,4 +66,6 @@ if __name__ == '__main__':
     # main("个人资料", "个人资料", "gerenziliao.test.data")
     # main("百科", "百科", "baike.test.data")
     # main("微博", "微博", "weibo.test.data")
-    main("商品", "商品", "shangpin.test.data")
+    # main("商品", "商品", "shangpin.test.data")
+
+    filter_no_pack_urls("org.test.data", "org.test.data.filtered")

@@ -29,7 +29,7 @@ p = PageClassify('prepared')
 for line in sys.stdin:
     try:
         line_list = line.strip().split("\t")
-        url = line_list[0]
+        url = line_list[0].strip()
 
         str_info = line_list[-1]
         dict_info = json.loads(str_info)

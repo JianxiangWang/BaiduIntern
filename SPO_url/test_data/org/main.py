@@ -89,7 +89,7 @@ def evaluate(gold_file, pred_file):
             for url, label in dict_P_to_url_label[P]:
                 pred = "0"
 
-                print type(url), type(P)
+                print type(url), type(P), (url, P)
                 if (url, P) in predict_set:
                     pred = "1"
 

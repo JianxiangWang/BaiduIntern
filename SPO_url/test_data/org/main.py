@@ -35,7 +35,7 @@ def main(p, to_file):
 
 if __name__ == '__main__':
     # main("吧", "ba.test.data")
-    main("视频", "shipin.test.data")
-    # main("小说", "xiaoshuo.test.data")
-    # main("下载", "xiazai.test.data")
+    # main("视频", "shipin.test.data")
+    main("小说", "xiaoshuo.test.data")
+    main("下载", "xiazai.test.data")
     # main("音频", "音频.test.data")

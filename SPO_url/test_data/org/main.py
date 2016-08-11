@@ -38,18 +38,21 @@ def main(end_words, p, to_file):
 
 def filter_no_pack_urls(in_file, to_file):
 
-    url_set = set()
+    dict_url_to_json_info = {}
+
     # org  文件
     fin_org = open("../../data/org.all")
     for line in fin_org:
-        url = line.strip().split("\t", 1)[0]
-        url_set.add(url)
+        line_list = line.strip().split("\t")
+        url = line_list[0]
+        json_info = line_list[-1]
+        dict_url_to_json_info[url] = json_info
 
     with open(in_file) as fin, open(to_file, "w") as fout:
         for line in fin:
             url = line.strip().split("\t")[1]
-            if url in url_set:
-                fout.write(line)
+            if url in dict_url_to_json_info:
+                fout.write(line.strip() + "\t" + dict_url_to_json_info[url] + "\n")
 
 
 

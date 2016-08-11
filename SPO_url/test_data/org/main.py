@@ -5,7 +5,7 @@ sys.setdefaultencoding('utf-8')
 import random
 
 
-def main(p, to_file):
+def main(end_words, p, to_file):
 
     print "=> %s" % p
 
@@ -20,7 +20,7 @@ def main(p, to_file):
             url   = line_list[1]
             label = line_list[2]
 
-            if query.endswith(p) and "fakeurl" not in url:
+            if query.endswith(end_words) and "fakeurl" not in url:
                 x = "%s\t%s\t%s" % (p, url, label)
                 if label == "1":
                     pos.append(x)
@@ -34,8 +34,8 @@ def main(p, to_file):
         fout.write("\n".join(neg) + "\n")
 
 if __name__ == '__main__':
-    # main("吧", "ba.test.data")
-    # main("视频", "shipin.test.data")
-    main("小说", "xiaoshuo.test.data")
-    main("下载", "xiazai.test.data")
-    # main("音频", "音频.test.data")
+    # main("吧", "吧", "ba.test.data")
+    # main("视频", "视频", "shipin.test.data")
+    # main("小说", "小说", "xiaoshuo.test.data")
+    # main("下载", "下载", "xiazai.test.data")
+    main("歌曲", "音频", "yinpin.test.data")

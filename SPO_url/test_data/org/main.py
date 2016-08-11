@@ -88,8 +88,13 @@ def evaluate(gold_file, pred_file):
             confusionMatrix = ConfusionMatrix(alphabet)
             for url, label in dict_P_to_url_label[P]:
                 pred = "0"
+
                 if (url, P) in predict_set:
                     pred = "1"
+
+                if url == "http://music.baidu.com/artist/200428":
+                    print url
+                    print pred, label
 
                 print pred, label
                 confusionMatrix.add(pred, label)

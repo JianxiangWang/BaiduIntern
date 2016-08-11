@@ -95,7 +95,7 @@ def evaluate(gold_file, pred_file):
                     pred = "1"
 
                 if url == "http://music.baidu.com/artist/200428":
-                    print url
+                    print url, P
                     print pred, label
 
                 print pred, label

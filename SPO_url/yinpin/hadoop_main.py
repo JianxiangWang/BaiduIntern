@@ -53,6 +53,7 @@ def is_yinpin(url, dict_info):
         if keyword in content or keyword in soup.title.string:
             flag = 1
 
+    print flag
     if flag == 1:
         # 判断页面是否有播放元素
         if len(soup.find_all("a", title=re.compile("播放.*"))) > 0:

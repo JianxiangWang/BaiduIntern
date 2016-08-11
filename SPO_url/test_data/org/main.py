@@ -5,9 +5,9 @@ sys.setdefaultencoding('utf-8')
 import random
 
 
-def ba():
+def main(p, to_file):
 
-    with open("../../data/org") as fin, open("ba.test.data", "w") as fout:
+    with open("../../data/org") as fin, open(to_file, "w") as fout:
 
         pos = []
         neg = []
@@ -18,18 +18,18 @@ def ba():
             url   = line_list[1]
             label = line_list[2]
 
-            if query.endswith("吧") and "fakeurl" not in url:
-                x = "%s\t%s\t%s" % ("吧", url, label)
+            if query.endswith(p) and "fakeurl" not in url:
+                x = "%s\t%s\t%s" % (p, url, label)
                 if label == "1":
                     pos.append(x)
                 if label == "0":
                     neg.append(x)
 
-        pos = random.sample(pos, 50)
-        neg = random.sample(neg, 50)
+        pos = random.sample(pos, 60)
+        neg = random.sample(neg, 60)
 
         fout.write("\n".join(pos) + "\n")
         fout.write("\n".join(neg) + "\n")
 
 if __name__ == '__main__':
-    ba()
+    main("吧", "ba.test.data")

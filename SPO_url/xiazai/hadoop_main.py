@@ -39,10 +39,10 @@ def is_xiazai(url, dict_info):
         return (False, 0)
 
     if has_download_a_tag_1(soup):
-        return (True, 0.9)
+        return (True, 0.8)
 
     if has_download_a_tag_2(soup):
-        return (True, 0.8)
+        return (True, 0.7)
 
     return (False, 0)
 

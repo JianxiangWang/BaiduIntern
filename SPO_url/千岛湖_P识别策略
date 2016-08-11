@@ -1,0 +1,44 @@
+各个P的识别策略
+
+1. 吧
+    a. 域名过滤
+    b. {u"论坛帖子页"} & set(page_type_list)
+
+    precision: 97.36% recall: 100%
+
+2. 视频
+    a. {u"视频播放页"} & set(page_type_list)
+
+    precision: 88.89% recall: 100%
+
+3. 图片
+
+    precision: 50% recall: 75%
+
+4. 小说
+    a. {u"小说首页", u"小说列表页"} & set(page_type_list)
+
+    precision: 50 % recall: 86.67%
+
+5. 下载
+    a. 正文中, 下载被<a>包围, 至少得有href/onclick/id属性 且href指向的不是html, confidence: 0.8
+    b. 如果a.不成立, 对于满足要求的<a>, 判断周围是不是有 下载 关键字, confidence: 0.7
+
+    precision: 83.33% recall: 100%
+
+    分析: 当前策略只能获取下载链接, 但是该下载链接不一定是与title这个S相关的
+
+
+
+6. 音频
+    a.
+        <meta>中存在 音乐, 播放器, 电台 关键字;
+        并且, if len(soup.find_all("a", attrs={"title": "播放"})) > 0
+
+    precision: 100% recall: 50%
+
+
+    分析: 发现通过该策略识别的, 基本都是对的.
+
+
+

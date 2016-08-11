@@ -1,12 +1,12 @@
 #!python/bin/python
 # encoding: utf-8
 import sys
-import bs4
-import re
-from bs4 import BeautifulSoup
 reload(sys)
 sys.setdefaultencoding('utf-8')
 import sys, hashlib
+from bs4 import BeautifulSoup
+import bs4
+import re
 import os
 
 # 一些PATH

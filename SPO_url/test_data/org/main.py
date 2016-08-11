@@ -44,4 +44,5 @@ if __name__ == '__main__':
     # main("评测", "评测", "pingce.test.data")
     # main("简介", "简介", "jianjie.test.data")
     # main("个人资料", "个人资料", "gerenziliao.test.data")
-    main("百科", "百科", "baike.test.data")
+    # main("百科", "百科", "baike.test.data")
+    main("微博", "微博", "weibo.test.data")

@@ -74,10 +74,7 @@ def evaluate(gold_file, pred_file):
         predict_set = set()
         for line in fin_pred:
             url, s, p, o, confidence = line.strip().split("\t")
-
-            print url, p
-
-            predict_set.add((url, p))
+            predict_set.add("%s_%s" % (url, p))
 
         alphabet = Alphabet()
         alphabet.add("0")
@@ -90,7 +87,9 @@ def evaluate(gold_file, pred_file):
             for url, label in dict_P_to_url_label[P]:
 
                 pred = "0"
-                if (url, P) in predict_set:
+
+                k = "%s_%s" % (url, P)
+                if k in predict_set:
                     pred = "1"
 
                 if url == "http://music.baidu.com/artist/200428":

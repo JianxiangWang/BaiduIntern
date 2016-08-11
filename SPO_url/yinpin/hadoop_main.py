@@ -56,7 +56,7 @@ def is_yinpin(url, dict_info):
     print flag
     if flag == 1:
         # 判断页面是否有播放元素
-        if len(soup.find_all("a", title=re.compile("播放.*"))) > 0:
+        if len(soup.find_all("a", title=re.compile(u'''播放.*'''))) > 0:
             return (True, 0.8)
 
     return (False, 0)

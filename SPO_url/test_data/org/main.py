@@ -40,7 +40,7 @@ def filter_no_pack_urls(in_file, to_file):
 
     url_set = set()
     # org  文件
-    fin_org = open("../../org.all")
+    fin_org = open("../../data/org.all")
     for line in fin_org:
         url = line.strip().split("\t", 1)[0]
         url_set.add(url)

@@ -68,6 +68,10 @@ def evaluate(gold_file, pred_file):
         for line in fin_gold:
             P, url, label, _ = line.strip().split("\t")
 
+            P = unicode(P)
+            url = unicode(url)
+            label = unicode(label)
+
             if P not in dict_P_to_url_label:
                 dict_P_to_url_label[P] = set()
             dict_P_to_url_label[P].add((url, label))
@@ -76,7 +80,7 @@ def evaluate(gold_file, pred_file):
         predict_set = set()
         for line in fin_pred:
             url, s, p, o, confidence = line.strip().split("\t")
-            predict_set.add((url, p))
+            predict_set.add((unicode(url), unicode(p)))
 
         alphabet = Alphabet()
         alphabet.add("0")

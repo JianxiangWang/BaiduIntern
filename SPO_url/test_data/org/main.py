@@ -99,10 +99,10 @@ def evaluate(gold_file, pred_file):
 
             print "==" * 40
             print P
+            print
             confusionMatrix.print_out()
-
+            print
             print "\n".join(error_cases)
-
             print "==" * 40
 
 

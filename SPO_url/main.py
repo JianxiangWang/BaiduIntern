@@ -16,7 +16,7 @@ from jiefeng.PageClassify import PageClassify
 extractions = [
     ba_extraction,
     shipin_extraction,
-    tuPian_extraction,
+    # tuPian_extraction,
     xiaoShuo_extraction,
     xiazai_extraction,
     yinpin_extraction

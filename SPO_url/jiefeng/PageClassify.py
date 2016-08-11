@@ -343,7 +343,7 @@ class PageClassify:
 
         print_res(self.classify_evaluating(input))
         print_res(self.classify_introduction(input))
-        print_res(self.classify_news(input))
+        # print_res(self.classify_news(input))
         print_res(self.classify_personalprofile(input))
         print_res(self.classify_baike(input))
         print_res(self.classify_weibo(input))

@@ -44,6 +44,8 @@ def is_yinpin(url, dict_info):
 
     flag = 0
     keywords = ["音乐", "播放器", "电台", "歌曲"]
+    print content
+    print soup.title.string
     for keyword in keywords:
         if keyword in content or keyword in soup.title.string:
             flag = 1

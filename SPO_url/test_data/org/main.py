@@ -67,11 +67,6 @@ def evaluate(gold_file, pred_file):
         dict_P_to_url_label = {}
         for line in fin_gold:
             P, url, label, _ = line.strip().split("\t")
-
-            P = unicode(P)
-            url = unicode(url)
-            label = unicode(label)
-
             if P not in dict_P_to_url_label:
                 dict_P_to_url_label[P] = set()
             dict_P_to_url_label[P].add((url, label))
@@ -80,7 +75,10 @@ def evaluate(gold_file, pred_file):
         predict_set = set()
         for line in fin_pred:
             url, s, p, o, confidence = line.strip().split("\t")
-            predict_set.add((unicode(url), unicode(p)))
+
+            print url, p
+
+            predict_set.add((url, p))
 
         alphabet = Alphabet()
         alphabet.add("0")
@@ -91,9 +89,8 @@ def evaluate(gold_file, pred_file):
 
             confusionMatrix = ConfusionMatrix(alphabet)
             for url, label in dict_P_to_url_label[P]:
-                pred = "0"
 
-                print type(url), type(P), (url, P)
+                pred = "0"
                 if (url, P) in predict_set:
                     pred = "1"
 

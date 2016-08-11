@@ -91,6 +91,7 @@ def evaluate(gold_file, pred_file):
                 if (url, P) in predict_set:
                     pred = "1"
 
+                print pred, label
                 confusionMatrix.add(pred, label)
 
             print "==" * 40

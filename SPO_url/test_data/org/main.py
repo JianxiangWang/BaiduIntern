@@ -68,14 +68,13 @@ def evaluate(gold_file, pred_file):
             P, url, label, _ = line.strip().split("\t")
             if P not in dict_P_to_url_label:
                 dict_P_to_url_label[P] = set()
-            dict_P_to_url_label[P].add((url, label))
+            dict_P_to_url_label[P].add((url.strip(), label))
 
         #
         predict_set = set()
         for line in fin_pred:
             url, s, p, o, confidence = line.strip().split("\t")
-            print "%s_%s" % (url, p)
-            predict_set.add("%s_%s" % (url, p))
+            predict_set.add((url.strip(), p))
 
         alphabet = Alphabet()
         alphabet.add("0")
@@ -88,10 +87,7 @@ def evaluate(gold_file, pred_file):
             for url, label in dict_P_to_url_label[P]:
 
                 pred = "0"
-
-                k = "%s_%s" % (url, P)
-                print k
-                if k in predict_set:
+                if (url, P) in predict_set:
                     pred = "1"
 
                 if url == "http://music.baidu.com/artist/200428":

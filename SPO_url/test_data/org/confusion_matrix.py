@@ -7,14 +7,19 @@ import numpy
 import json
 
 
+# -*- coding: utf-8 -*-
+"""A collection of data structures that are particularly
+useful for developing and improving a classifier
+"""
+
+import numpy, json
+
 class ConfusionMatrix(object):
     """Confusion matrix for evaluating a classifier
 
-    For more information on confusion matrix en.wikipedia.org/wiki/Confusion_matrix
-    """
+    For more information on confusion matrix en.wikipedia.org/wiki/Confusion_matrix"""
 
     INIT_NUM_CLASSES = 100
-    NEGATIVE_CLASS = '__NEGATIVE_CLASS__'
     def __init__(self, alphabet=None):
         if alphabet is None:
             self.alphabet = Alphabet()
@@ -51,136 +56,152 @@ class ConfusionMatrix(object):
 
 
     def add_list(self, predictions, true_answers):
-        """Add a list of data point to the confusion matrix
-
-        A list can be a list of integers.
-        If prediction is an integer, we assume that it's a legitimate index
-        on the confusion matrix.
-
-        A list can be a list of strings.
-        If prediction is a string, then we will do the look up to
-        map to the integer index for the confusion matrix.
-
-        """
         for p, t in zip(predictions, true_answers):
             self.add(p, t)
 
-    def get_prf_for_i(self, i):
-        """Compute precision, recall, and f1 score for a given index."""
-
-        if sum(self.matrix[i,:]) == 0:
-            precision = 1.0
-        else:
-            precision = self.matrix[i,i] / sum(self.matrix[i,:])
-        if sum(self.matrix[:,i]) == 0:
-            recall = 1.0
-        else:
-            recall = self.matrix[i,i] / sum(self.matrix[:,i])
-        if precision + recall != 0.0:
-            f1 = 2.0 * precision * recall / (precision + recall)
-        else:
-            f1 = 0.0
-        return (precision, recall, f1)
-
-    def get_prf_for_all(self):
-        """Compute precision, recall, and f1 score for all indexes."""
-
+    def compute_average_f1(self):
         precision = numpy.zeros(self.alphabet.size())
         recall = numpy.zeros(self.alphabet.size())
         f1 = numpy.zeros(self.alphabet.size())
 
-        # compute precision, recall, and f1
-        for i in xrange(self.alphabet.size()):
-            precision[i], recall[i], f1[i] = self.get_prf_for_i(i)
-
-        return (precision, recall, f1)
-
-    def get_prf(self, class_name):
-        """Compute precision, recall, and f1 score for a given class. """
-        i = self.alphabet.get_index(class_name)
-        return self.get_prf_for_i(i)
-
-    def compute_micro_average_f1(self):
-        total_correct = 0.0
-        for i in xrange(self.alphabet.size()):
-            total_correct += self.matrix[i,i]
-        negative_index = self.alphabet.get_index(self.NEGATIVE_CLASS)
-        total_predicted = numpy.sum([x for i, x in enumerate(self.matrix.sum(1))\
-            if negative_index == -1 or i != negative_index])
-        total_gold = numpy.sum([x for i, x in enumerate(self.matrix.sum(0)) \
-            if negative_index == -1 or i != negative_index])
-
-        if total_predicted == 0:
-            precision = 1.0
-        else:
-            precision = total_correct / total_predicted
-        if total_gold == 0:
-            recall = 1.0
-        else:
-            recall = total_correct / total_gold
-        if precision + recall != 0.0:
-            f1_score = 2.0 * (precision * recall) / (precision + recall)
-        else:
-            f1_score = 0.0
-        return (round(precision, 4), round(recall, 4), round(f1_score,4))
-
-    def compute_average_f1(self):
-        precision, recall, f1 = self.get_prf_for_all()
+        # computing precision, recall, and f1
+        for i in range(self.alphabet.size()):
+            precision[i] = self.matrix[i,i] / sum(self.matrix[i,:])
+            recall[i] = self.matrix[i,i] / sum(self.matrix[:,i])
+            if precision[i] + recall[i] != 0:
+                f1[i] = 2 * precision[i] * recall[i] / (precision[i] + recall[i])
+            else:
+                f1[i] = 0
         return numpy.mean(f1)
-
-    def compute_average_prf(self):
-        precision, recall, f1 = self.get_prf_for_all()
-        return (round(numpy.mean(precision), 4),
-                round(numpy.mean(recall), 4),
-                round(numpy.mean(f1), 4))
 
     def print_matrix(self):
         num_classes = self.alphabet.size()
         #header for the confusion matrix
-        header = [' '] + [self.alphabet.get_label(i) for i in xrange(num_classes)]
+        header = [' '] + [self.alphabet.get_label(i) for i in range(num_classes)]
         rows = []
         #putting labels to the first column of rhw matrix
-        for i in xrange(num_classes):
-            row = [self.alphabet.get_label(i)] + [str(self.matrix[i,j]) for j in xrange(num_classes)]
+        for i in range(num_classes):
+            row = [self.alphabet.get_label(i)] + [str(int(self.matrix[i,j])) for j in range(num_classes)]
             rows.append(row)
-        print "row = predicted, column = truth"
-        print matrix_to_string(rows, header)
+        print("row = predicted, column = truth")
+        print(matrix_to_string(rows, header))
+
+    def get_matrix(self):
+        num_classes = self.alphabet.size()
+        #header for the confusion matrix
+        header = [' '] + [self.alphabet.get_label(i) for i in range(num_classes)]
+        rows = []
+        #putting labels to the first column of rhw matrix
+        for i in range(num_classes):
+            row = [self.alphabet.get_label(i)] + [str(self.matrix[i,j]) for j in range(num_classes)]
+            rows.append(row)
+        return "row = predicted, column = truth\n" + matrix_to_string(rows, header)
+
+    def get_prf(self, class_name):
+        index = self.alphabet.get_index(class_name)
+        precision = self.matrix[index, index] / sum(self.matrix[index, :])
+        recall = self.matrix[index, index] / sum(self.matrix[:, index])
+        f1 = (2 * precision * recall) / (precision + recall)
+        return (precision, recall, f1)
+
+
+
 
     def print_summary(self):
+        correct = 0
 
         precision = numpy.zeros(self.alphabet.size())
         recall = numpy.zeros(self.alphabet.size())
         f1 = numpy.zeros(self.alphabet.size())
-        
-        max_len = 0
-        for i in xrange(self.alphabet.size()):
-            label = self.alphabet.get_label(i)
-            if label != self.NEGATIVE_CLASS and len(label) > max_len:
-                max_len = len(label)
 
         lines = []
-        correct = 0.0
-        # compute precision, recall, and f1
-        for i in xrange(self.alphabet.size()):
-            precision[i], recall[i], f1[i] = self.get_prf_for_i(i)
+        # computing precision, recall, and f1
+        for i in range(self.alphabet.size()):
+            precision[i] = self.matrix[i,i] / sum(self.matrix[i,:])
+            recall[i] = self.matrix[i,i] / sum(self.matrix[:,i])
+            if precision[i] + recall[i] != 0:
+                f1[i] = 2 * precision[i] * recall[i] / (precision[i] + recall[i])
+            else:
+                f1[i] = 0
             correct += self.matrix[i,i]
             label = self.alphabet.get_label(i)
-            if label != self.NEGATIVE_CLASS:
-                space = ' ' * (max_len - len(label) + 1)
-                lines.append( '%s%s precision %1.4f\trecall %1.4f\tF1 %1.4f' %\
-                    (label, space, precision[i], recall[i], f1[i]))
-        precision, recall, f1 = self.compute_micro_average_f1()
-        space = ' ' * (max_len - 14 + 1)
-        lines.append('*Micro-Average%s precision %1.4f\trecall %1.4f\tF1 %1.4f' %\
-            (space, numpy.mean(precision), numpy.mean(recall), numpy.mean(f1)))
-        lines.sort()
-        print '\n'.join(lines)
+            lines.append( '%s \tprecision %f \trecall %f\t F1 %f' %\
+                    (label, precision[i], recall[i], f1[i]))
+        lines.append( '* Overall accuracy rate = %f' %(correct / sum(sum(self.matrix[:,:]))))
+        lines.append( '* Average precision %f \t recall %f\t F1 %f' %\
+            (numpy.mean(precision), numpy.mean(recall), numpy.mean(f1)))
+        print('\n'.join(lines))
+
+    def get_summary(self):
+        correct = 0
+
+        precision = numpy.zeros(self.alphabet.size())
+        recall = numpy.zeros(self.alphabet.size())
+        f1 = numpy.zeros(self.alphabet.size())
+
+        lines = []
+        # computing precision, recall, and f1
+        for i in range(self.alphabet.size()):
+            precision[i] = self.matrix[i,i] / sum(self.matrix[i,:])
+            recall[i] = self.matrix[i,i] / sum(self.matrix[:,i])
+            if precision[i] + recall[i] != 0:
+                f1[i] = 2 * precision[i] * recall[i] / (precision[i] + recall[i])
+            else:
+                f1[i] = 0
+            correct += self.matrix[i,i]
+            label = self.alphabet.get_label(i)
+            lines.append( '%s \tprecision %f \trecall %f\t F1 %f' %\
+                    (label, precision[i], recall[i], f1[i]))
+        lines.append( '* Overall accuracy rate = %f' %(correct / sum(sum(self.matrix[:,:]))))
+        lines.append( '* Average precision %f \t recall %f\t F1 %f' %\
+            (numpy.mean(precision), numpy.mean(recall), numpy.mean(f1)))
+        return '\n'.join(lines)
+
+    def get_average_prf(self):
+        precision = numpy.zeros(self.alphabet.size())
+        recall = numpy.zeros(self.alphabet.size())
+        f1 = numpy.zeros(self.alphabet.size())
+
+        lines = []
+        # computing precision, recall, and f1
+        for i in range(self.alphabet.size()):
+            precision[i] = self.matrix[i,i] / sum(self.matrix[i,:])
+            recall[i] = self.matrix[i,i] / sum(self.matrix[:,i])
+            if precision[i] + recall[i] != 0:
+                f1[i] = 2 * precision[i] * recall[i] / (precision[i] + recall[i])
+            else:
+                f1[i] = 0
+        return numpy.mean(precision), numpy.mean(recall), numpy.mean(f1)
+
+    def get_accuracy(self):
+        correct = 0
+
+        precision = numpy.zeros(self.alphabet.size())
+        recall = numpy.zeros(self.alphabet.size())
+        f1 = numpy.zeros(self.alphabet.size())
+
+        lines = []
+        # computing precision, recall, and f1
+        for i in range(self.alphabet.size()):
+            precision[i] = self.matrix[i,i] / sum(self.matrix[i,:])
+            recall[i] = self.matrix[i,i] / sum(self.matrix[:,i])
+            if precision[i] + recall[i] != 0:
+                f1[i] = 2 * precision[i] * recall[i] / (precision[i] + recall[i])
+            else:
+                f1[i] = 0
+            correct += self.matrix[i,i]
+            label = self.alphabet.get_label(i)
+            lines.append( '%s \tprecision %f \trecall %f\t F1 %f' %\
+                    (label, precision[i], recall[i], f1[i]))
+
+        return correct / sum(sum(self.matrix[:,:]))
+
 
     def print_out(self):
         """Printing out confusion matrix along with Macro-F1 score"""
         self.print_matrix()
         self.print_summary()
-    
+
 
 def matrix_to_string(matrix, header=None):
     """
@@ -250,7 +271,6 @@ class Alphabet(object):
         self._index_to_label = {}
         self._label_to_index = {}
         self.num_labels = 0
-        self.growing = True
 
     def __len__(self):
         return self.size()
@@ -275,18 +295,12 @@ class Alphabet(object):
     def get_index(self, label):
         """Get index from label"""
         if not self.has_label(label):
-            if self.growing:
-                self.add(label) 
-            else:
-                return -1
+            self.add(label)
         return self._label_to_index[label]
 
     def add(self, label):
         """Add an index for the label if it's a new label"""
         if label not in self._label_to_index:
-            if not self.growing:
-                raise ValueError(
-                    'Alphabet is not set to grow i.e. accepting new labels')
             self._label_to_index[label] = self.num_labels
             self._index_to_label[self.num_labels] = label
             self.num_labels += 1
@@ -321,7 +335,6 @@ class Alphabet(object):
         assert(len(alphabet._index_to_label) == len(alphabet._label_to_index))
         alphabet.num_labels = len(alphabet._index_to_label)
         return alphabet
-
 
 
 if __name__ == '__main__':

@@ -90,11 +90,6 @@ def evaluate(gold_file, pred_file):
                 if (url, P) in predict_set:
                     pred = "1"
 
-                if url == "http://music.baidu.com/artist/200428":
-                    print url, P
-                    print pred, label
-
-                print pred, label
                 confusionMatrix.add(pred, label)
 
             print "==" * 40

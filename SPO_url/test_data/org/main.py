@@ -1,11 +1,10 @@
 # encoding: utf-8
 import sys
-
-from confusion_matrix import Alphabet, ConfusionMatrix
-
 reload(sys)
 sys.setdefaultencoding('utf-8')
+from confusion_matrix import Alphabet, ConfusionMatrix
 import random
+import codecs
 
 
 def main(end_words, p, to_file):
@@ -62,7 +61,7 @@ def filter_no_pack_urls(in_file, to_file):
 
 def evaluate(gold_file, pred_file):
 
-    with open(gold_file) as fin_gold, open(pred_file) as fin_pred:
+    with codecs.open(gold_file, encoding="utf-8") as fin_gold, codecs.open(pred_file, encoding="utf-8") as fin_pred:
 
         dict_P_to_url_label = {}
         for line in fin_gold:

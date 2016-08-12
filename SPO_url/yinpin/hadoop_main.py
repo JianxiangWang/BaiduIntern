@@ -52,12 +52,26 @@ def is_yinpin(url, dict_info):
             flag = 1
     if flag == 1:
         # 判断页面是否有播放元素
-        if len(soup.find_all("a", title=re.compile(u'''播放.*'''))) > 0:
+        if soup.find(play_button):
             return (True, 0.8)
 
     return (False, 0)
 
 
+def play_button(tag):
+
+    if tag.name == "a" and "title" in tag.attrs:
+        title = tag.attrs["title"]
+
+        filter_words = ["播放记录", "播放时间"]
+        for word in filter_words:
+            if word in title:
+                return False
+
+        if title.startswith("播放"):
+            return True
+
+    return False
 
 
 

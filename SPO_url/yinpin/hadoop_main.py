@@ -52,7 +52,7 @@ def is_yinpin(url, dict_info):
             flag = 1
     if flag == 1:
 
-        # 判断是否存在audio标签
+        # 1. 判断是否存在audio标签
         x = 0
         for audio in soup.find_all("audio"):
             if "src" in audio.attrs and audio.attrs["src"].endswith(".mp3"):
@@ -61,12 +61,9 @@ def is_yinpin(url, dict_info):
         if x == 1:
             return (True, 0.6)
 
-        # 判断页面是否有播放元素
+        # 2. 判断页面是否有播放元素
         if soup.find(play_button):
             return (True, 0.8)
-
-
-
 
 
     return (False, 0)

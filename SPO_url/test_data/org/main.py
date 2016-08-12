@@ -81,6 +81,10 @@ def evaluate(gold_file, pred_file):
         alphabet.add("1")
 
         # 评估
+
+        marco_p, marco_r, marco_f = 0, 0, 0
+        N = 0
+
         for P in sorted(dict_P_to_url_label.keys()):
 
             error_cases = []
@@ -101,9 +105,18 @@ def evaluate(gold_file, pred_file):
             print P
             print
             confusionMatrix.print_out()
+            p, r, f = confusionMatrix.get_prf("1")
+            marco_p += p
+            marco_r += r
+            marco_f += f
+            N += 1
+
             print
             print "error cases:"
             print "\n".join(error_cases)
+
+    print "**" * 40
+    print "marco, P: %f; R: %f; F1: %f" % (marco_p / N, marco_r / N, marco_f / N)
 
 
 

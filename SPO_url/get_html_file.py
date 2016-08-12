@@ -7,7 +7,7 @@ def main(parse_file, url):
 
     for line in open(parse_file):
         line_list = line.strip().split("\t")
-        this_url = line_list[0].strip()
+        this_url = line_list[1].strip()
         dict_info_str = line_list[-1].strip()
 
         if this_url.strip() == url:

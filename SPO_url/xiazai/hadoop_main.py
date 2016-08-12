@@ -61,7 +61,7 @@ def has_download_a_tag_1(soup):
                         if not a_tag.attrs["href"].endswith("htm") and not a_tag.attrs["href"].endswith("html") and not a_tag.attrs["href"].endswith("/"):
                             return True
                         else:
-                            return False
+                            continue
                     return True
     return False
 

@@ -52,7 +52,6 @@ def has_download_a_tag_1(soup):
 
     for content in soup.find_all(attrs={"style": "border:3px solid red;overflow-y:auto;overflow-x:auto;"}):
         for a_tag in content.find_all("a"):
-            print "\t".join(a_tag.stripped_strings)
             if "下载" in "\t".join(a_tag.stripped_strings):
                 # 至少得有这些标签之一
                 if set(map(lambda x: x.lower(), a_tag.attrs.keys())) & {"href", "onclick", "id"}:

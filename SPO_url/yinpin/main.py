@@ -41,7 +41,7 @@ def is_shipin(url):
         return (False, 0)
 
     # 判断页面是否有播放元素
-    if len(soup.find_all("a", attrs={"title": "播放"})) > 0:
+    if soup.find(play_button):
         return (True, 0.8)
 
     return (False, 0)
@@ -52,6 +52,22 @@ def get_meta_content(soup):
         if "content" in meta.attrs:
             content += meta["content"] + "\t"
     return content.strip()
+
+
+def play_button(tag):
+
+    if tag.name == "a" and "title" in tag.attrs:
+        title = tag.attrs["title"]
+
+        filter_words = ["播放记录", "播放时间"]
+        for word in filter_words:
+            if word in title:
+                return False
+
+        if title.startswith("播放"):
+            return True
+
+    return False
 
 
 

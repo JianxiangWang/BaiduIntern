@@ -58,7 +58,6 @@ def filter_no_pack_urls(in_file, to_file):
 
 
 
-
 def evaluate(gold_file, pred_file):
 
     with codecs.open(gold_file, encoding="utf-8") as fin_gold, codecs.open(pred_file, encoding="utf-8") as fin_pred:

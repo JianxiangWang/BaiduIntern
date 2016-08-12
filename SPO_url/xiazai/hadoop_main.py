@@ -57,7 +57,11 @@ def has_download_a_tag_1(soup):
                 if set(map(lambda x: x.lower(), a_tag.attrs.keys())) & {"href", "onclick", "id"}:
                     # 如果有href,指向的不能是html, htm
                     if "href" in a_tag.attrs:
-                        if not a_tag.attrs["href"].endswith("htm") and not a_tag.attrs["href"].endswith("html") and not a_tag.attrs["href"].endswith("/"):
+                        if not a_tag.attrs["href"].endswith("htm") \
+                            and not a_tag.attrs["href"].endswith("html")\
+                            and not a_tag.attrs["href"].endswith("com")\
+                            and not a_tag.attrs["href"].endswith("cn")\
+                            and not a_tag.attrs["href"].endswith("/"):
                             return True
                         else:
                             continue
@@ -74,21 +78,26 @@ def has_download_a_tag_2(soup):
                 # 如果有href,指向的不能是html, htm
                 flag = 1
                 if "href" in a_tag.attrs:
-                    if not a_tag.attrs["href"].endswith("htm") and not a_tag.attrs["href"].endswith("html") and not a_tag.attrs["href"].endswith("/"):
+                    if not a_tag.attrs["href"].endswith("htm") \
+                            and not a_tag.attrs["href"].endswith("html")\
+                            and not a_tag.attrs["href"].endswith("com")\
+                            and not a_tag.attrs["href"].endswith("cn")\
+                            and not a_tag.attrs["href"].endswith("/"):
                         pass
                     else:
                         flag = 0
 
                 if flag == 1:
 
-                    # 如果父节点是P, a_tag 往上走一步
-                    # x = a_tag
-                    # while x.parent.name == "p":
-                    #     x = x.parent
+                    ''' 1. <a> 下面是否有 img 标签, 并且 alt 有 下载'''
+                    for img in a_tag.find_all("img"):
+                        if "alt" in img.attrs and " 下载" in img.attrs["alt"]:
+                            return True
 
+
+                    ''' 2. 周围的文字 '''
                     if a_tag.parent.name == "p":
                         a_tag = a_tag.parent
-
 
                     # <a> 周围的文字
                     surrounding_string = ""

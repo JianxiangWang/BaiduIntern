@@ -91,7 +91,7 @@ def has_download_a_tag_2(soup):
 
                     ''' 1. <a> 下面是否有 img 标签, 并且 alt 有 下载'''
                     for img in a_tag.find_all("img"):
-                        if "alt" in img.attrs and " 下载" in img.attrs["alt"]:
+                        if "alt" in img.attrs and "下载" in img.attrs["alt"]:
                             return True
 
 

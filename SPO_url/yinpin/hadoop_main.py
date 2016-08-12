@@ -51,16 +51,30 @@ def is_yinpin(url, dict_info):
         if keyword in content or keyword in soup.title.string:
             flag = 1
     if flag == 1:
+
+        # 判断是否存在audio标签
+        x = 0
+        for audio in soup.find_all("audio"):
+            if "src" in audio.attrs and audio.attrs["src"].endswith(".mp3"):
+                return (True, 0.9)
+            x = 1
+        if x == 1:
+            return (True, 0.6)
+
         # 判断页面是否有播放元素
         if soup.find(play_button):
             return (True, 0.8)
+
+
+
+
 
     return (False, 0)
 
 
 def play_button(tag):
 
-    if tag.name == "a" and "title" in tag.attrs:
+    if tag.name in ["a", "button"] and "title" in tag.attrs:
         title = tag.attrs["title"]
 
         filter_words = ["播放记录", "播放时间"]

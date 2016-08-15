@@ -114,20 +114,22 @@ class PageClassify:
             return 1, page_info
 
 
-        # if '文章内容页' not in page_info['page_type'] and baike_res==0 and page_info['url'].find('zhidao.baidu.com')==-1:
-
-
         title_count = 0
         cont_count  = 0
+        confidence = 0
 
-        print page_info['realtitle']
+        title = self.soup.title.string
+
         title_words = ['简介', '介绍']
         for item in title_words:
             if page_info['realtitle'].find(item) != -1:
                 title_count += 1
+            if title != None and item in title:
+                title_count += 1
+
         if title_count > 0:
-            page_info['confidence'] = 1
-            return 1, page_info
+            confidence = 0.6
+
 
         cont_words = ['简介', '介绍', '剧情']
         for item in cont_words:
@@ -136,9 +138,11 @@ class PageClassify:
 
         valid_count = cont_count*1
         if valid_count >= 2:
-            confidence = valid_count * 0.3
+            confidence += valid_count * 0.3
             if confidence > 1:
                 confidence = 1
+
+        if confidence > 0.5:
             page_info['confidence'] = confidence
             return 1, page_info
         else:

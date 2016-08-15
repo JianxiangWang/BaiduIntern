@@ -1,8 +1,10 @@
-#-*-coding:utf8-*-
+# encoding: utf-8
 from __future__ import division
 import sys
 import json
 from PageInfo import PageInfo
+from bs4 import BeautifulSoup
+
 
 class PageClassify:
     pageinfo_type = ''
@@ -34,6 +36,9 @@ class PageClassify:
         url  = info[0]
         try:
             json_info = json.loads(info[1].decode('utf8', 'ignore'))
+            # soup
+            self.soup = BeautifulSoup(json_info["cont_html"], "html.parser")
+
         except:
             return -2, ''
         # json_info : url, page_type, title, realtitle, content, cont_html, kv_dict, article
@@ -156,13 +161,17 @@ class PageClassify:
             return -2, ''
 
         page_info['domain'] = '个人资料'
+        confidence  = 0
         kv_count    = 0
         cont_count  = 0
 
-        print page_info['realtitle']
+        # 使用beautiful soup 获取 title tag 内容
+        title = self.soup.title.string
+        if title != None and '个人资料' in title:
+            confidence = 0.4
+
         if page_info['realtitle'].find('个人资料') != -1:
-            page_info['confidence'] = 1
-            return 1, page_info
+            confidence = 0.4
 
         kv_words = ['姓名', '生日', '出生日期', '出生地', '民族', '身高', '体重', '爱好', '职业']
         for item in kv_words:
@@ -176,7 +185,7 @@ class PageClassify:
 
         valid_count = kv_count*1 + cont_count*2
         if valid_count >= 4:
-            confidence = 0.15 * valid_count
+            confidence += 0.15 * valid_count
             if confidence > 1:
                 confidence = 1
             page_info['confidence'] = confidence

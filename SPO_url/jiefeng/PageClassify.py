@@ -119,13 +119,13 @@ class PageClassify:
         cont_count  = 0
         confidence = 0
 
-        title = self.soup.title.string
+        title = self.soup.title
 
         title_words = ['简介', '介绍']
         for item in title_words:
             if page_info['realtitle'].find(item) != -1:
                 title_count += 1
-            if title != None and item in title:
+            if title != None and item in title.string:
                 title_count += 1
 
         if title_count > 0:
@@ -178,8 +178,8 @@ class PageClassify:
         cont_count  = 0
 
         # 使用beautiful soup 获取 title tag 内容
-        title = self.soup.title.string
-        if title != None and ('个人资料' in title or '明星资料' in title):
+        title = self.soup.title
+        if title != None and ('个人资料' in title.string or '明星资料' in title.string):
             confidence = 0.6
 
         if '个人资料' in page_info['realtitle'] or '明星资料' in page_info['realtitle']:

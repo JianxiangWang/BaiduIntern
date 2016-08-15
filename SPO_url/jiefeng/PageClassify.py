@@ -114,6 +114,7 @@ class PageClassify:
         title_count = 0
         cont_count  = 0
 
+        print page_info['realtitle']
         title_words = ['简介', '介绍']
         for item in title_words:
             if page_info['realtitle'].find(item) != -1:
@@ -222,12 +223,14 @@ class PageClassify:
                 'baike.baidu.com/item',
                 'baike.baidu.com/view',
                 'baike.baidu.com/subview',
+                'baike.baidu.com/album',
                 'wapbaike.baidu.com/item',
                 'wapbaike.baidu.com/view',
                 'wapbaike.baidu.com/subview',
                 'm.baike.so.com/doc',
                 'baike.so.com/doc',
-                'www.baike.com/wiki'
+                'www.baike.com/wiki',
+
             )
             url_subdomain = '/'.join(url.split('/')[:2])
             if url_subdomain in valid_set:

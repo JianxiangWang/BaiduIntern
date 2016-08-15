@@ -168,10 +168,10 @@ class PageClassify:
         # 使用beautiful soup 获取 title tag 内容
         title = self.soup.title.string
         if title != None and '个人资料' in title:
-            confidence = 0.4
+            confidence = 0.6
 
         if page_info['realtitle'].find('个人资料') != -1:
-            confidence = 0.4
+            confidence = 0.6
 
         kv_words = ['姓名', '生日', '出生日期', '出生地', '民族', '身高', '体重', '爱好', '职业']
         for item in kv_words:
@@ -188,6 +188,8 @@ class PageClassify:
             confidence += 0.15 * valid_count
             if confidence > 1:
                 confidence = 1
+
+        if confidence > 0.5:
             page_info['confidence'] = confidence
             return 1, page_info
         else:

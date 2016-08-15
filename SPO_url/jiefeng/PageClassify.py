@@ -111,6 +111,7 @@ class PageClassify:
         # 如果是简介页面, 直接return 1
         baike_res, page_info_ = self.classify_baike(input)
         if baike_res == 1:
+            page_info_['domain'] = '简介'
             return 1, page_info_
 
 

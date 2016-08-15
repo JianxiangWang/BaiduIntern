@@ -243,6 +243,7 @@ class PageClassify:
 
             )
             url_subdomain = '/'.join(url.split('/')[:2])
+            print url_subdomain
             if url_subdomain in valid_set:
                 return 1, page_info
             else:

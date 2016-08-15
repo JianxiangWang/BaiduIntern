@@ -158,6 +158,8 @@ class PageClassify:
         page_info['domain'] = '个人资料'
         kv_count    = 0
         cont_count  = 0
+
+        print page_info['realtitle']
         if page_info['realtitle'].find('个人资料') != -1:
             page_info['confidence'] = 1
             return 1, page_info

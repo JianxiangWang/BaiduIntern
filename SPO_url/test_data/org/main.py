@@ -117,10 +117,9 @@ def evaluate(gold_file, pred_file):
             marco_f += f
             N += 1
 
-            print
-            print "recall error cases:"
+            print "\n==>recall error cases:"
             print "\n".join(recall_error_cases)
-            print "precision error cases:"
+            print "\n==>precision error cases:"
             print "\n".join(precision_error_cases)
 
     print "**" * 40

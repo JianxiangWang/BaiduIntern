@@ -121,11 +121,11 @@ class PageClassify:
 
         title = self.soup.title
 
-        title_words = ['简介', '介绍']
+        title_words = ['简介', '介绍', "about"]
         for item in title_words:
-            if page_info['realtitle'].find(item) != -1:
+            if page_info['realtitle'].lower().find(item) != -1:
                 title_count += 1
-            if title != None and item in title.string:
+            if title != None and item in title.string.lower():
                 title_count += 1
 
         if title_count > 0:

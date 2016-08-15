@@ -391,6 +391,7 @@ class PageClassify:
         """页面类型预测"""
         def print_res(func):
             res, page_info = func
+            print res
             if res == 1:
                 print_str = page_info['url']\
                           + '\t' + page_info['realtitle']\

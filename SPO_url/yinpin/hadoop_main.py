@@ -71,16 +71,21 @@ def is_yinpin(url, dict_info):
 
 def play_button(tag):
 
-    if tag.name in ["a", "button"] and "title" in tag.attrs:
-        title = tag.attrs["title"]
+    if tag.name in ["a", "button"]:
 
-        filter_words = ["播放记录", "播放时间"]
-        for word in filter_words:
-            if word in title:
-                return False
+        if "title" in tag.attrs:
+            title = tag.attrs["title"]
+            filter_words = ["播放记录", "播放时间"]
+            for word in filter_words:
+                if word in title:
+                    return False
 
-        if title.startswith("播放"):
-            return True
+            if title.startswith("播放"):
+                return True
+        if "id" in tag.attrs:
+            id_ = tag.attrs["id"]
+            if id_ == "play":
+                return True
 
     return False
 

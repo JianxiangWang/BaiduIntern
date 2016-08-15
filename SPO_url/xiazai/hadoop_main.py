@@ -61,6 +61,8 @@ def has_download_a_tag_1(soup):
                             and not a_tag.attrs["href"].endswith("html")\
                             and not a_tag.attrs["href"].endswith("com")\
                             and not a_tag.attrs["href"].endswith("cn")\
+                            and not a_tag.attrs["href"].endswith("php")\
+                            and not a_tag.attrs["href"].endswith("jsp")\
                             and not a_tag.attrs["href"].endswith("/"):
                             return True
                         else:
@@ -82,6 +84,8 @@ def has_download_a_tag_2(soup):
                             and not a_tag.attrs["href"].endswith("html")\
                             and not a_tag.attrs["href"].endswith("com")\
                             and not a_tag.attrs["href"].endswith("cn")\
+                            and not a_tag.attrs["href"].endswith("php")\
+                            and not a_tag.attrs["href"].endswith("jsp")\
                             and not a_tag.attrs["href"].endswith("/"):
                         pass
                     else:

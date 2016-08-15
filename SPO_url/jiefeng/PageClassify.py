@@ -126,6 +126,9 @@ class PageClassify:
             if page_info['realtitle'].lower().find(item) != -1:
                 title_count += 1
             if title != None and item in title.string.lower():
+
+                print title.string.lower()
+
                 title_count += 1
 
         if title_count > 0:

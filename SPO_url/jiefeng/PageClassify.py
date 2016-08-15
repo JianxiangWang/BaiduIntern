@@ -109,7 +109,7 @@ class PageClassify:
         page_info['domain'] = '简介'
         baike_res, baike_title = self.classify_baike(input)
 
-
+        print baike_res
         if baike_res==0 and page_info['url'].find('zhidao.baidu.com')==-1:
             return 0, ''
 

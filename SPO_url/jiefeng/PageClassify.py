@@ -245,7 +245,9 @@ class PageClassify:
 
         page_info['domain'] = '微博'
         page_info['confidence'] = 1
-        if page_info['url'][:7] == 'http://':
+        if page_info['url'][:8] == 'https://':
+            url = page_info['url'][8:]
+        elif page_info['url'][:7] == 'http://':
             url = page_info['url'][7:]
         else:
             url = page_info['url']
@@ -254,21 +256,50 @@ class PageClassify:
         if main_site == 'weibo.com':
             if url[9:12] == '/u/':
                 return 1, page_info
-            domains = url.split('/')
+            domains = url.strip("/").split('/')
             if len(domains) == 2:
                 return 1, page_info
             else:
                 return 0, ''
         elif main_site == 'www.weibo.com':
-            if url[9:12] == '/u/':
+            if url[13:16] == '/u/':
                 return 1, page_info
-            elif url[9:12] == '/p/':
+            elif url[13:16] == '/p/':
                 tag = url.split('?')[0].split('/')[-1]
                 if tag == 'home':
                     return 1, page_info
                 else:
                     return 0, ''
-            domains = url.split('/')
+            domains = url.strip("/").split('/')
+            if len(domains) == 2:
+                return 1, page_info
+            else:
+                return 0, ''
+        elif main_site == 'tw.weibo.com':
+            if url[12:15] == '/u/':
+                return 1, page_info
+            elif url[12:15] == '/p/':
+                tag = url.split('?')[0].split('/')[-1]
+                if tag == 'home':
+                    return 1, page_info
+                else:
+                    return 0, ''
+            domains = url.strip("/").split('/')
+            if len(domains) == 2:
+                return 1, page_info
+            else:
+                return 0, ''
+
+        elif main_site == 'e.weibo.com':
+            if url[11:14] == '/u/':
+                return 1, page_info
+            elif url[11:14] == '/p/':
+                tag = url.split('?')[0].split('/')[-1]
+                if tag == 'home':
+                    return 1, page_info
+                else:
+                    return 0, ''
+            domains = url.strip("/").split('/')
             if len(domains) == 2:
                 return 1, page_info
             else:
@@ -276,7 +307,7 @@ class PageClassify:
         elif main_site == 't.qq.com':
             if url[8:13] == '/p/t/':
                 return 0, ''
-            domains = url.split('/')
+            domains = url.strip("/").split('/')
             if len(domains) == 2:
                 return 1, page_info
             else:

@@ -86,8 +86,10 @@ def evaluate(gold_file, pred_file):
 
         for P in sorted(dict_P_to_url_label.keys()):
 
-            error_cases = []
             confusionMatrix = ConfusionMatrix(alphabet)
+
+            recall_error_cases = []
+            precision_error_cases= []
 
             for url, label in dict_P_to_url_label[P]:
 
@@ -96,7 +98,12 @@ def evaluate(gold_file, pred_file):
                     pred = "1"
 
                 if label != pred:
-                    error_cases.append("%s\t%s->%s" % (url, label, pred))
+
+                    if label == "1" and pred == "0":
+                        recall_error_cases.append("%s\t%s->%s" % (url, label, pred))
+
+                    if label == "0" and pred == "1":
+                        precision_error_cases.append("%s\t%s->%s" % (url, label, pred))
 
                 confusionMatrix.add(pred, label)
 
@@ -111,8 +118,10 @@ def evaluate(gold_file, pred_file):
             N += 1
 
             print
-            print "error cases:"
-            print "\n".join(error_cases)
+            print "recall error cases:"
+            print "\n".join(recall_error_cases)
+            print "precision error cases:"
+            print "\n".join(precision_error_cases)
 
     print "**" * 40
     print "marco, P: %f; R: %f; F1: %f" % (marco_p / N, marco_r / N, marco_f / N)

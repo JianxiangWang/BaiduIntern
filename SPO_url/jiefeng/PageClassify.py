@@ -393,6 +393,7 @@ class PageClassify:
             res, page_info = func
             print res
             if res == 1:
+                print page_info
                 print_str = page_info['url']\
                           + '\t' + page_info['realtitle']\
                           + '\t' + page_info['domain']\

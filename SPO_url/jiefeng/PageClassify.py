@@ -139,7 +139,7 @@ class PageClassify:
 
         valid_count = cont_count*1
         if valid_count >= 2:
-            confidence += valid_count * 0.3
+            confidence += valid_count * 0.1
             if confidence > 1:
                 confidence = 1
 

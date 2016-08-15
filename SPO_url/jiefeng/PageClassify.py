@@ -76,11 +76,9 @@ class PageClassify:
             return -2, ''
         
         page_info['domain'] = '评测'
-        print "\t".join(page_info['page_type'])
         if '文章内容页' not in page_info['page_type'] and '商品详情页' not in page_info['page_type']:
             return 0, ''
 
-        print page_info['realtitle']
         if page_info['realtitle'].find('测评') != -1 or page_info['realtitle'].find('评测') != -1:
             page_info['confidence'] = 1
             return 1, page_info

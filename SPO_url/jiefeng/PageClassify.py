@@ -229,7 +229,7 @@ class PageClassify:
             else:
                 return 0, ''
         else:
-            valid_set = (
+            valid_set = {
                 'baike.baidu.com/item',
                 'baike.baidu.com/view',
                 'baike.baidu.com/subview',
@@ -241,7 +241,7 @@ class PageClassify:
                 'baike.so.com/doc',
                 'www.baike.com/wiki',
 
-            )
+            }
             url_subdomain = '/'.join(url.split('/')[:2])
             print url_subdomain
             if url_subdomain in valid_set:

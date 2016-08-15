@@ -107,11 +107,15 @@ class PageClassify:
             return -2, ''
 
         page_info['domain'] = '简介'
-        baike_res, baike_title = self.classify_baike(input)
 
-        print baike_res
-        if baike_res==0 and page_info['url'].find('zhidao.baidu.com')==-1:
-            return 0, ''
+        # 如果是简介页面, 直接return 1
+        baike_res, baike_title = self.classify_baike(input)
+        if baike_res == 1:
+            return 1, page_info
+
+
+        # if '文章内容页' not in page_info['page_type'] and baike_res==0 and page_info['url'].find('zhidao.baidu.com')==-1:
+
 
         title_count = 0
         cont_count  = 0

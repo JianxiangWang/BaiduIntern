@@ -126,6 +126,34 @@ def evaluate(gold_file, pred_file):
     print "marco, P: %f; R: %f; F1: %f" % (marco_p / N, marco_r / N, marco_f / N)
 
 
+def add_shangpin_test_data(test_file, shangpin_file, to_file):
+
+    # 商品 positive
+    positive_instances = []
+    with open(shangpin_file) as fin:
+        for line in fin:
+            url, json_str = line.strip().split("\t")
+            positive_instances.append("\t".join(["商品", url, "1", json_str]))
+
+    # 商品 negative
+    all_instances = []
+    negative_instances = []
+    with open(test_file) as fin:
+        for line in fin:
+            P, url, label, json_str = line.strip().split("\t")
+            if label == "1":
+                negative_instances.append("\t".join(["商品", url, "0", json_str]))
+            all_instances.append("\t".join([P, url, label, json_str]))
+
+    # sample
+    negative_instances = random.sample(negative_instances, 50)
+
+    with open(to_file, "w") as fout:
+        fout.write("\n".join(all_instances) + "\n")
+        fout.write("\n".join(positive_instances) + "\n")
+        fout.write("\n".join(negative_instances) + "\n")
+
+
 
 
 if __name__ == '__main__':
@@ -141,6 +169,9 @@ if __name__ == '__main__':
     # main("微博", "微博", "weibo.test.data")
     # main("商品", "商品", "shangpin.test.data")
 
+
     # filter_no_pack_urls("org.test.data", "org.test.data.filtered")
 
-    evaluate("org.test.data.filtered", "org.test.data.filtered.spo")
+    add_shangpin_test_data("org.test.data.filtered", "shangping.data", "org.test.data.add_shangping.filtered")
+
+    # evaluate("org.test.data.filtered", "org.test.data.filtered.spo")

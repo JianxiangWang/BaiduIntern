@@ -122,8 +122,20 @@ def has_download_a_tag_2(soup):
                                 for x in sibling.stripped_strings:
                                     surrounding_string += x
                     #
-                    if "下载地址" in surrounding_string or "下载链接" in surrounding_string or "链接下载" in surrounding_string:
-                        return True
+
+                    key_words = [
+                        "下载地址",
+                        "下载链接",
+                        "链接下载",
+                        "迅雷连接",
+                        "迅雷链接",
+                        "磁力链接",
+                        "磁力连接",
+                    ]
+
+                    for word in key_words:
+                        if word in surrounding_string:
+                            return True
     return False
 
 

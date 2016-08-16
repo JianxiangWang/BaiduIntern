@@ -1,13 +1,13 @@
 #!/bin/bash
 
 # 先打包, 上传至 hadoop ...
-tar zcf qdh2.tar.gz ba shipin tuPian xiaoShuo xiazai yinpin jiefeng main.py
-hadoop fs -rm /app/ps/spider/kg-value/wangjianxiang01/qdh2.tar.gz
-hadoop fs -put qdh2.tar.gz /app/ps/spider/kg-value/wangjianxiang01/
+tar zcf qdh.tar.gz ba shipin tuPian xiaoShuo xiazai yinpin jiefeng main.py
+hadoop fs -rm /app/ps/spider/kg-value/wangjianxiang01/qdh.tar.gz
+hadoop fs -put qdh.tar.gz /app/ps/spider/kg-value/wangjianxiang01/
 
 INPUT="/app/ps/spider/wdm-site-offline/relation-extraction/dom_extraction/qiandaohu2"
 #INPUT="/app/ps/spider/kg-value/wangjianxiang01/data/SPO_url/test_urls_in"
-OUTPUT="/app/ps/spider/kg-value/wangjianxiang01/data/qiandaohu_spo2"
+OUTPUT="/app/ps/spider/kg-value/wangjianxiang01/data/qiandaohu_spo3"
 
 hadoop fs -rmr ${OUTPUT}
 
@@ -16,7 +16,7 @@ hadoop streaming \
     -output "${OUTPUT}" \
     -mapper "main.py" \
     -reducer "NONE" \
-    -cacheArchive "/app/ps/spider/kg-value/wangjianxiang01/qdh2.tar.gz#." \
+    -cacheArchive "/app/ps/spider/kg-value/wangjianxiang01/qdh.tar.gz#." \
     -cacheArchive "/app/ps/spider/kg-value/wangjianxiang01/python.tar.gz#." \
     -jobconf mapred.job.priority="VERY_HIGH" \
     -jobconf mapred.textoutputformat.ignoreseparator=true \

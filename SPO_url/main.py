@@ -27,7 +27,7 @@ p = PageClassify('prepared')
 
 
 for line in sys.stdin:
-    # try:
+    try:
         line_list = line.strip().split("\t")
         url = line_list[0].strip()
 
@@ -41,8 +41,8 @@ for line in sys.stdin:
         # 介峰部分
         p.predict(line.strip())
 
-    # except:
-    #     continue
+    except:
+        continue
 
 
 

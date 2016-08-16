@@ -4,9 +4,8 @@ sys.setdefaultencoding('utf-8')
 import json
 
 
-def main(parse_file, url):
-
-    for line in open(parse_file):
+def main(fin, url):
+    for line in fin:
         line_list = line.strip().split("\t")
         this_url = line_list[1].strip()
         dict_info_str = line_list[-1].strip()
@@ -17,6 +16,6 @@ def main(parse_file, url):
 
 
 if __name__ == '__main__':
-    parse_file = sys.argv[1]
+    # parse_file = sys.argv[1]
     url = sys.argv[2]
-    main(parse_file, url)
+    main(sys.stdin, url)

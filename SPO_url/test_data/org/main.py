@@ -172,6 +172,6 @@ if __name__ == '__main__':
 
     # filter_no_pack_urls("org.test.data", "org.test.data.filtered")
 
-    add_shangpin_test_data("org.test.data.filtered", "shangping.data", "org.test.data.add_shangping.filtered")
+    # add_shangpin_test_data("org.test.data.filtered", "shangping.data", "org.test.data.add_shangping.filtered")
 
-    # evaluate("org.test.data.filtered", "org.test.data.filtered.spo")
+    evaluate("org.test.data.filtered", "org.test.data.filtered.spo")

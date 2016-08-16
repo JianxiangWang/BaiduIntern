@@ -10,8 +10,6 @@ def main(fin, url):
         this_url = line_list[0].strip()
         dict_info_str = line_list[-1].strip()
 
-        print this_url
-        print url
         if this_url.strip() == url:
             dict_info = json.loads(dict_info_str)
             print dict_info["cont_html"]

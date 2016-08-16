@@ -7,7 +7,7 @@ import json
 def main(fin, url):
     for line in fin:
         line_list = line.strip().split("\t")
-        this_url = line_list[1].strip()
+        this_url = line_list[0].strip()
         dict_info_str = line_list[-1].strip()
 
         print this_url

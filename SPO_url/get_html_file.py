@@ -17,5 +17,5 @@ def main(fin, url):
 
 if __name__ == '__main__':
     # parse_file = sys.argv[1]
-    url = sys.argv[2]
+    url = sys.argv[1]
     main(sys.stdin, url)

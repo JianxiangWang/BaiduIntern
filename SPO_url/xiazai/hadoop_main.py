@@ -133,6 +133,7 @@ def has_download_a_tag_2(soup):
                         "磁力连接",
                     ]
 
+                    print surrounding_string
                     for word in key_words:
                         if word in surrounding_string:
                             return True

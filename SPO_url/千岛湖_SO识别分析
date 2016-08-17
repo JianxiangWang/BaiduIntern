@@ -6,8 +6,9 @@ qiandaohu  so识别分析
 	s: 
 		title 作为 s,
 
-		 # 1. 如果title中有《》,将《》里面的内容作为s
-		 # 2. # 2. 删除一些无用的词
+        识别方案:
+            # 1. 如果title中有《》,将《》里面的内容作为s
+            # 2. 删除一些无用的词
 
 		http://www.qidian.com/Book/2227457.aspx
 
@@ -18,8 +19,9 @@ qiandaohu  so识别分析
 2. 吧  ==> ok
 	p无法细化，
 	s: 
-		吧名识别 
-		http://tieba.baidu.com/p/2485594356
+		识别方案:
+            #1. 吧名识别, 吧名作为s
+            http://tieba.baidu.com/p/2485594356
 
 	o：
 		url
@@ -42,6 +44,22 @@ qiandaohu  so识别分析
 
 	s:
 		从title中识别简介的对象，或者直接使用title
+		识别方案:
+		    #1 从title中识别
+		        if "简介" or "介绍" in  title:
+                    从 "简介" or "介绍" 往前扫描至title的开头或某些符号(?,。空格) 停止
+                    将中间扫描过的字符串作为s
+
+		        else:
+		            使用title作为s
+
+		title examples:
+		(1) 《逆鳞》简介
+		(2)  电影《鬼父之温泉旅行篇》简介
+		(3) 【南妹皇后】好看吗？南妹皇后全集剧情介绍
+		(4)  快手红人排行榜揭晓 快手红人资料介绍
+		(4)  花千骨主演个人简介大全
+
 
 	o:
 

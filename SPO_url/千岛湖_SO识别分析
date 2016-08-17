@@ -1,0 +1,141 @@
+
+qiandaohu  so识别分析
+
+1. 小说
+
+	s: 
+		title 作为 s,
+
+		http://www.qidian.com/Book/2227457.aspx
+
+	o:
+		需要p的细化
+		页面正文 或 url
+
+2. 吧
+	p无法细化，
+	s: 
+		吧名识别 
+		http://tieba.baidu.com/p/2485594356
+
+	o：
+		url
+
+3. 个人资料
+	
+	p 需要细化
+
+	s: 
+		需要获取人物的姓名
+		a. 从title 中获取人物
+
+	o:
+
+		正文块， 
+		
+
+
+4. 简介
+
+	s:
+		从title中识别简介的对象，或者直接使用title
+
+	o:
+
+		正文块
+		
+
+5. 百科
+
+	p 需要细化
+
+	s:
+		标题
+	
+	o:
+		url 
+		
+	
+
+6. 测评
+
+	s:
+		需要从title中获取评测对象
+
+		http://www.techweb.com.cn/tele/2016-04-07/2311421.shtml  秒杀iPhone？华为P9详细评测
+		http://digi.tech.qq.com/a/20160409/006537.htm   华为P9 Plus外媒评测汇总：未能超越三星S7
+
+
+
+	o:
+		页面正文
+		
+
+
+7. 音频
+	
+	s:
+		使用title
+
+	o:
+
+		使用url
+
+		http://music.163.com/#/song?id=27566111
+
+8. 视频
+	
+	s:
+		使用title
+
+	o:
+	
+		使用url
+
+9. 下载
+
+	s:
+		获取title中下载主体，或使用 title
+
+		http://www.mianhuatang.la/down/txt65562.html
+	o:
+		获取下载链接 or url
+
+
+10. 商品
+	p需要细化
+	s: 
+		使用title
+
+	o:
+		使用url
+		
+		http://www.jd.com/pinpai/655-8557.html
+
+11. 微博
+	p无法细化
+
+	s: 
+		使用title
+
+	o:
+		使用url
+
+		http://weibo.com/boranjing?zw=ent&is_hot=1
+
+看一下测试集
+
+目标准确 >= 98%, 召回 >= xx
+
+时间性能分析!
+
+置信度
+提升准确
+so确定
+
+
+
+
+
+
+

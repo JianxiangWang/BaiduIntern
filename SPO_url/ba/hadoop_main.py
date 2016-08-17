@@ -1,9 +1,10 @@
 #!python/bin/python
 # encoding: utf-8
-import json
 import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
+from bs4 import BeautifulSoup
+import json
 import sys
 
 
@@ -13,12 +14,16 @@ def main(fin):
         line_list = line.strip().split("\t")
         url = line_list[0]
         dict_info = json.loads(line_list[-1])
+        try:
+            soup = BeautifulSoup(dict_info["cont_html"], "html.parser")
+        except:
+            soup = None
 
-        do_extraction(url, dict_info, line_list[-1])
+        do_extraction(url, dict_info, soup)
 
 
-def do_extraction(url, dict_info, str_info):
-    x, confidence = is_ba(url, dict_info)
+def do_extraction(url, dict_info, soup):
+    x, confidence = is_ba(url, dict_info, soup)
     if x:
         url = unicode(url, errors="ignore")
         title = dict_info["realtitle"]
@@ -29,7 +34,7 @@ def do_extraction(url, dict_info, str_info):
         print u"%s\t%s\t%s\t%s\t%.4f" % (url, S, P, O, confidence)
 
 
-def is_ba(url, dict_info):
+def is_ba(url, dict_info, soup):
 
     # 首先, 域名过滤
     if "tieba.baidu.com" not in url:
@@ -41,6 +46,9 @@ def is_ba(url, dict_info):
         return (True, 1)
     else:
         return (False, 0)
+
+
+
 
 
 if __name__ == '__main__':

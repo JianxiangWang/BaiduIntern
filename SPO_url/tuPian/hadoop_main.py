@@ -17,11 +17,16 @@ def main():
         url = line_list[0]
         dict_info = json.loads(line_list[-1])
 
-        do_extraction(url, dict_info, line_list[-1])
+        try:
+            soup = BeautifulSoup(dict_info["cont_html"], "html.parser")
+        except:
+            soup = None
+
+        do_extraction(url, dict_info, soup)
 
 
-def do_extraction(url, dict_info, str_info):
-    x, confidence = is_tupian(url, dict_info)
+def do_extraction(url, dict_info, soup):
+    x, confidence = is_tupian(url, dict_info, soup)
     if x:
         url = unicode(url, errors="ignore")
         title = dict_info["realtitle"]
@@ -33,10 +38,9 @@ def do_extraction(url, dict_info, str_info):
 
 
 
-def is_tupian(url, dict_info):
-    try:
-        soup = BeautifulSoup(dict_info["cont_html"], "html.parser")
-    except:
+def is_tupian(url, dict_info, soup):
+
+    if soup is None:
         return (False, 0)
 
     #

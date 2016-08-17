@@ -3,6 +3,7 @@
 import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
+from bs4 import BeautifulSoup
 import json
 from ba.hadoop_main import do_extraction as ba_extraction
 from shipin.hadoop_main import do_extraction as shipin_extraction
@@ -22,10 +23,6 @@ extractions = [
     yinpin_extraction
 ]
 
-# 介峰部分
-p = PageClassify('prepared')
-
-
 for line in sys.stdin:
     # try:
         line_list = line.strip().split("\t")
@@ -33,13 +30,18 @@ for line in sys.stdin:
 
         str_info = line_list[-1]
         dict_info = json.loads(str_info)
+        try:
+            soup = BeautifulSoup(dict_info["cont_html"], "html.parser")
+        except:
+            soup = None
 
         # go go go!
         for do_extraction in extractions:
-            do_extraction(url, dict_info, str_info)
+            do_extraction(url, dict_info, soup)
 
         # 介峰部分
-        p.predict(line.strip())
+        p = PageClassify(url, dict_info, soup)
+        p.predict()
 
     # except:
     #     continue

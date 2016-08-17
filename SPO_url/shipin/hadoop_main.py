@@ -2,6 +2,9 @@
 #  encoding: utf-8
 import json
 import sys
+
+from bs4 import BeautifulSoup
+
 reload(sys)
 sys.setdefaultencoding('utf-8')
 import sys
@@ -15,12 +18,17 @@ def main(fin):
         url = line_list[0]
         dict_info = json.loads(line_list[-1])
 
-        do_extraction(url, dict_info, line_list[-1])
+        try:
+            soup = BeautifulSoup(dict_info["cont_html"], "html.parser")
+        except:
+            soup = None
+
+        do_extraction(url, dict_info, soup)
 
 
-def do_extraction(url, dict_info, str_info):
+def do_extraction(url, dict_info, soup):
 
-    x, confidence = is_shipin(url, dict_info)
+    x, confidence = is_shipin(url, dict_info, soup)
     if x:
         url = unicode(url, errors="ignore")
         title = dict_info["realtitle"]
@@ -31,7 +39,7 @@ def do_extraction(url, dict_info, str_info):
         print u"%s\t%s\t%s\t%s\t%.4f" % (url, S, P, O, confidence)
 
 
-def is_shipin(url, dict_info):
+def is_shipin(url, dict_info, soup):
 
     page_type_list = dict_info["page_type"]
 

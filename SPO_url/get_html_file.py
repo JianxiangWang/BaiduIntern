@@ -17,5 +17,7 @@ def main(fin, url):
 
 if __name__ == '__main__':
     # parse_file = sys.argv[1]
+    # cmd:
+    # cat test_data/org/org.test.data.filtered | awk -F '\t' '{print $2, "\t", $4}' | python get_html_file.py "http://cang.qq.com/"
     url = sys.argv[1]
     main(sys.stdin, url)

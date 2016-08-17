@@ -5,22 +5,48 @@ import json
 from PageInfo import PageInfo
 from bs4 import BeautifulSoup
 
+
 class PageClassify:
-    def __init__(self, url, dict_info, soup):
+    pageinfo_type = ''
+    
+    def __init__(self, pageinfo_type='crawl_pack'):
         """prepared:输入为预先解析的页面信息，如页面类型，title，格式： url \t pageinfo(json)
            crawl_pack:需要抓取页面，返回和prepared相同格式 
         """
-        self.url = url
-        self.soup = soup
-        self.page_flag, self.page_info = self.get_pageinfo(dict_info)
+        if pageinfo_type == 'prepared':
+            self.pageinfo_type = 'prepared'
+        else:
+            self.pageinfo_type = 'crawl_pack'
+            self.page_info     = PageInfo()
+        
+    def get_pageinfo(self, input):
+        page_str = ''
+        if self.pageinfo_type == 'crawl_pack':
+            url = input
+            page_flag, page_str = self.page_info.get_pageinfo(url) # 判断库中是否有该url，获取页面类型
+            if page_flag == -1:
+                return -1, ''
+            elif page_flag == -2:
+                return -2, ''
+            
+        elif self.pageinfo_type == 'prepared':
+            page_str = input
+                
+        info = page_str.strip().split('\t')
+        url  = info[0]
+        try:
+            json_info = json.loads(info[1].decode('utf8', 'ignore'))
+            # soup
+            self.soup = BeautifulSoup(json_info["cont_html"], "html.parser")
 
-
-    def get_pageinfo(self, dict_info):
+        except:
+            return -2, ''
         # json_info : url, page_type, title, realtitle, content, cont_html, kv_dict, article
-        page_info = self.trans_code(dict_info)
+        page_info = self.trans_code(json_info)
         return 1, page_info
 
 
+    
     def trans_code(self, json_info):
         page_info = {
             'url'       : json_info['url'].encode('utf8'),
@@ -42,9 +68,9 @@ class PageClassify:
             page_info['kv_dict'][key] = value
         return page_info
     
-    def classify_evaluating(self):
+    def classify_evaluating(self, input):
         """评测"""
-        page_flag, page_info = self.page_flag, self.page_info
+        page_flag, page_info = self.get_pageinfo(input)
         
         if page_flag == -1:
             return -1, ''
@@ -73,9 +99,9 @@ class PageClassify:
         else:
             return 0, ''
 
-    def classify_introduction(self):
+    def classify_introduction(self, input):
         """简介"""
-        page_flag, page_info = self.page_flag, self.page_info
+        page_flag, page_info = self.get_pageinfo(input)
         if page_flag == -1:
             return -1, ''
         elif page_flag == -2:
@@ -84,7 +110,7 @@ class PageClassify:
         page_info['domain'] = '简介'
 
         # 如果是简介页面, 直接return 1
-        baike_res, page_info_ = self.classify_baike()
+        baike_res, page_info_ = self.classify_baike(input)
         if baike_res == 1:
             page_info_['domain'] = '简介'
             return 1, page_info_
@@ -124,9 +150,9 @@ class PageClassify:
         else:
             return 0, ''
 
-    def classify_news(self):
+    def classify_news(self, input):
         """新闻"""
-        page_flag, page_info = self.page_flag, self.page_info
+        page_flag, page_info = self.get_pageinfo(input)
         if page_flag == -1:
             return -1, ''
         elif page_flag == -2:
@@ -139,9 +165,9 @@ class PageClassify:
         else:
             return 0, ''
 
-    def classify_personalprofile(self):
+    def classify_personalprofile(self, input):
         """个人资料"""
-        page_flag, page_info = self.page_flag, self.page_info
+        page_flag, page_info = self.get_pageinfo(input)
         if page_flag == -1:
             return -1, ''
         elif page_flag == -2:
@@ -182,9 +208,9 @@ class PageClassify:
         else:
             return 0, ''
 
-    def classify_baike(self):
+    def classify_baike(self, input):
         """百科"""
-        page_flag, page_info = self.page_flag, self.page_info
+        page_flag, page_info = self.get_pageinfo(input)
         if page_flag == -1:
             return -1, ''
         elif page_flag == -2:
@@ -224,9 +250,9 @@ class PageClassify:
             else:
                 return 0, ''
 
-    def classify_weibo(self):
+    def classify_weibo(self, input):
         """微博"""
-        page_flag, page_info = self.page_flag, self.page_info
+        page_flag, page_info = self.get_pageinfo(input)
         if page_flag == -1:
             return -1, ''
         elif page_flag == -2:
@@ -304,9 +330,9 @@ class PageClassify:
         else:
             return 0, ''
 
-    def classify_commidity(self):
+    def classify_commidity(self, input):
         """商品"""
-        page_flag, page_info = self.page_flag, self.page_info
+        page_flag, page_info = self.get_pageinfo(input)
         if page_flag == -1:
             return -1, ''
         elif page_flag == -2:
@@ -361,31 +387,26 @@ class PageClassify:
             print 'precision : ' + precision
             print 'recall : ' + recall
 
-    def predict(self):
+    def predict(self, input):
         """页面类型预测"""
-        extractions = [
-            self.classify_evaluating,
-            self.classify_introduction,
-            # self.classify_news,
-            self.classify_personalprofile,
-            self.classify_baike,
-            self.classify_weibo,
-            self.classify_commidity
-        ]
-
-        # go go go!
-        for do_extraction in extractions:
-            res, page_info = do_extraction()
-
+        def print_res(func):
+            res, page_info = func
             if res == 1:
                 print_str = page_info['url']\
                           + '\t' + page_info['realtitle']\
                           + '\t' + page_info['domain']\
                           + '\t' + page_info['url']\
                           + '\t' + str(page_info['confidence'])
+                          # + '\t' + input.strip().split('\t')[-1]
                 print print_str
 
-
-
+        print_res(self.classify_evaluating(input))
+        print_res(self.classify_introduction(input))
+        # print_res(self.classify_news(input))
+        print_res(self.classify_personalprofile(input))
+        print_res(self.classify_baike(input))
+        print_res(self.classify_weibo(input))
+        print_res(self.classify_commidity(input))
+        
         
 

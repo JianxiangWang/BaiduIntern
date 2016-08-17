@@ -137,6 +137,34 @@ qiandaohu  so识别分析
 	s:
 		使用title
 
+		识别方案:
+		    从title中识别,
+		    # 1. 如果有《》, 取《》里的内容
+		    # 2. 去掉一些词: 歌词, 歌曲
+
+
+		examples:
+
+            http://m.yue365.com/mlist/155.shtml     林俊杰  音频    http://m.yue365.com/mlist/155.shtml     0.8000
+            http://www.kuwo.cn/geci/l_4239994/      《骨生花》歌词 — 清弄   音频    http://www.kuwo.cn/geci/l_4239994/      0.8000
+            http://music.baidu.com/song/244222045?pst=sug   周杰伦《》逆鳞(伴奏版)  音频    http://music.baidu.com/song/244222045?pst=sug   0.8000
+            http://www.9ku.com/geshou/2168.htm      霍建华歌曲      音频    http://www.9ku.com/geshou/2168.htm      0.8000
+            http://5sing.kugou.com/fc/4338247.html  骨生花  音频    http://5sing.kugou.com/fc/4338247.html  0.8000
+            http://music.baidu.com/artist/17296?fm=altg1    何炅最好听的歌曲、何炅的最新专辑、何炅的MV、何炅演唱会,在线试听,MP3歌曲免费下载,何炅简介、图片、资料,尽在百度音乐。     音频    http://music.baidu.com/artist/17296?fm=altg1    0.8000
+            http://music.baidu.com/artist/213813859?fm=altg1        黄子韬  音频    http://music.baidu.com/artist/213813859?fm=altg1        0.8000
+            http://www.kuwo.cn/yinyue/6833046       Try Everything-(电影《疯狂动物城》主题曲)       音频    http://www.kuwo.cn/yinyue/6833046       0.8000
+            http://www.kuwo.cn/     听音乐 用酷我   音频    http://www.kuwo.cn/     0.8000
+            http://www.9ku.com/geshou/321.htm       林俊杰歌曲      音频    http://www.9ku.com/geshou/321.htm       0.8000
+            http://www.tudou.com/programs/view/9Lm0OH-k7zU/ 《2012国剧盛典》 2013—胡歌武侠歌曲（四首）      音频    http://www.tudou.com/programs/view/9Lm0OH-k7zU/ 0.8000
+            http://music.baidu.com/artist/2505      井柏然  音频    http://music.baidu.com/artist/2505      0.8000
+            http://music.163.com/song?id=27566111   骨生花  音频    http://music.163.com/song?id=27566111   0.8000
+            http://music.baidu.com/artist/1894/album        林心如  音频    http://music.baidu.com/artist/1894/album        0.8000
+            http://music.baidu.com/artist/200428    霍建华  音频    http://music.baidu.com/artist/200428    0.8000
+            http://music.baidu.com/artist/1096      黄晓明最好听的歌曲、黄晓明的最新专辑、黄晓明的MV、黄晓明演唱会,在线试听,MP3歌曲免费下载,黄晓明简介、图片、资料,尽在百度音乐。   音频    http://music.baidu.com/artist/1096      0.8000
+            http://music.baidu.com/film/262537046   电影《美人鱼》2016      音频    http://music.baidu.com/film/262537046   0.8000
+            http://www.51t.com/singer/s_qlai9k_1.htm        马天宇  音频    http://www.51t.com/singer/s_qlai9k_1.htm        0.8000
+            http://www.9ku.com/geshou/2802.htm      马天宇歌曲      音频    http://www.9ku.com/geshou/2802.htm      0.8000
+
 	o:
 
 		使用url

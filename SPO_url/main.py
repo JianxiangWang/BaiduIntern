@@ -15,10 +15,10 @@ from jiefeng.PageClassify import PageClassify
 
 # mine
 extractions = [
-    ba_extraction,
+    # ba_extraction,
     # shipin_extraction,
     # # tuPian_extraction,
-    # xiaoShuo_extraction,
+    xiaoShuo_extraction,
     # xiazai_extraction,
     # yinpin_extraction
 ]

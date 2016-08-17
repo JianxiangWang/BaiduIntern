@@ -107,7 +107,6 @@ class PageClassify:
         if title_count > 0:
             confidence = 0.6
 
-
         cont_words = ['简介', '介绍', '剧情']
         for item in cont_words:
             if page_info['content'].find(item) != -1:
@@ -124,6 +123,7 @@ class PageClassify:
             return 1, page_info
         else:
             return 0, ''
+
 
     def classify_news(self):
         """新闻"""

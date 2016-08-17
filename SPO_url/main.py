@@ -20,7 +20,7 @@ extractions = [
     # # tuPian_extraction,
     # xiaoShuo_extraction,
     # xiazai_extraction,
-    # yinpin_extraction
+    yinpin_extraction
 ]
 
 for line in sys.stdin:

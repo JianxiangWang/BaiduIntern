@@ -16,9 +16,10 @@ qiandaohu  so识别分析
 		需要p的细化
 		页面正文 或 url
 
-2. 吧  ==> ok
+2. 吧
 	p无法细化，
-	s: 
+
+	s:
 		识别方案:
             #1. 吧名识别, 吧名作为s
             http://tieba.baidu.com/p/2485594356
@@ -291,23 +292,53 @@ qiandaohu  so识别分析
 	p无法细化
 
 	s: 
-		使用title
+		识别方案:
+		    使用title作为s
+
+		examples:
+            http://weibo.com/mangguolao     湖南卫视芒果捞  微博    http://weibo.com/mangguolao     1
+            http://weibo.com/liyifeng2007/  李易峰  微博    http://weibo.com/liyifeng2007/  1
+            http://e.weibo.com/liukaiweibar 刘恺威吧        微博    http://e.weibo.com/liukaiweibar 1
+            http://weibo.com/liuyifeiofficial/      刘亦菲  微博    http://weibo.com/liuyifeiofficial/      1
+            http://tw.weibo.com/hunantv/    芒果TV  微博    http://tw.weibo.com/hunantv/    1
+            http://weibo.com/hztbar 黄子韬吧PreciousZTaoBar 微博    http://weibo.com/hztbar 1
+            http://weibo.com/boranjing?zw=ent       井柏然  微博    http://weibo.com/boranjing?zw=ent       1
+            http://weibo.com/u/5778620161?refer_flag=1005055013_    非凡搭档        微博    http://weibo.com/u/5778620161?refer_flag=1005055013_    1
+            http://weibo.com/u/3849658397   秒拍娱乐        微博    http://weibo.com/u/3849658397   1
+            http://weibo.com/boranjing?nick=%E4%BA%95%E6%9F%8F%E7%84%B6     井柏然  微博    http://weibo.com/boranjing?nick=%E4%BA%95%E6%9F%8F%E7%84%B6     1
+            http://weibo.com/maggiebar?from=friends_dynamic 江疏影吧        微博    http://weibo.com/maggiebar?from=friends_dynamic 1
+            http://weibo.com/u/2142019491   秒拍热门视频    微博    http://weibo.com/u/2142019491   1
+            http://weibo.com/hugeba ~       微博    http://weibo.com/hugeba 1
+            http://weibo.com/u/1549364094   江疏影  微博    http://weibo.com/u/1549364094   1
+            http://weibo.com/u/2870450862   刘昊然turbo     微博    http://weibo.com/u/2870450862   1
+            http://weibo.com/u/5302711827   芒果TV阿彪      微博    http://weibo.com/u/5302711827   1
+            http://weibo.com/minimap        高德地图        微博    http://weibo.com/minimap        1
+            http://e.weibo.com/kuwoyinyuetuijian    酷我音乐调频    微博    http://e.weibo.com/kuwoyinyuetuijian    1
+            http://weibo.com/u/5778620161?refer_flag=1008080001_    非凡搭档        微博    http://weibo.com/u/5778620161?refer_flag=1008080001_    1
+            http://weibo.com/linxinru       林心如  微博    http://weibo.com/linxinru       1
+            http://tw.weibo.com/jjlin       林俊傑  微博    http://tw.weibo.com/jjlin       1
+            http://weibo.com/liuyantieba    柳岩贴吧        微博    http://weibo.com/liuyantieba    1
+            http://weibo.com/hejiong?zw=news        何炅    微博    http://weibo.com/hejiong?zw=news        1
 
 	o:
 		使用url
 
 		http://weibo.com/boranjing?zw=ent&is_hot=1
 
-看一下测试集
+
+
+
+
+============================================================
+
+1. 置信度
+2. 提升准确
+3. so确定
+
 
 目标: 准确 >= 98%, 召回 >= xx
-
-时间性能分析!
-
-置信度
-提升准确
-so确定
-
+时间性能:
+    目前在测试机上单线程 1s处理约7个url
 
 
 

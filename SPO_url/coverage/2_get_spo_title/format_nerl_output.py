@@ -35,6 +35,6 @@ def main(fin):
 
 
 if __name__ == '__main__':
-    min(sys.stdin)
+    main(sys.stdin)
 
 

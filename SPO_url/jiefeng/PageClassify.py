@@ -375,8 +375,8 @@ class PageClassify:
             # self.classify_news,
             # self.classify_personalprofile,
             # self.classify_baike,
-            # self.classify_weibo,
-            self.classify_commidity
+            self.classify_weibo,
+            # self.classify_commidity
         ]
 
         # go go go!

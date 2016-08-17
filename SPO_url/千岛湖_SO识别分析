@@ -265,7 +265,22 @@ qiandaohu  so识别分析
 10. 商品
 	p需要细化
 	s: 
-		使用title
+
+		识别方案:
+		    使用title作为s
+
+        examples:
+            http://www.vip.com/detail-819967-116046665.html （特惠）民族系列深蓝色简洁时尚短袖polo衫        商品    http://www.vip.com/detail-819967-116046665.html 1
+            http://product.dangdang.com/23995619.html       千屿千寻（最好的我们，最好的现在，存在于蓝天与大海之间）        商品    http://product.dangdang.com/23995619.html       1
+            http://www.newegg.cn/Product/S6C-4XT-1KF_320.htm        Beats by Dr. Dre Pro Lil Wayne Over-Ear Studio 耳机 红/黑       商品    http://www.newegg.cn/Product/S6C-4XT-1KF_320.htm        1
+            http://product.suning.com/0070081985/129793458.html     山水/Sansui GS-6000(13D)蓝牙多媒体有源音箱全木质双仓2.1插U盘音响笔记本台式电脑低音炮小音响时尚黑        商品    http://product.suning.com/0070081985/129793458.html     1
+            http://product.dangdang.com/60618028.html       【当当自营】 利仁（Liven） LR-D3009电饼铛/煎烤机        商品    http://product.dangdang.com/60618028.html       1
+            http://product.dangdang.com/23590965.html       Hadoop权威指南(第3版)   商品    http://product.dangdang.com/23590965.html       1
+            http://product.dangdang.com/23821601.html       深入理解Hadoop（原书第2版）     商品    http://product.dangdang.com/23821601.html       1
+            http://product.dangdang.com/23829595.html       Hadoop大数据分析与挖掘实战      商品    http://product.dangdang.com/23829595.html       1
+            http://product.dangdang.com/23998700.html       男神来了（90后黑粉助理单挑天王巨星，史上超强撩汉指南来袭！）    商品    http://product.dangdang.com/23998700.html       1
+            http://www.jd.com/pinpai/655-14026.html ~       商品    http://www.jd.com/pinpai/655-14026.html 1
+            http://www.jd.com/pinpai/655-8557.html  "华为（HUAWEI）"        商品    http://www.jd.com/pinpai/655-8557.html  1
 
 	o:
 		使用url

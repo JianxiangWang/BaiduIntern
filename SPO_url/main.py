@@ -30,6 +30,7 @@ for line in sys.stdin:
 
         str_info = line_list[-1]
         dict_info = json.loads(str_info)
+
         try:
             soup = BeautifulSoup(dict_info["cont_html"], "html.parser")
         except:

@@ -31,7 +31,7 @@ def main(fin):
                     v = v.strip()
 
                     if k in ["type_confidence", "entity_confidence"]:
-                        v = float(x)
+                        v = float(v)
                     if k in ["offset"]:
                         v = int(v)
 

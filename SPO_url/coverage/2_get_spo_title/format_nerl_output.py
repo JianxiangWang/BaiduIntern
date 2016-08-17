@@ -24,6 +24,7 @@ def main(fin):
             ner_list = []
             for s in line_list[1:]:
                 # {  name : 春节  formal : 2016-02-08  offset : 0  etype : [D:TIME]  type_confidence : 5  eid :   entity_confidence : 0  }
+                print s
                 d = {}
                 s = s[1:-1].strip()
                 for x in s.split("  "):

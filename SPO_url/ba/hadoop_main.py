@@ -19,15 +19,16 @@ def main(fin):
         except:
             soup = None
 
+        soup.find()
+
+
         do_extraction(url, dict_info, soup)
 
 
 def do_extraction(url, dict_info, soup):
     x, confidence = is_ba(url, dict_info, soup)
     if x:
-        url = unicode(url, errors="ignore")
-        title = dict_info["realtitle"]
-        S = title
+        S = get_s(url, dict_info, soup)
         P = u"吧"
         O = url
 
@@ -46,6 +47,22 @@ def is_ba(url, dict_info, soup):
         return (True, 1)
     else:
         return (False, 0)
+
+
+def get_s(url, dict_info, soup):
+    # 吧名识别, 以吧名作为s
+    if soup:
+        tag = soup.find("a", attrs={"class_": "card_title_fname"})
+        if tag:
+            s = tag.string.strip()
+            return s
+
+    # 找不到使用title
+    s = dict_info["realtitle"]
+    return s
+
+
+
 
 
 

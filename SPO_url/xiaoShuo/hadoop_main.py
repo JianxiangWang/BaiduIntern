@@ -75,7 +75,7 @@ def get_s(url, dict_info, soup):
 
 def remove_flanking_symbols(str):
 
-    en_punctuations = u""" !"#&'*+,-..../:;<=>?@[\]^_`|~%""" + "``" + "''"
+    en_punctuations = u""" !"#&'*+,-..../:;<=>?@[\]^_`|%""" + "``" + "''"
     ch_punctuations = u"``''，。；、：？！∶… …──“”＊「」《》【】"
     nums = u"0123456789"
     symbols = en_punctuations + ch_punctuations + nums

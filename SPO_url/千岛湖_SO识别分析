@@ -6,6 +6,9 @@ qiandaohu  so识别分析
 	s: 
 		title 作为 s,
 
+		 # 1. 如果title中有《》,将《》里面的内容作为s
+		 # 2. # 2. 删除一些无用的词
+
 		http://www.qidian.com/Book/2227457.aspx
 
 	o:

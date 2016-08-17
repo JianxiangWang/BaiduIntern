@@ -27,7 +27,7 @@ def main(fin):
                 d = {}
                 s = s[1:-1].strip()
                 for x in s.split("  "):
-                    print x.split(" : ", 1)
+                    print x, x.split(" : ", 1)
                     k, v = x.split(" : ", 1)
                     d[k] = v
                 ner_list.append(d)

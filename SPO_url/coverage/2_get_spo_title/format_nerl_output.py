@@ -24,13 +24,11 @@ def main(fin):
             ner_list = []
             for s in line_list[1:]:
                 # {  name : 春节  formal : 2016-02-08  offset : 0  etype : [D:TIME]  type_confidence : 5  eid :   entity_confidence : 0  }
-                print s
                 d = {}
                 s = s[1:-1].strip()
                 for x in s.split("  "):
-                    print x, x.split(" : ", 1)
-                    k, v = x.split(" : ", 1)
-                    d[k] = v
+                    k, v = x.split(" :", 1)
+                    d[k] = v.strip()
                 ner_list.append(d)
 
             print "%s\t%s" % (sentence, json.dumps(ner_list, ensure_ascii=False))

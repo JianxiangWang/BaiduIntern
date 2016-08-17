@@ -373,8 +373,8 @@ class PageClassify:
             # self.classify_evaluating,
             # self.classify_introduction,
             # self.classify_news,
-            self.classify_personalprofile,
-            # self.classify_baike,
+            # self.classify_personalprofile,
+            self.classify_baike,
             # self.classify_weibo,
             # self.classify_commidity
         ]

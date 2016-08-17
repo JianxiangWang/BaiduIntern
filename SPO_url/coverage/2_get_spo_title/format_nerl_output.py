@@ -28,7 +28,16 @@ def main(fin):
                 s = s[1:-1].strip()
                 for x in s.split("  "):
                     k, v = x.split(" :", 1)
-                    d[k] = v.strip()
+                    v = v.strip()
+
+                    if k in ["type_confidence", "entity_confidence"]:
+                        v = float(x)
+                    if k in ["offset"]:
+                        v = int(v)
+
+                    d[k] = v
+
+
                 ner_list.append(d)
 
             print "%s\t%s" % (sentence, json.dumps(ner_list, ensure_ascii=False))

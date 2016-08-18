@@ -45,7 +45,7 @@ class PageClassify:
     def classify_evaluating(self):
         """评测"""
         page_flag, page_info = self.page_flag, self.page_info
-        page_info['domain'], page_info['confidence'] = "", 0
+        page_info['domain'], page_info['s'], page_info['confidence'] = "", "", 0
 
         if page_flag == -1:
             return -1, ''
@@ -84,7 +84,7 @@ class PageClassify:
             return 1, page_info_
 
         page_flag, page_info = self.page_flag, self.page_info
-        page_info['domain'], page_info['confidence'] = "", 0
+        page_info['domain'], page_info['s'], page_info['confidence'] = "", "", 0
         if page_flag == -1:
             return -1, ''
         elif page_flag == -2:
@@ -128,7 +128,7 @@ class PageClassify:
     def classify_news(self):
         """新闻"""
         page_flag, page_info = self.page_flag, self.page_info
-        page_info['domain'], page_info['confidence'] = "", 0
+        page_info['domain'], page_info['s'], page_info['confidence'] = "", "", 0
         if page_flag == -1:
             return -1, ''
         elif page_flag == -2:
@@ -144,7 +144,7 @@ class PageClassify:
     def classify_personalprofile(self):
         """个人资料"""
         page_flag, page_info = self.page_flag, self.page_info
-        page_info['domain'], page_info['confidence'] = "", 0
+        page_info['domain'], page_info['s'], page_info['confidence'] = "", "", 0
         if page_flag == -1:
             return -1, ''
         elif page_flag == -2:
@@ -188,15 +188,16 @@ class PageClassify:
     def classify_baike(self):
         """百科"""
         page_flag, page_info = self.page_flag, self.page_info
-        page_info['domain'], page_info['confidence'] = "", 0
+        page_info['domain'], page_info['s'], page_info['confidence'] = "", "", 0
         if page_flag == -1:
             return -1, ''
         elif page_flag == -2:
             return -2, ''
 
+        page_info['domain'] = '百科'
+        self.get_baike_s(page_info) # s
         page_info['confidence'] = 1
 
-        page_info['domain'] = '百科'
         if page_info['url'][:7] == 'http://':
             url = page_info['url'][7:]
         else:
@@ -228,10 +229,20 @@ class PageClassify:
             else:
                 return 0, ''
 
+
+    def get_baike_s(self, page_info):
+        # 使用title作为s
+        title = page_info['realtitle']
+        s = title
+        page_info['s'] = s
+
+
+
+
     def classify_weibo(self):
         """微博"""
         page_flag, page_info = self.page_flag, self.page_info
-        page_info['domain'], page_info['confidence'] = "", 0
+        page_info['domain'], page_info['s'], page_info['confidence'] = "", "", 0
         if page_flag == -1:
             return -1, ''
         elif page_flag == -2:
@@ -312,7 +323,7 @@ class PageClassify:
     def classify_commidity(self):
         """商品"""
         page_flag, page_info = self.page_flag, self.page_info
-        page_info['domain'], page_info['confidence'] = "", 0
+        page_info['domain'], page_info['s'], page_info['confidence'] = "", "", 0
         if page_flag == -1:
             return -1, ''
         elif page_flag == -2:

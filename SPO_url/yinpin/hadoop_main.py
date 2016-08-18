@@ -31,8 +31,7 @@ def do_extraction(url, dict_info, soup):
     x, confidence = is_yinpin(url, dict_info, soup)
     if x:
         url = unicode(url, errors="ignore")
-        title = dict_info["realtitle"]
-        S = title
+        S = get_s(url, dict_info, soup)
         P = u"音频"
         O = url
 
@@ -99,6 +98,26 @@ def get_meta_content(soup):
         if "content" in meta.attrs:
             content += meta["content"] + "\t"
     return content.strip()
+
+
+def get_s(url, dict_info, soup):
+
+    title = dict_info["realtitle"]
+    if u"《" in title and u"》" in title:
+        s = title.find(u"《")
+        e = title.find(u"》")
+        if s < e:
+            return title[s+1: e]
+
+    # 2. 删除一些无用的词
+    useless_words = [
+        u"歌词",
+        u"歌曲",
+    ]
+    for word in useless_words:
+        title = title.replace(word, "")
+
+    return title
 
 
 if __name__ == '__main__':

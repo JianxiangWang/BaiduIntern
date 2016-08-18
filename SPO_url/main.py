@@ -15,17 +15,17 @@ from jiefeng.PageClassify import PageClassify
 
 # mine
 extractions = [
-    # ba_extraction,
-    # shipin_extraction,
-    # # tuPian_extraction,
-    # xiaoShuo_extraction,
-    # xiazai_extraction,
-    # yinpin_extraction
+    ba_extraction,
+    shipin_extraction,
+    # tuPian_extraction,
+    xiaoShuo_extraction,
+    xiazai_extraction,
+    yinpin_extraction
 ]
 
 for line in sys.stdin:
         line_list = line.strip().split("\t")
-        url = line_list[0].strip()
+        url = unicode(line_list[0].strip(), errors="ignore")
 
         str_info = line_list[-1]
         dict_info = json.loads(str_info)

@@ -23,7 +23,7 @@ class PageClassify:
 
     def trans_code(self, url, json_info):
         page_info = {
-            'url'       : unicode(url, errors="ignore"),
+            'url'       : url,
             'page_type' : [],
             'title'     : json_info['title'].encode('utf8'),
             'realtitle' : json_info['realtitle'].encode('utf8'),
@@ -96,7 +96,7 @@ class PageClassify:
         confidence = 0
 
         title = None
-        if self.soup.title != None:
+        if self.soup != None and self.soup.title != None:
             title = self.soup.title.string
 
         title_words = ['简介', '介绍', "about"]
@@ -159,7 +159,7 @@ class PageClassify:
 
         # 使用beautiful soup 获取 title tag 内容
         title = None
-        if self.soup.title != None:
+        if self.soup != None and self.soup.title != None:
             title = self.soup.title.string
 
         if title != None and ('个人资料' in title or '明星资料' in title):
@@ -403,13 +403,13 @@ class PageClassify:
     def predict(self):
         """页面类型预测"""
         extractions = [
-            # self.classify_evaluating,
+            self.classify_evaluating,
             self.classify_introduction,
-            # # self.classify_news,
-            # self.classify_personalprofile,
-            # self.classify_baike,
-            # self.classify_weibo,
-            # self.classify_commidity
+            # self.classify_news,
+            self.classify_personalprofile,
+            self.classify_baike,
+            self.classify_weibo,
+            self.classify_commidity
         ]
 
         # go go go!

@@ -28,7 +28,6 @@ def main():
 def do_extraction(url, dict_info, soup):
     x, confidence = is_xiaoShuo(url, dict_info, soup)
     if x:
-        url = unicode(url, errors="ignore")
         S = get_s(url, dict_info, soup)
         P = u"小说"
         O = url

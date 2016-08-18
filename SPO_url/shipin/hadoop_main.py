@@ -30,7 +30,6 @@ def do_extraction(url, dict_info, soup):
 
     x, confidence = is_shipin(url, dict_info, soup)
     if x:
-        url = unicode(url, errors="ignore")
         title = dict_info["realtitle"]
         S = title
         P = u"视频"

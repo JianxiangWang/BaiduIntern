@@ -34,9 +34,7 @@ def main(fin):
                         v = float(v)
                     if k in ["offset"]:
                         v = int(v)
-
                     d[k] = v
-
 
                 ner_list.append(d)
 

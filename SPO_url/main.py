@@ -24,7 +24,6 @@ extractions = [
 ]
 
 for line in sys.stdin:
-    try:
         line_list = line.strip().split("\t")
         url = line_list[0].strip()
 
@@ -44,8 +43,6 @@ for line in sys.stdin:
         p = PageClassify(url, dict_info, soup)
         p.predict()
 
-    except:
-        continue
 
 
 

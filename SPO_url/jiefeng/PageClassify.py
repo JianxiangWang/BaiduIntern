@@ -30,7 +30,7 @@ class PageClassify:
             'content'   : json_info['content'].encode('utf8'),
             'cont_html' : json_info['cont_html'].encode('utf8'),
             'kv_dict'   : {},
-            'article'   : json_info['article'].encode('utf8')
+            # 'article'   : json_info['article'].encode('utf8')
         }
         for item in json_info['page_type']:
             page_info['page_type'].append(item.encode('utf8'))

@@ -12,18 +12,18 @@ class PageClassify:
         """
         self.url = url
         self.soup = soup
-        self.page_flag, self.page_info = self.get_pageinfo(dict_info)
+        self.page_flag, self.page_info = self.get_pageinfo(url, dict_info)
 
 
-    def get_pageinfo(self, dict_info):
+    def get_pageinfo(self, url, dict_info):
         # json_info : url, page_type, title, realtitle, content, cont_html, kv_dict, article
-        page_info = self.trans_code(dict_info)
+        page_info = self.trans_code(url, dict_info)
         return 1, page_info
 
 
-    def trans_code(self, json_info):
+    def trans_code(self, url, json_info):
         page_info = {
-            'url'       : json_info['url'].encode('utf8'),
+            'url'       : url.encode('utf8', errors="ignore"),
             'page_type' : [],
             'title'     : json_info['title'].encode('utf8'),
             'realtitle' : json_info['realtitle'].encode('utf8'),

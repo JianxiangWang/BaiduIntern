@@ -46,16 +46,10 @@ def is_yinpin(url, dict_info, soup):
     # 基于meta的识别
     content = get_meta_content(soup)
 
-    print "===" * 30
-    print url, content
-    if soup.title != None:
-        print soup.title.string
-
-
     flag = 0
     keywords = ["音乐", "播放器", "电台", "歌曲"]
     for keyword in keywords:
-        if keyword in content or (soup.title != None and keyword in soup.title.string):
+        if keyword in content or (soup.title != None and soup.title.string != None and keyword in soup.title.string):
             flag = 1
     if flag == 1:
 

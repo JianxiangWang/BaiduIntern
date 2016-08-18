@@ -23,7 +23,7 @@ class PageClassify:
 
     def trans_code(self, url, json_info):
         page_info = {
-            'url'       : url.encode('utf8', errors="ignore"),
+            'url'       : unicode(url, errors="ignore"),
             'page_type' : [],
             'title'     : json_info['title'].encode('utf8'),
             'realtitle' : json_info['realtitle'].encode('utf8'),

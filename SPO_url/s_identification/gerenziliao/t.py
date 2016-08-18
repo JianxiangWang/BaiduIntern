@@ -4,7 +4,7 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 
 def main(P):
-    for line in open("../1_get_all_urls/qiandaohu_10ku_spo"):
+    for line in open("../../coverage/1_get_all_urls/qiandaohu_10ku_spo"):
         line_list = line.strip().split("\t")
         this_P = line_list[2]
         if this_P == P:

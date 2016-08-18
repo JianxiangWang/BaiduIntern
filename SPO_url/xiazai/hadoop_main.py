@@ -28,8 +28,7 @@ def do_extraction(url, dict_info, soup):
     x, confidence = is_xiazai(url, dict_info, soup)
     if x:
         url = unicode(url, errors="ignore")
-        title = dict_info["realtitle"]
-        S = title
+        S = get_s(url, dict_info, soup)
         P = u"下载"
         O = url
 
@@ -141,6 +140,33 @@ def has_download_a_tag_2(soup):
                             return True
     return False
 
+
+def get_s(url, dict_info, soup):
+    # 使用title作为s, 去一下两侧标点
+    title = dict_info["realtitle"]
+    return remove_flanking_symbols(title)
+
+
+def remove_flanking_symbols(str):
+
+    en_punctuations = u""" !"#&'*+,-..../:;<=>?@[\]^_`|%""" + "``" + "''"
+    ch_punctuations = u"``''，。；、：？！∶… …──“”＊「」《》【】"
+    symbols = en_punctuations + ch_punctuations
+    return _remove_flanking_symbols(str, symbols)
+
+
+
+def _remove_flanking_symbols(string, symbols):
+    i = 0
+    while i < len(string) and (string[i] in symbols):
+        i += 1
+    if i == len(string):
+        return ""
+
+    j = len(string) - 1
+    while j >= 0 and (string[j] in symbols):
+        j -= 1
+    return string[i: j + 1]
 
 if __name__ == '__main__':
     main()

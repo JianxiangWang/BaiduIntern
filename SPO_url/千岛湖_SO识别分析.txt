@@ -223,7 +223,7 @@ qiandaohu  so识别分析
 
         识别方案:
 
-    		使用title作为s,
+    		使用title作为s, 去一下两侧标点
 
 
 		http://www.mianhuatang.la/down/txt65562.html

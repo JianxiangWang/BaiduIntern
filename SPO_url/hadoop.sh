@@ -5,9 +5,8 @@ tar zcf qdh.tar.gz ba shipin tuPian xiaoShuo xiazai yinpin jiefeng main.py
 hadoop fs -rm /app/ps/spider/kg-value/wangjianxiang01/qdh.tar.gz
 hadoop fs -put qdh.tar.gz /app/ps/spider/kg-value/wangjianxiang01/
 
-INPUT="/app/ps/spider/wdm-site-offline/relation-extraction/dom_extraction/qiandaohu2"
-#INPUT="/app/ps/spider/kg-value/wangjianxiang01/data/SPO_url/test_urls_in"
-OUTPUT="/app/ps/spider/kg-value/wangjianxiang01/data/qiandaohu_spo3"
+INPUT="/app/ps/spider/wdm-site-offline/relation-extraction/dom_extraction/qiandaohu"
+OUTPUT="/app/ps/spider/kg-value/wangjianxiang01/data/qiandaohu_10ku_spo"
 
 hadoop fs -rmr ${OUTPUT}
 
@@ -20,7 +19,7 @@ hadoop streaming \
     -cacheArchive "/app/ps/spider/kg-value/wangjianxiang01/python.tar.gz#." \
     -jobconf mapred.job.priority="VERY_HIGH" \
     -jobconf mapred.textoutputformat.ignoreseparator=true \
-    -jobconf stream.num.map.output.key.fields=4 \
+    -jobconf stream.num.map.output.key.fields=5 \
     -jobconf mapred.output.compress=true \
     -jobconf mapred.compress.map.output=true \
     -jobconf mapred.map.tasks=3000 \
@@ -29,7 +28,7 @@ hadoop streaming \
     -jobconf mapred.job.reduce.capacity=300 \
     -jobconf mapred.map.max.attempts=10 \
     -jobconf mapred.max.map.failures.percent="1" \
-    -jobconf mapred.job.name="wangjianxiang_qdh2"
+    -jobconf mapred.job.name="wangjianxiang_qdh"
 
 #    -file "main.py" \
 

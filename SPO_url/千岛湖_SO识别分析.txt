@@ -4,6 +4,8 @@ qiandaohu  so识别分析
 1. 小说
 
 	s:
+
+
 		title 作为 s,
 
         识别方案:
@@ -32,7 +34,7 @@ qiandaohu  so识别分析
 	p 需要细化
 
 	s:
-		a. 从title 中获取人物
+		s类型: 人物
 
 		识别方案:
 		    #1 从title中识别
@@ -62,6 +64,8 @@ qiandaohu  so识别分析
 4. 简介
 
 	s:
+
+	    s类型: 人物, 影视作品
 		从title中识别简介的对象，或者直接使用title
 		识别方案:
 		    #1 从title中识别
@@ -105,6 +109,8 @@ qiandaohu  so识别分析
 
 	s:
 		需要从title中获取评测对象
+
+		s类型: 手机/电脑/相机/耳机 ==> 电子产品
 
         #1 从title中识别
 		        if "评测" in  title:

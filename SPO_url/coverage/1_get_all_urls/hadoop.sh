@@ -1,8 +1,9 @@
 #!/bin/bash
 
 
-INPUT="/app/ps/spider/wdm-site-offline/relation-extraction/dom_extraction/qiandaohu2"
-OUTPUT="/app/ps/spider/kg-value/wangjianxiang01/data/qiandaohu_urls"
+#INPUT="/app/ps/spider/wdm-site-offline/relation-extraction/dom_extraction/qiandaohu2"
+INPUT="/app/ps/spider/wdm-site-offline/relation-extraction/dom_extraction/qiandaohu"
+OUTPUT="/app/ps/spider/kg-value/wangjianxiang01/data/qiandaohu_10ku_urls"
 
 hadoop fs -rmr ${OUTPUT}
 
@@ -19,7 +20,7 @@ hadoop streaming \
     -jobconf mapred.compress.map.output=true \
     -jobconf mapred.map.tasks=300 \
     -jobconf mapred.job.map.capacity=400 \
-    -jobconf mapred.reduce.tasks=100 \
+    -jobconf mapred.reduce.tasks=1000 \
     -jobconf mapred.job.reduce.capacity=400 \
     -jobconf mapred.job.name="wangjianxiang_qdh_urls"
 

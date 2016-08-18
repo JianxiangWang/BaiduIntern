@@ -249,6 +249,7 @@ class PageClassify:
             return -2, ''
 
         page_info['domain'] = '微博'
+        self.get_weibo_s(page_info)
         page_info['confidence'] = 1
         if page_info['url'][:8] == 'https://':
             url = page_info['url'][8:]
@@ -320,6 +321,12 @@ class PageClassify:
         else:
             return 0, ''
 
+    def get_weibo_s(self, page_info):
+        # 使用title作为s
+        title = page_info['realtitle']
+        s = title
+        page_info['s'] = s
+
     def classify_commidity(self):
         """商品"""
         page_flag, page_info = self.page_flag, self.page_info
@@ -330,11 +337,21 @@ class PageClassify:
             return -2, ''
 
         page_info['domain'] = '商品'
+        self.get_commidity_s(page_info)
         page_info['confidence'] = 1
         if '商品详情页' in page_info['page_type']:
             return 1, page_info
         else:
             return 0, ''
+
+
+    def get_commidity_s(self, page_info):
+        # 使用title作为s
+        title = page_info['realtitle']
+        s = title
+        page_info['s'] = s
+
+
 
     def test_precision_recall(self, test_dict):
         """准招计算"""

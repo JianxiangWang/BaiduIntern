@@ -14,6 +14,10 @@ def main(fin):
             s = str(get_s_for_gerenziliao(line))
         if p == "简介":
             s = str(get_s_for_jianjie(line))
+        if p == "测评":
+            s = str(get_s_for_ceping(line))
+        if p == "视频":
+            s = str(get_s_for_shipin(line))
 
         line_list[1] = s
 
@@ -62,7 +66,7 @@ def get_s_for_gerenziliao(line):
     return title
 
 
-# 个人资料
+# 简介
 def get_s_for_jianjie(line):
     line = unicode(line, errors="ignore")
 
@@ -92,6 +96,67 @@ def get_s_for_jianjie(line):
         return entity_name
 
     return title
+
+
+# 测评
+def get_s_for_ceping(line):
+    line = unicode(line, errors="ignore")
+
+    line_list = line.strip().split("\t")
+    ner_list = eval(line_list[-1])
+    title = line_list[1]
+
+    if ner_list == []:
+        return title
+
+    key_word_list = [u"测评", u"评测"]
+    before_idx_list = [title.find(key_word) + len(key_word) for key_word in key_word_list if key_word in title ]
+    if before_idx_list == []:
+        before_idx = len(title)
+    else:
+        before_idx = min(before_idx_list)
+
+    entity_name = None
+    for ner in ner_list:
+        offset = ner["offset"]
+        etype = ner["etype"]
+
+        if offset < before_idx:
+            entity_name = ner["name"]
+
+    if entity_name:
+        return entity_name
+
+    return title
+
+
+# 测评
+def get_s_for_shipin(line):
+    line = unicode(line, errors="ignore")
+
+    line_list = line.strip().split("\t")
+    ner_list = eval(line_list[-1])
+    title = line_list[1]
+
+    if ner_list == []:
+        return title
+
+    before_idx = len(title)
+
+    entity_name = None
+    for ner in ner_list:
+        offset = ner["offset"]
+        etype = ner["etype"]
+
+        if offset < before_idx:
+            entity_name = ner["name"]
+
+    if entity_name:
+        return entity_name
+
+    return title
+
+
 
 
 if __name__ == '__main__':

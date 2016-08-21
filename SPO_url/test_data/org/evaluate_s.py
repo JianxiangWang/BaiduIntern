@@ -45,10 +45,23 @@ def evaluate_s(org_test_data, predict_file_path):
                         # print pred_s, gold_s
                         pass
 
+            # precision
+            precision_N = len(dict_predict_p_to_url_to_s[p])
+            precision_M = 0
+            for url in dict_predict_p_to_url_to_s[p]:
+                pred_s = dict_predict_p_to_url_to_s[p][url]
+
+                if p in dict_gold_p_to_url_to_s and url in dict_gold_p_to_url_to_s[p]:
+                    gold_s = dict_gold_p_to_url_to_s[p][url]
+                    if pred_s == gold_s:
+                        precision_M += 1
+
 
 
             print p
-            print "recall: %d / %d = %.4f" % (recall_M, recall_N, recall_M / float(recall_N))
+            print "precision: %d / %d = %.4f" % (precision_M, precision_N, precision_M / float(precision_N))
+            print "recall   : %d / %d = %.4f" % (recall_M, recall_N, recall_M / float(recall_N))
+            print
 
 if __name__ == '__main__':
     evaluate_s(

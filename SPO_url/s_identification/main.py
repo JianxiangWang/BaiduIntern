@@ -3,13 +3,12 @@
 # 识别 "视频", "评测", "简介", "个人资料"  的 s
 def main(fin):
     for line in fin:
-        line = unicode(line, errors="ignore")
         line_list = line.strip().split("\t")
         p = line_list[2]
 
-        s = u"NULL"
-        if p == u"个人资料":
-            s = get_s_for_gerenziliao(line)
+        s = "NULL"
+        if p == "个人资料":
+            s = str(get_s_for_gerenziliao(line))
 
         line_list[1] = s
 

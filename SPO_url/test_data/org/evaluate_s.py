@@ -42,7 +42,8 @@ def evaluate_s(org_test_data, predict_file_path):
                     if pred_s == gold_s:
                         recall_M += 1
                     else:
-                        print pred_s, gold_s
+                        # print pred_s, gold_s
+                        pass
 
 
 

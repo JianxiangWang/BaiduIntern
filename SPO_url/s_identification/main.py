@@ -13,7 +13,7 @@ def main(fin):
 
         line_list[1] = s
 
-        print "\t".join(line_list)
+        print "\t".join(line_list[:-1])
 
 # 个人资料
 def get_s_for_gerenziliao(line):

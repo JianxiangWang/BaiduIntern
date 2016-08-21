@@ -55,15 +55,16 @@ def get_s(url, dict_info, soup):
         tag = soup.find("a", attrs={"class": "card_title_fname"})
         if tag:
             s = tag.string.strip()
+            if s.endswith(u"吧"):
+                s = s[:-1]
             return s
 
     # 找不到使用title
     s = dict_info["realtitle"]
 
-    print "===>>>>>>>>>>", s, type(s)
     if s.endswith(u"吧"):
-        print "===>>>>>>>>>>"
         s = s[:-1]
+
     return s
 
 

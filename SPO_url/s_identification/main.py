@@ -12,6 +12,8 @@ def main(fin):
         s = "NULL"
         if p == "个人资料":
             s = str(get_s_for_gerenziliao(line))
+        if p == "简介":
+            s = str(get_s_for_jianjie(line))
 
         line_list[1] = s
 
@@ -29,12 +31,6 @@ def get_s_for_gerenziliao(line):
         return title
 
     key_word = u"个人资料"
-
-    if key_word in title:
-        before_idx = title.find(key_word) + 4
-    else:
-        before_idx = len(title)
-
     # 离关键字最近的那个实体, 人物
     renwu_etype_list = [
         "1000", "1001",
@@ -46,12 +42,50 @@ def get_s_for_gerenziliao(line):
         "1012"
     ]
 
+
+    if key_word in title:
+        before_idx = title.find(key_word) + len(key_word)
+    else:
+        before_idx = len(title)
+
     entity_name = None
     for ner in ner_list:
         offset = ner["offset"]
         etype = ner["etype"]
 
         if offset < before_idx and etype in renwu_etype_list:
+            entity_name = ner["name"]
+
+    if entity_name:
+        return entity_name
+
+    return title
+
+
+# 个人资料
+def get_s_for_jianjie(line):
+    line = unicode(line, errors="ignore")
+
+    line_list = line.strip().split("\t")
+    ner_list = eval(line_list[-1])
+    title = line_list[1]
+
+    if ner_list == []:
+        return title
+
+    key_word = u"简介"
+
+    if key_word in title:
+        before_idx = title.find(key_word) + len(key_word)
+    else:
+        before_idx = len(title)
+
+    entity_name = None
+    for ner in ner_list:
+        offset = ner["offset"]
+        etype = ner["etype"]
+
+        if offset < before_idx:
             entity_name = ner["name"]
 
     if entity_name:

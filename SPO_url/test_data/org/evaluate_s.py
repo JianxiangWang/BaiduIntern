@@ -41,6 +41,8 @@ def evaluate_s(org_test_data, predict_file_path):
                     pred_s = dict_predict_p_to_url_to_s[p][url]
                     if pred_s == gold_s:
                         recall_M += 1
+                    else:
+                        print pred_s, gold_s
 
 
 

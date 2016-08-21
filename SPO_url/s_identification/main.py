@@ -7,8 +7,8 @@ def main(fin):
         line_list = line.strip().split("\t")
         p = line_list[2]
 
-        s = "NULL"
-        if p == "个人资料":
+        s = u"NULL"
+        if p == u"个人资料":
             s = get_s_for_gerenziliao(line)
 
         line_list[1] = s

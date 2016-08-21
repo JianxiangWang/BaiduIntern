@@ -15,19 +15,19 @@
 
 # 获取url到s的字典
 def get_dict_url_to_p_to_s(org_file):
-    end_words_list = [
-        "吧",
-        "视频",
-        "小说",
-        "下载",
-        "歌曲",
-        "评测",
-        "简介",
-        "个人资料",
-        "百科",
-        "微博",
-        "商品",
-    ]
+    dict_end_word_to_p = {
+        "吧": "吧",
+        "视频": "视频",
+        "小说": "小说",
+        "下载": "下载",
+        "歌曲": "音频",
+        "评测": "评测",
+        "简介": "简介",
+        "个人资料": "个人资料",
+        "百科": "百科",
+        "微博": "微博",
+        "商品": "商品",
+    }
 
     dict_url_to_p_to_s  = {}
 
@@ -38,9 +38,9 @@ def get_dict_url_to_p_to_s(org_file):
             url = line_list[1].strip()
             label = line_list[2].strip()
 
-            for end_word in end_words_list:
+            for end_word in dict_end_word_to_p:
                 if query.endswith(end_word) and "fakeurl" not in url:
-                    P = end_word
+                    P = dict_end_word_to_p[end_word]
                     S = query.replace(end_word, "")
                     dict_url_to_p_to_s[(url, P)] = S
 

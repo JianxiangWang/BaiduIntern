@@ -12,7 +12,8 @@ def evaluate_s(org_test_data, predict_file_path):
             url = line_list[0]
             s = line_list[1]
             p = line_list[2]
-            dict_predict_p_to_url_to_s[p] = {}
+            if p not in dict_predict_p_to_url_to_s:
+                dict_predict_p_to_url_to_s[p] = {}
             dict_predict_p_to_url_to_s[p][url] = s
 
         # gold
@@ -20,7 +21,9 @@ def evaluate_s(org_test_data, predict_file_path):
         for line in test_file:
             line_list = line.strip().split("\t")
             P, url, s = line_list[0], line_list[1], line_list[2]
-            dict_gold_p_to_url_to_s[p] = {}
+
+            if p not in dict_gold_p_to_url_to_s:
+                dict_gold_p_to_url_to_s[p] = {}
             dict_gold_p_to_url_to_s[p][url] = s
 
         # 评估每个P
@@ -35,8 +38,6 @@ def evaluate_s(org_test_data, predict_file_path):
                     pred_s = dict_predict_p_to_url_to_s[p][url]
                     if pred_s == gold_s:
                         recall_M += 1
-
-
 
 
 

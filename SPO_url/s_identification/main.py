@@ -73,12 +73,12 @@ def get_s_for_jianjie(line):
     if ner_list == []:
         return title
 
-    key_word = u"简介"
-
-    if key_word in title:
-        before_idx = title.find(key_word) + len(key_word)
-    else:
+    key_word_list = [u"简介", "介绍"]
+    before_idx_list = [title.find(key_word) + len(key_word) for key_word in key_word_list if key_word in title ]
+    if before_idx_list == []:
         before_idx = len(title)
+    else:
+        before_idx = min(before_idx_list)
 
     entity_name = None
     for ner in ner_list:

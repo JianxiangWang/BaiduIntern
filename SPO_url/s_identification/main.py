@@ -16,7 +16,7 @@ def main(fin):
 
 # 个人资料
 def get_s_for_gerenziliao(line):
-    line = unicode(line)
+    line = unicode(line, errors="ignore")
 
     line_list = line.strip().split("\t")
     ner_list = eval(line_list[-1])

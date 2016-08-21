@@ -159,6 +159,6 @@ def get_s_for_shipin(line):
 if __name__ == '__main__':
     main(
         open("/home/disk2/wangjianxiang01/BaiduIntern/SPO_url/test_data/org/org.test.data.filtered.spo.someP.ner"),
-        open("/home/disk2/wangjianxiang01/BaiduIntern/SPO_url/test_data/org/org.test.data.filtered.spo.someP.pred"),
+        open("/home/disk2/wangjianxiang01/BaiduIntern/SPO_url/test_data/org/org.test.data.filtered.spo.someP.pred", "w"),
     )
 

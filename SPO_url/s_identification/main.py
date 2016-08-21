@@ -14,7 +14,7 @@ def main(fin):
             s = str(get_s_for_gerenziliao(line))
         if p == "简介":
             s = str(get_s_for_jianjie(line))
-        if p == "测评":
+        if p == "评测":
             s = str(get_s_for_ceping(line))
         if p == "视频":
             s = str(get_s_for_shipin(line))
@@ -155,9 +155,6 @@ def get_s_for_shipin(line):
         return entity_name
 
     return title
-
-
-
 
 if __name__ == '__main__':
     main(open("/home/disk2/wangjianxiang01/BaiduIntern/SPO_url/test_data/org/org.test.data.filtered.spo.someP.ner"))

@@ -47,6 +47,9 @@ def evaluate_s(org_test_data, predict_file_path, predict_some_p_file_path):
             dict_gold_p_to_url_to_s[p][url] = s
 
         # 评估每个P
+        N = 0
+        marco_precision = 0
+        marco_recall = 0
 
         for p in dict_gold_p_to_url_to_s:
             # recall
@@ -74,11 +77,22 @@ def evaluate_s(org_test_data, predict_file_path, predict_some_p_file_path):
                     if pred_s.lower() == gold_s.lower():
                         precision_M += 1
 
+            N += 1
+            precision = precision_M / float(precision_N)
+            recall = recall_M / float(recall_N)
+
+            marco_precision += precision
+            marco_recall += recall
 
             print p
-            print "precision: %d / %d = %.4f" % (precision_M, precision_N, precision_M / float(precision_N))
-            print "recall   : %d / %d = %.4f" % (recall_M, recall_N, recall_M / float(recall_N))
+            print "precision: %d / %d = %.4f" % (precision_M, precision_N, precision)
+            print "recall   : %d / %d = %.4f" % (recall_M, recall_N, recall)
             print
+
+        print "==" * 40
+        print "marco precision : %.4f; recall: %.4f" % (marco_precision/N, marco_recall/N)
+
+
 
 if __name__ == '__main__':
     evaluate_s(

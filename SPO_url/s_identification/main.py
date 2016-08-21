@@ -1,4 +1,7 @@
-#encoding: utf-8
+# encoding: utf-8
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
 
 # 识别 "视频", "评测", "简介", "个人资料"  的 s
 def main(fin):

@@ -3,6 +3,7 @@
 # 识别 "视频", "评测", "简介", "个人资料"  的 s
 def main(fin):
     for line in fin:
+        line = unicode(line, errors="ignore")
         line_list = line.strip().split("\t")
         p = line_list[2]
 

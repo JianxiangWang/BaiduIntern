@@ -1,9 +1,10 @@
 # encoding: utf-8
 
-def evaluate_s(org_test_data, predict_file_path):
+def evaluate_s(org_test_data, predict_file_path, predict_some_p_file_path):
 
     # 只评正例的准确与召回
-    with open(org_test_data) as test_file, open(predict_file_path) as predict_file:
+    with open(org_test_data) as test_file, open(predict_file_path) as predict_file,\
+            open(predict_some_p_file_path) as some_p_predict_file:
 
         # 获取预测的
         dict_predict_p_to_url_to_s = {}
@@ -12,9 +13,25 @@ def evaluate_s(org_test_data, predict_file_path):
             url = line_list[0]
             s = line_list[1]
             p = line_list[2]
+
+            if p in ["视频", "评测", "简介", "个人资料"]:
+                continue
+
             if p not in dict_predict_p_to_url_to_s:
                 dict_predict_p_to_url_to_s[p] = {}
             dict_predict_p_to_url_to_s[p][url] = s
+
+        for line in some_p_predict_file:
+            line_list = line.strip().split("\t")
+            url = line_list[0]
+            s = line_list[1]
+            p = line_list[2]
+
+            if p not in dict_predict_p_to_url_to_s:
+                dict_predict_p_to_url_to_s[p] = {}
+            dict_predict_p_to_url_to_s[p][url] = s
+
+
 
         # gold
         dict_gold_p_to_url_to_s = {}

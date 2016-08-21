@@ -4,7 +4,7 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 
 # 识别 "视频", "评测", "简介", "个人资料"  的 s
-def main(fin):
+def main(fin, fout):
     for line in fin:
         line_list = line.strip().split("\t")
         p = line_list[2]
@@ -21,7 +21,7 @@ def main(fin):
 
         line_list[1] = s
 
-        print "\t".join(line_list[:-1])
+        fout.write("\t".join(line_list[:-1]) + "\n")
 
 # 个人资料
 def get_s_for_gerenziliao(line):
@@ -157,5 +157,8 @@ def get_s_for_shipin(line):
     return title
 
 if __name__ == '__main__':
-    main(open("/home/disk2/wangjianxiang01/BaiduIntern/SPO_url/test_data/org/org.test.data.filtered.spo.someP.ner"))
+    main(
+        open("/home/disk2/wangjianxiang01/BaiduIntern/SPO_url/test_data/org/org.test.data.filtered.spo.someP.ner"),
+        open("/home/disk2/wangjianxiang01/BaiduIntern/SPO_url/test_data/org/org.test.data.filtered.spo.someP.pred"),
+    )
 

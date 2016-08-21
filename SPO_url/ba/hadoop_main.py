@@ -60,7 +60,8 @@ def get_s(url, dict_info, soup):
     # 找不到使用title
     s = dict_info["realtitle"]
 
-    if s.endswith("吧"):
+    if s.endswith(u"吧"):
+        print "===>>>>>>>>>>"
         s = s[:-1]
     return s
 

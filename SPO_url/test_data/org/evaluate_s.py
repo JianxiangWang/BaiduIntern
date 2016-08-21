@@ -20,7 +20,7 @@ def evaluate_s(org_test_data, predict_file_path):
         dict_gold_p_to_url_to_s = {}
         for line in test_file:
             line_list = line.strip().split("\t")
-            P, url, s, label = line_list[0], line_list[1], line_list[2], line_list[3]
+            p, url, s, label = line_list[0], line_list[1], line_list[2], line_list[3]
 
             if label == "0":
                 continue

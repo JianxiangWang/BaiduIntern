@@ -374,7 +374,7 @@ class PageClassify:
                 end = len(s) - 1
                 num_words = end - start - 1
 
-                print "==>", num_words
+                print "==>", num_words, start, end
 
                 if num_words >= 10:
                     s = s[:s.rfind(u"（")]

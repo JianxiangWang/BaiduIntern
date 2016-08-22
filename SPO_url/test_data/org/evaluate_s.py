@@ -51,6 +51,8 @@ def evaluate_s(org_test_data, predict_file_path, predict_some_p_file_path):
         marco_precision = 0
         marco_recall = 0
 
+        error_cases = []
+
         for p in dict_gold_p_to_url_to_s:
             # recall
             recall_N = len(dict_gold_p_to_url_to_s[p])
@@ -76,6 +78,8 @@ def evaluate_s(org_test_data, predict_file_path, predict_some_p_file_path):
                     gold_s = dict_gold_p_to_url_to_s[p][url]
                     if pred_s.lower().strip() == gold_s.lower().strip():
                         precision_M += 1
+                    else:
+                        error_cases.append("%s==>%s" % (gold_s.lower().strip(), pred_s.lower().strip()))
 
             N += 1
             precision = precision_M / float(precision_N)
@@ -84,9 +88,11 @@ def evaluate_s(org_test_data, predict_file_path, predict_some_p_file_path):
             marco_precision += precision
             marco_recall += recall
 
+            print "==" * 40
             print p
             print "precision: %d / %d = %.4f" % (precision_M, precision_N, precision)
             print "recall   : %d / %d = %.4f" % (recall_M, recall_N, recall)
+            print "\n".join(error_cases)
             print
 
         print "==" * 40

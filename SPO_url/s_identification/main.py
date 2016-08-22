@@ -190,6 +190,7 @@ def get_s_for_shipin(line):
             entity_name = ner["name"]
 
     if entity_name:
+        print entity_name
         return entity_name
 
 

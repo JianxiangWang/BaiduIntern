@@ -242,6 +242,7 @@ def get_s_for_yinpin(line):
 
             if offset < before_idx:
                 entity_name = ner["name"]
+                break
 
         if entity_name:
             title = unicode(entity_name, errors="ignore")
@@ -249,7 +250,7 @@ def get_s_for_yinpin(line):
     return title
 
 
-# 音频
+# 下载
 def get_s_for_xiazai(line):
     line = unicode(line, errors="ignore")
 
@@ -264,7 +265,6 @@ def get_s_for_xiazai(line):
             offset = ner["offset"]
             etype = ner["etype"]
 
-            print title, ner["name"]
             if offset < before_idx:
                 entity_name = ner["name"]
                 break

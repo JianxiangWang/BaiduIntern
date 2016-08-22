@@ -285,7 +285,7 @@ def get_s_for_xiazai(line):
         u"下载"
     ]
     for word in useless_words:
-        if title.endswith(word):
+        if word in title:
             title = title.replace(word, "")
 
     return title

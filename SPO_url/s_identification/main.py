@@ -163,8 +163,6 @@ def get_s_for_ceping(line):
             if title[i] in u" ，。！；？":
                 break
             i -= 1
-
-        print title, i+1, key_word_idx
         title = title[i+1: key_word_idx]
 
     return title

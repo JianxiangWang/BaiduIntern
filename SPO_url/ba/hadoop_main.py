@@ -68,6 +68,15 @@ def get_s(url, dict_info, soup):
                 s = s[:-1]
             return s
 
+        tag = soup.find("a", attrs={"class": "plat_title_h3"})
+        if tag:
+            s = tag.string.strip()
+            if s.endswith(u"吧"):
+                s = s[:-1]
+            return s
+
+
+
 
     # 找不到使用title
     s = dict_info["realtitle"]

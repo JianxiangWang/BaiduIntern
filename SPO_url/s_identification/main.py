@@ -211,7 +211,10 @@ def get_s_for_shipin(line):
 
     for end_word in useless_end_words:
         if title.endswith(end_word):
+            print "==" * 20
+            print title
             title = title[:len(title) - len(end_word)]
+            print title
 
     for start_word in useless_start_words:
         if title.startswith(start_word):

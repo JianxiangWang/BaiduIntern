@@ -212,6 +212,7 @@ def get_s_for_shipin(line):
         u"精选"
     ]
 
+    print title
     for end_word in useless_end_words:
         if title.endswith(end_word):
             print title

@@ -52,14 +52,22 @@ def is_ba(url, dict_info, soup):
 def get_s(url, dict_info, soup):
     # 吧名识别, 以吧名作为s
     if soup:
-        tag = soup.find("a", attrs={"class": "card_title_fname"})
 
-        print tag
+        tag = soup.find("a", attrs={"class": "card_title_fname"})
         if tag:
             s = tag.string.strip()
             if s.endswith(u"吧"):
                 s = s[:-1]
             return s
+
+        # 旧版
+        tag = soup.find("a", attrs={"id": "tab_home"})
+        if tag:
+            s = tag.string.strip()
+            if s.endswith(u"吧"):
+                s = s[:-1]
+            return s
+
 
     # 找不到使用title
     s = dict_info["realtitle"]

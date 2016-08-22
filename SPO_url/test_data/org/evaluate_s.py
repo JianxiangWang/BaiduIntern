@@ -79,7 +79,7 @@ def evaluate_s(org_test_data, predict_file_path, predict_some_p_file_path):
                     if pred_s.lower().strip() == gold_s.lower().strip():
                         precision_M += 1
                     else:
-                        error_cases.append("%s==>%s" % (gold_s.lower().strip(), pred_s.lower().strip()))
+                        error_cases.append("%s\t%s==>%s" % (url, gold_s.lower().strip(), pred_s.lower().strip()))
 
             N += 1
             precision = precision_M / float(precision_N)

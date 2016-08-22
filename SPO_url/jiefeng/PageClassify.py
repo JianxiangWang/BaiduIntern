@@ -378,7 +378,7 @@ class PageClassify:
                     s = s[:s.rfind(u"（")]
                     print s, type(s)
         page_info['s'] = s
-
+        print page_info['s']
 
 
     def test_precision_recall(self, test_dict):

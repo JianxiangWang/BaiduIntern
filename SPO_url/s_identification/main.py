@@ -272,6 +272,17 @@ def get_s_for_xiazai(line):
         if entity_name:
             title = unicode(entity_name, errors="ignore")
 
+
+    # 删除一些不必要的词
+            # 用去掉一些词
+    useless_end_words = [
+        u"txt",
+    ]
+
+    for end_word in useless_end_words:
+        if title.endswith(end_word):
+            title = title[:len(title) - len(end_word)]
+
     return title
 
 if __name__ == '__main__':

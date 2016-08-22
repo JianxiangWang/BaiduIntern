@@ -74,6 +74,8 @@ def get_s_for_jianjie(line):
     ner_list = eval(line_list[-1])
     title = line_list[1].strip()
 
+    S = None
+
     if ner_list != []:
         key_word_list = [u"简介", u"介绍"]
         before_idx_list = [title.find(key_word) + len(key_word) for key_word in key_word_list if key_word in title ]
@@ -91,34 +93,32 @@ def get_s_for_jianjie(line):
                 entity_name = ner["name"]
 
         if entity_name:
-            return entity_name
+            S = entity_name
 
-    # 如果title以()结尾去掉()
-    if title.endswith("）"):
-        if "（" in title:
-            title = title[:title.rfind("（")]
-    if title.endswith(")"):
-        if "(" in title:
-            title = title[:title.rfind("(")]
+    if S is None:
+        S = title
+
+    if S.endswith("）"):
+        if "（" in S:
+            S = S[:S.rfind("（")]
+    if S.endswith(")"):
+        if "(" in S:
+            S = S[:S.rfind("(")]
 
     # 如果有 【南妹皇后】, 《斗破苍穹》 去中间的
-    print "****" * 2
-    print title
-    if u"《" in title and u"》" in title:
-        s = title.find(u"《")
-        e = title.find(u"》")
+    if u"《" in S and u"》" in S:
+        start = S.find(u"《")
+        end = S.find(u"》")
+        if start < end:
+            S = S[start+1: end]
 
-        print s, e, title[s+1: e]
-        if s < e:
-            return title[s+1: e]
+    if u"【" in S and u"】" in S:
+        start = S.find(u"【")
+        end = S.find(u"】")
+        if start < end:
+            S = S[start + 1: end]
 
-    if u"【" in title and u"】" in title:
-        s = title.find(u"【")
-        e = title.find(u"】")
-        if s < e:
-            return title[s+1: e]
-
-    return title
+    return S
 
 
 # 测评

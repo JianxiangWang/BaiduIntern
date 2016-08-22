@@ -358,13 +358,13 @@ class PageClassify:
         # 1. 如果是(), 【 】开头的, 去掉
         if s.startswith(u"("):
             if u")" in s:
-                s = s[1: s.find(u")")]
+                s = s[s.find(u")")+1:]
         if s.startswith(u"（"):
             if u"）" in s:
-                s = s[1: s.find(u"）")]
+                s = s[s.find(u"）")+1:]
         if s.startswith(u"【"):
             if u"】" in s:
-                s = s[1: s.find(u"】")]
+                s = s[s.find(u"】")+1:]
 
         #2. 如果结尾是(),判断里面字的个数,如果 >= 10, 去掉
         if s.endswith(u"）"):

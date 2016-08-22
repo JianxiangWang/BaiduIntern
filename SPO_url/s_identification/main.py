@@ -190,9 +190,9 @@ def get_s_for_shipin(line):
             entity_name = ner["name"]
 
     if entity_name:
-        print entity_name
         return entity_name
 
+    print title
 
     if u"【" in title and u"】" in title:
         start = title.find(u"【")
@@ -213,7 +213,7 @@ def get_s_for_shipin(line):
         u"精选"
     ]
 
-    print title
+
     for end_word in useless_end_words:
         if title.endswith(end_word):
             print title

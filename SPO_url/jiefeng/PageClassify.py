@@ -374,11 +374,9 @@ class PageClassify:
                 end = len(s) - 1
                 num_words = end - start - 1
                 if num_words >= 10:
-                    print s, type(s)
                     s = s[:s.rfind(u"（")]
-                    print s, type(s)
+
         page_info['s'] = s
-        print page_info['s']
 
 
     def test_precision_recall(self, test_dict):
@@ -441,7 +439,7 @@ class PageClassify:
 
             if res == 1:
                 print_str = page_info['url']\
-                          + '\t' + page_info['realtitle']\
+                          + '\t' + page_info['s']\
                           + '\t' + page_info['domain']\
                           + '\t' + page_info['url']\
                           + '\t' + str(page_info['confidence'])

@@ -378,7 +378,7 @@ class PageClassify:
 
                 if num_words >= 10:
                     s = s[:s.rfind(u"（")]
-
+        print s
         page_info['s'] = s
 
 

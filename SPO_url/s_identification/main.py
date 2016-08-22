@@ -176,23 +176,18 @@ def get_s_for_shipin(line):
     ner_list = eval(line_list[-1])
     title = line_list[1]
 
-    if ner_list == []:
-        return title
+    if ner_list != []:
+        before_idx = len(title)
+        entity_name = None
+        for ner in ner_list:
+            offset = ner["offset"]
+            etype = ner["etype"]
 
-    before_idx = len(title)
+            if offset < before_idx:
+                entity_name = ner["name"]
 
-    entity_name = None
-    for ner in ner_list:
-        offset = ner["offset"]
-        etype = ner["etype"]
-
-        if offset < before_idx:
-            entity_name = ner["name"]
-
-    if entity_name:
-        return entity_name
-
-    print title
+        if entity_name:
+            return entity_name
 
     if u"【" in title and u"】" in title:
         start = title.find(u"【")

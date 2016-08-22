@@ -1,5 +1,9 @@
 # encoding: utf-8
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
 import json
+
 
 
 def evaluate_s(org_test_data, predict_file_path, predict_some_p_file_path):

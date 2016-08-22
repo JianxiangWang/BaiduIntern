@@ -2,9 +2,6 @@
 # encoding: utf-8
 import json
 import sys
-
-import re
-
 reload(sys)
 sys.setdefaultencoding('utf-8')
 from bs4 import BeautifulSoup

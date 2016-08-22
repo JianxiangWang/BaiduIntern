@@ -89,7 +89,6 @@ def evaluate_s(org_test_data, predict_file_path, predict_some_p_file_path):
                         precision_M += 1
                     else:
                         title = dict_url_to_title[url]
-                        print title, type(title)
                         error_cases.append(u"%s\t%s\t%s==>%s" % (url, title, gold_s.lower().strip(), pred_s.lower().strip()))
 
             N += 1

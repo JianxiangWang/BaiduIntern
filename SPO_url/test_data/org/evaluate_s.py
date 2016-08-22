@@ -59,7 +59,7 @@ def evaluate_s(org_test_data, predict_file_path, predict_some_p_file_path):
                 gold_s = dict_gold_p_to_url_to_s[p][url]
                 if p in dict_predict_p_to_url_to_s and url in dict_predict_p_to_url_to_s[p]:
                     pred_s = dict_predict_p_to_url_to_s[p][url]
-                    if pred_s.lower() == gold_s.lower():
+                    if pred_s.lower().strip() == gold_s.lower().strip():
                         recall_M += 1
                     else:
                         # print pred_s, gold_s
@@ -74,7 +74,7 @@ def evaluate_s(org_test_data, predict_file_path, predict_some_p_file_path):
                 if p in dict_gold_p_to_url_to_s and url in dict_gold_p_to_url_to_s[p]:
                     precision_N += 1
                     gold_s = dict_gold_p_to_url_to_s[p][url]
-                    if pred_s.lower() == gold_s.lower():
+                    if pred_s.lower().strip() == gold_s.lower().strip():
                         precision_M += 1
 
             N += 1

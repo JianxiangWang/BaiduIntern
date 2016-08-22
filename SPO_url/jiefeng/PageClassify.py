@@ -53,6 +53,8 @@ class PageClassify:
             return -2, ''
         
         page_info['domain'] = '评测'
+        page_info['s'] = page_info['realtitle']
+
         if '文章内容页' not in page_info['page_type'] and '商品详情页' not in page_info['page_type']:
             return 0, ''
 
@@ -91,6 +93,7 @@ class PageClassify:
             return -2, ''
 
         page_info['domain'] = '简介'
+        page_info['s'] = page_info['realtitle']
         title_count = 0
         cont_count  = 0
         confidence = 0
@@ -153,6 +156,7 @@ class PageClassify:
             return -2, ''
 
         page_info['domain'] = '个人资料'
+        page_info['s'] = page_info['realtitle']
         confidence  = 0
         kv_count    = 0
         cont_count  = 0

@@ -102,9 +102,13 @@ def get_s_for_jianjie(line):
             title = title[:title.rfind("(")]
 
     # 如果有 【南妹皇后】, 《斗破苍穹》 去中间的
+    print "****" * 2
+    print title
     if u"《" in title and u"》" in title:
         s = title.find(u"《")
         e = title.find(u"》")
+
+        print s, e, title[s+1: e]
         if s < e:
             return title[s+1: e]
 

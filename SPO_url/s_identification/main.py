@@ -153,7 +153,8 @@ def get_s_for_ceping(line):
     # 如果title中关键字 "测评", "评测", 且不能识别其中的实体的时候, 使用策略去识别
     key_word_idx = -1
     for key_word in key_word_list:
-        key_word_idx = title.find(key_word)
+        if title.find(key_word) != -1:
+            key_word_idx = title.find(key_word)
 
     if key_word_idx != -1:
         # 从关键字往前扫描, 遇到标点空格停止

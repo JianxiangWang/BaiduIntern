@@ -118,10 +118,6 @@ def get_s(url, dict_info, soup):
 
     title = title.strip()
 
-    print title
-    print title == ""
-    print title == u""
-
     return title if title != u"" else u"~"
 
 

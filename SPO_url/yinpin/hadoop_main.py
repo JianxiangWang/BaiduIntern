@@ -106,7 +106,7 @@ def get_s(url, dict_info, soup):
         s = title.find(u"《")
         e = title.find(u"》")
         if s < e:
-            return title[s+1: e]
+            title = title[s+1: e]
 
     # 2. 删除一些无用的词
     useless_words = [

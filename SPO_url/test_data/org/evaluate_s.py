@@ -1,4 +1,6 @@
 # encoding: utf-8
+import json
+
 
 def evaluate_s(org_test_data, predict_file_path, predict_some_p_file_path):
 
@@ -35,6 +37,7 @@ def evaluate_s(org_test_data, predict_file_path, predict_some_p_file_path):
 
         # gold
         dict_gold_p_to_url_to_s = {}
+        dict_url_to_title = {}
         for line in test_file:
             line_list = line.strip().split("\t")
             p, url, s, label = line_list[0], line_list[1], line_list[2], line_list[3]
@@ -45,6 +48,8 @@ def evaluate_s(org_test_data, predict_file_path, predict_some_p_file_path):
             if p not in dict_gold_p_to_url_to_s:
                 dict_gold_p_to_url_to_s[p] = {}
             dict_gold_p_to_url_to_s[p][url] = s
+
+            dict_url_to_title[url] = json.loads(line_list[-1])["realtitle"]
 
         # 评估每个P
         N = 0
@@ -79,7 +84,8 @@ def evaluate_s(org_test_data, predict_file_path, predict_some_p_file_path):
                     if pred_s.lower().strip() == gold_s.lower().strip():
                         precision_M += 1
                     else:
-                        error_cases.append("%s\t%s==>%s" % (url, gold_s.lower().strip(), pred_s.lower().strip()))
+                        title = dict_url_to_title[url]
+                        error_cases.append("%s\t%s\t%s==>%s" % (url, title, gold_s.lower().strip(), pred_s.lower().strip()))
 
             N += 1
             precision = precision_M / float(precision_N)

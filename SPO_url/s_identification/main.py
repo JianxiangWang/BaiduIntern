@@ -105,7 +105,7 @@ def get_s_for_jianjie(line):
         if "(" in S:
             S = S[:S.rfind("(")]
 
-    # 如果有 【南妹皇后】, 《斗破苍穹》 去中间的
+    # 如果有 【南妹皇后】, 《斗破苍穹》 取中间的
     if u"《" in S and u"》" in S:
         start = S.find(u"《")
         end = S.find(u"》")
@@ -191,6 +191,34 @@ def get_s_for_shipin(line):
 
     if entity_name:
         return entity_name
+
+
+    if u"【" in title and u"】" in title:
+        start = title.find(u"【")
+        end = title.find(u"】")
+        if start < end:
+            title = title[start + 1: end]
+
+    # 用去掉一些词
+    useless_end_words = [
+        u"的视频",
+        u"热门视频",
+        u"爆笑视频",
+        u"搞笑视频",
+        u"视频",
+    ]
+    useless_start_words = [
+        u"视频:",
+        u"精选"
+    ]
+
+    for end_word in useless_end_words:
+        if title.endswith(end_word):
+            title = title[:len(title) - len(end_word)]
+
+    for start_word in useless_start_words:
+        if title.startswith(start_word):
+            title = title[len(start_word):]
 
     return title
 

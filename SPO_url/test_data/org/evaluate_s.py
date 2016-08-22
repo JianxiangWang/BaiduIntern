@@ -51,9 +51,9 @@ def evaluate_s(org_test_data, predict_file_path, predict_some_p_file_path):
         marco_precision = 0
         marco_recall = 0
 
-        error_cases = []
-
         for p in dict_gold_p_to_url_to_s:
+
+            error_cases = []
             # recall
             recall_N = len(dict_gold_p_to_url_to_s[p])
             recall_M = 0

@@ -116,7 +116,9 @@ def get_s(url, dict_info, soup):
     for word in useless_words:
         title = title.replace(word, "")
 
-    return title
+    title = title.strip()
+
+    return title if title != "" else "~"
 
 
 if __name__ == '__main__':

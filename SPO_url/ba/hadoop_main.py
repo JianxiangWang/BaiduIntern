@@ -53,6 +53,8 @@ def get_s(url, dict_info, soup):
     # 吧名识别, 以吧名作为s
     if soup:
         tag = soup.find("a", attrs={"class": "card_title_fname"})
+
+        print tag
         if tag:
             s = tag.string.strip()
             if s.endswith(u"吧"):

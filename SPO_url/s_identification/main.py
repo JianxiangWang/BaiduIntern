@@ -272,16 +272,21 @@ def get_s_for_xiazai(line):
         if entity_name:
             title = unicode(entity_name, errors="ignore")
 
+    # 如果有 【南妹皇后】, 《斗破苍穹》 取中间的
+    if u"《" in title and u"》" in title:
+        start = title.find(u"《")
+        end = title.find(u"》")
+        if start < end:
+            title = title[start + 1: end]
 
     # 删除一些不必要的词
-            # 用去掉一些词
-    useless_end_words = [
+    useless_words = [
         u"txt",
+        u"下载"
     ]
-
-    for end_word in useless_end_words:
-        if title.endswith(end_word):
-            title = title[:len(title) - len(end_word)]
+    for word in useless_words:
+        if title.endswith(word):
+            title = title.replace(word, "")
 
     return title
 

@@ -353,7 +353,7 @@ class PageClassify:
     def get_commidity_s(self, page_info):
         # 使用title作为s
         title = page_info['realtitle']
-        s = title
+        s = title.strip()
 
         # 1. 如果是(), 【 】开头的, 去掉
         if s.startswith("("):
@@ -367,16 +367,14 @@ class PageClassify:
                 s = s[1: s.find("】")]
 
         #2. 如果结尾是(),判断里面字的个数,如果 >= 10, 去掉
-        if s.endswith("）"):
-            if "（" in s:
-                start = s.rfind("（")
+        if s.endswith(u"）"):
+            if u"（" in s:
+                start = s.rfind(u"（")
                 # 判断括号里面字的个数
                 end = len(s) - 1
                 num_words = end - start - 1
                 if num_words >= 10:
-                    s = s[:s.rfind("（")]
-
-
+                    s = s[:s.rfind(u"（")]
 
         page_info['s'] = s
 

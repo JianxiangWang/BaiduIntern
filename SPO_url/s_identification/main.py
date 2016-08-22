@@ -93,9 +93,8 @@ def get_s_for_jianjie(line):
                 entity_name = ner["name"]
 
         if entity_name:
-            S = entity_name
+            S = unicode(entity_name, errors="ignore")
 
-    print S, type(S)
     if S is None:
         S = title
 

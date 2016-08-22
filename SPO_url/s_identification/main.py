@@ -282,14 +282,13 @@ def get_s_for_xiazai(line):
     # 删除一些不必要的词
     useless_words = [
         u"txt",
+        u"TXT",
         u"下载"
     ]
 
-    print title
     for word in useless_words:
         if word in title:
             title = title.replace(word, "")
-    print title
 
     return title
 

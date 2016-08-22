@@ -264,7 +264,7 @@ def get_s_for_xiazai(line):
             offset = ner["offset"]
             etype = ner["etype"]
 
-            print title, ner
+            print title, ner["name"]
             if offset < before_idx:
                 entity_name = ner["name"]
                 break

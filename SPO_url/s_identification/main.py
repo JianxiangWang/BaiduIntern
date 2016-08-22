@@ -132,7 +132,7 @@ def get_s_for_ceping(line):
     if ner_list == []:
         return title
 
-    key_word_list = [u"测评", u"评测"]
+    key_word_list = [u"上手评测", u"上手测评", u"测评", u"评测"]
     before_idx_list = [title.find(key_word) + len(key_word) for key_word in key_word_list if key_word in title ]
     if before_idx_list == []:
         before_idx = len(title)

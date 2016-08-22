@@ -150,10 +150,25 @@ def get_s_for_ceping(line):
     if entity_name:
         return entity_name
 
+    # 如果title中关键字 "测评", "评测", 且不能识别其中的实体的时候, 使用策略去识别
+    key_word_idx = -1
+    for key_word in key_word_list:
+        key_word_idx = title.find(key_word)
+
+    if key_word_idx != -1:
+        # 从关键字往前扫描, 遇到标点空格停止
+        i = key_word_idx - 1
+        while i >= 0:
+            if title[i] in [u" ，。！；"]:
+                break
+            i -= 1
+
+        title = title[i+1: key_word_idx]
+
     return title
 
 
-# 测评
+# 视频
 def get_s_for_shipin(line):
     line = unicode(line, errors="ignore")
 

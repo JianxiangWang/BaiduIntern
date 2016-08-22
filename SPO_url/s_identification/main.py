@@ -198,6 +198,7 @@ def get_s_for_shipin(line):
     # 用去掉一些词
     useless_end_words = [
         u"的视频",
+        u"短视频",
         u"热门视频",
         u"爆笑视频",
         u"搞笑视频",

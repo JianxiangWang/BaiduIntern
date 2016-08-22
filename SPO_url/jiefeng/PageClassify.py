@@ -368,12 +368,14 @@ class PageClassify:
 
         #2. 如果结尾是(),判断里面字的个数,如果 >= 10, 去掉
         if s.endswith(u"）"):
-            print s
             if u"（" in s:
                 start = s.rfind(u"（")
                 # 判断括号里面字的个数
                 end = len(s) - 1
                 num_words = end - start - 1
+
+                print "==>", num_words
+
                 if num_words >= 10:
                     s = s[:s.rfind(u"（")]
 

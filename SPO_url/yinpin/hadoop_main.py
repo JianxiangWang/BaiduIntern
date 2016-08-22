@@ -118,7 +118,7 @@ def get_s(url, dict_info, soup):
 
     title = title.strip()
 
-    return title if title != "" else "~"
+    return title if title != u"" else u"~"
 
 
 if __name__ == '__main__':

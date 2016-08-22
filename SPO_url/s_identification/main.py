@@ -187,7 +187,7 @@ def get_s_for_shipin(line):
                 entity_name = ner["name"]
 
         if entity_name:
-            return entity_name
+            title = entity_name
 
     if u"【" in title and u"】" in title:
         start = title.find(u"【")
@@ -211,10 +211,7 @@ def get_s_for_shipin(line):
 
     for end_word in useless_end_words:
         if title.endswith(end_word):
-            print "==" * 20
-            print title
             title = title[:len(title) - len(end_word)]
-            print title
 
     for start_word in useless_start_words:
         if title.startswith(start_word):

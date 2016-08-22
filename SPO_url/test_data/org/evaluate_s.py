@@ -14,7 +14,7 @@ def evaluate_s(org_test_data, predict_file_path, predict_some_p_file_path):
             s = line_list[1]
             p = line_list[2]
 
-            if p in ["视频", "评测", "简介", "个人资料"]:
+            if p in ["视频", "评测", "简介", "个人资料", "音频", "下载"]:
                 continue
 
             if p not in dict_predict_p_to_url_to_s:

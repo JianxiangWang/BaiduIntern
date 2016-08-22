@@ -18,6 +18,10 @@ def main(fin, fout):
             s = str(get_s_for_ceping(line))
         if p == "视频":
             s = str(get_s_for_shipin(line))
+        if p == "音频":
+            s = str(get_s_for_yinpin(line))
+        if p == "下载":
+            s = str(get_s_for_xiazai(line))
 
         line_list[1] = s
 
@@ -217,6 +221,54 @@ def get_s_for_shipin(line):
     for start_word in useless_start_words:
         if title.startswith(start_word):
             title = title[len(start_word):]
+
+    return title
+
+
+# 音频
+def get_s_for_yinpin(line):
+    line = unicode(line, errors="ignore")
+
+    line_list = line.strip().split("\t")
+    ner_list = eval(line_list[-1])
+    title = line_list[1].split(" ", 1)[0]
+
+    if ner_list != []:
+        before_idx = len(title)
+        entity_name = None
+        for ner in ner_list:
+            offset = ner["offset"]
+            etype = ner["etype"]
+
+            if offset < before_idx:
+                entity_name = ner["name"]
+
+        if entity_name:
+            title = unicode(entity_name, errors="ignore")
+
+    return title
+
+
+# 音频
+def get_s_for_xiazai(line):
+    line = unicode(line, errors="ignore")
+
+    line_list = line.strip().split("\t")
+    ner_list = eval(line_list[-1])
+    title = line_list[1].split(" ", 1)[0]
+
+    if ner_list != []:
+        before_idx = len(title)
+        entity_name = None
+        for ner in ner_list:
+            offset = ner["offset"]
+            etype = ner["etype"]
+
+            if offset < before_idx:
+                entity_name = ner["name"]
+
+        if entity_name:
+            title = unicode(entity_name, errors="ignore")
 
     return title
 

@@ -284,9 +284,12 @@ def get_s_for_xiazai(line):
         u"txt",
         u"下载"
     ]
+
+    print title
     for word in useless_words:
         if word in title:
             title = title.replace(word, "")
+    print title
 
     return title
 

@@ -187,7 +187,7 @@ def get_s_for_shipin(line):
                 entity_name = ner["name"]
 
         if entity_name:
-            title = entity_name
+            title = unicode(entity_name, errors="ignore")
 
     if u"【" in title and u"】" in title:
         start = title.find(u"【")

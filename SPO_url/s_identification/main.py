@@ -71,7 +71,7 @@ def get_s_for_jianjie(line):
     line = unicode(line, errors="ignore")
 
     line_list = line.strip().split("\t")
-    ner_list = eval(line_list[-1])
+    ner_list = eval(unicode(line_list[-1], errors="ignore"))
     title = line_list[1].strip()
 
     S = None

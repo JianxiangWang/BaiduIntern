@@ -156,8 +156,7 @@ def get_s(url, dict_info, soup):
 
 def get_o(a_tag):
     o = "~"
-    print a_tag
-    if "href" in a_tag:
+    if "href" in a_tag.attrs:
         o = a_tag.attrs["href"]
         if o.startswith("javascript") or o.startswith("#") or o.startswith("//"):
             o = "~"

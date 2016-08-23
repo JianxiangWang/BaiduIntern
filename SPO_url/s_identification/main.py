@@ -178,7 +178,7 @@ def get_s_for_shipin(line):
 
     line_list = line.strip().split("\t")
     ner_list = eval(line_list[-1])
-    title = line_list[1].split(" ", 1)[0]
+    title = line_list[1]
 
     if ner_list != []:
         before_idx = len(title)

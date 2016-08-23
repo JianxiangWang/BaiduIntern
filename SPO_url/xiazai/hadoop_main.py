@@ -70,7 +70,7 @@ def has_download_a_tag_1(soup):
 
                             # o 为下载链接
                             o = a_tag.attrs["href"]
-                            if o.startswith("javascript"):
+                            if o.startswith("javascript") or o.startswith("#"):
                                 o = "~"
                             return True, o
                         else:
@@ -108,7 +108,7 @@ def has_download_a_tag_2(soup):
                             o = "~"
                             if "href" in a_tag:
                                 o = a_tag.attrs["href"]
-                                if o.startswith("javascript"):
+                                if o.startswith("javascript") or o.startswith("#"):
                                     o = "~"
                             return True, o
 
@@ -152,7 +152,7 @@ def has_download_a_tag_2(soup):
                             o = "~"
                             if "href" in a_tag:
                                 o = a_tag.attrs["href"]
-                                if o.startswith("javascript"):
+                                if o.startswith("javascript") or o.startswith("#"):
                                     o = "~"
                             return True, o
     return False, "~"

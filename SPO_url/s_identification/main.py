@@ -140,7 +140,6 @@ def get_s_for_jianjie(line):
             S = S[start + 1: end]
 
 
-
     return S
 
 

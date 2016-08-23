@@ -184,8 +184,6 @@ def get_s_for_shipin(line):
         before_idx = len(title)
         entity_name = None
 
-        print title, before_idx
-
         for ner in ner_list:
             offset = ner["offset"]
             etype = ner["etype"]

@@ -80,8 +80,9 @@ def get_s_for_jianjie(line):
 
     S = None
 
+    key_word_list = [u"简介", u"介绍"]
+
     if ner_list != []:
-        key_word_list = [u"简介", u"介绍"]
         before_idx_list = [title.find(key_word) + len(key_word) for key_word in key_word_list if key_word in title ]
         if before_idx_list == []:
             before_idx = len(title)
@@ -100,6 +101,22 @@ def get_s_for_jianjie(line):
             S = unicode(entity_name, errors="ignore")
 
     if S is None:
+
+        # 如果title中存在关键字, 且不能识别其中的实体的时候, 使用策略去识别
+        key_word_idx = -1
+        for key_word in key_word_list:
+            if title.find(key_word) != -1:
+                key_word_idx = title.find(key_word)
+
+        if key_word_idx != -1:
+            # 从关键字往前扫描, 遇到标点空格停止
+            i = key_word_idx - 1
+            while i >= 0:
+                if title[i] in u" ，。！；？":
+                    break
+                i -= 1
+            title = title[i + 1: key_word_idx]
+
         S = title
 
     if S.endswith("）"):
@@ -204,7 +221,6 @@ def get_s_for_shipin(line):
 
             if offset < before_idx:
                 entity_name = ner["name"]
-                print entity_name
 
         if entity_name:
             title = unicode(entity_name, errors="ignore")

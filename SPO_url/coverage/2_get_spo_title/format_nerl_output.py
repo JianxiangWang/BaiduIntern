@@ -34,12 +34,33 @@ def main(fin):
                         v = float(v)
                     if k in ["offset"]:
                         v = int(v)
+
+                        # 需要重新计算offset
+                        sentence = unicode(sentence)
+                        dict_to_real_offset = []
+                        offset = 0
+                        for i in range(len(sentence)):
+                            dict_to_real_offset[offset] = i
+                            if is_chinese(sentence[i]):
+                                offset += 2
+                            else:
+                                offset += 1
+                        v = dict_to_real_offset[v]
+
+
                     d[k] = v
 
                 ner_list.append(d)
 
-            print "%s\t%s" % (sentence, json.dumps(ner_list, ensure_ascii=False))
+            print u"%s\t%s" % (sentence, json.dumps(ner_list, ensure_ascii=False))
 
+
+
+
+def is_chinese(ch):
+    if u'\u4e00' <= ch <= u'\u9fff':
+        return True
+    return False
 
 if __name__ == '__main__':
     main(sys.stdin)

@@ -37,7 +37,7 @@ def main(fin):
 
                         # 需要重新计算offset
                         sentence = unicode(sentence)
-                        dict_to_real_offset = []
+                        dict_to_real_offset = {}
                         offset = 0
                         for i in range(len(sentence)):
                             dict_to_real_offset[offset] = i
@@ -46,7 +46,6 @@ def main(fin):
                             else:
                                 offset += 1
                         v = dict_to_real_offset[v]
-
 
                     d[k] = v
 

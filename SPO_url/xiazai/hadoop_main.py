@@ -158,7 +158,7 @@ def get_o(a_tag):
     o = "~"
     if "href" in a_tag.attrs:
         o = a_tag.attrs["href"]
-        if o.startswith("javascript") or o.startswith("#") or o.startswith("//"):
+        if o.startswith("javascript") or o.startswith("#") or o.startswith("/"):
             o = "~"
     return o
 

@@ -19,7 +19,7 @@ def main(fin):
 
         else:
             sentence = line_list[0].strip()
-            sentence = sentence.replace("query =", "")
+            sentence = sentence.replace("query =", "").strip()
 
             ner_list = []
             for s in line_list[1:]:

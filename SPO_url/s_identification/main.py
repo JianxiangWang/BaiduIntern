@@ -122,6 +122,20 @@ def get_s_for_jianjie(line):
         if start < end:
             S = S[start + 1: end]
 
+
+    # 用去掉一些词
+    useless_end_words = [
+        u"介绍大全",
+        u"介绍",
+        u"故事简介",
+        u"简介",
+    ]
+
+    for end_word in useless_end_words:
+        if S.endswith(end_word):
+            S = S[:len(S) - len(end_word)]
+
+
     return S
 
 

@@ -82,6 +82,9 @@ def evaluate_s(org_test_data, predict_file_path, predict_some_p_file_path):
             for url in dict_predict_p_to_url_to_s[p]:
                 pred_s = dict_predict_p_to_url_to_s[p][url]
 
+                if pred_s == "~":
+                    continue
+
                 if p in dict_gold_p_to_url_to_s and url in dict_gold_p_to_url_to_s[p]:
                     precision_N += 1
                     gold_s = dict_gold_p_to_url_to_s[p][url]

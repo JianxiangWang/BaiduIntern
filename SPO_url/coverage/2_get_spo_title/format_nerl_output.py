@@ -35,23 +35,18 @@ def main(fin):
                     if k in ["offset"]:
                         v = int(v)
 
-                        # 需要重新计算offset
-                        try:
-                            sentence = unicode(sentence)
-                            dict_to_real_offset = {}
-                            offset = 0
-                            for i in range(len(sentence)):
-                                dict_to_real_offset[offset] = i
-                                if is_chinese(sentence[i]):
-                                    offset += 2
-                                else:
-                                    offset += 1
+                        sentence = unicode(sentence)
+                        dict_to_real_offset = {}
+                        offset = 0
+                        for i in range(len(sentence)):
+                            dict_to_real_offset[offset] = i
+                            if is_chinese(sentence[i]):
+                                offset += 2
+                            else:
+                                offset += 1
+
+                        if v in dict_to_real_offset:
                             v = dict_to_real_offset[v]
-                        except:
-                            print "======" * 20
-                            print sentence
-                            print dict_to_real_offset
-                            print v
 
                     d[k] = v
 

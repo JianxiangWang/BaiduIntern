@@ -3,6 +3,8 @@ qiandaohu  so识别分析
 
 1. 小说
 
+    需要p的细化
+
 	s:
 
 
@@ -15,7 +17,6 @@ qiandaohu  so识别分析
 		http://www.qidian.com/Book/2227457.aspx
 
 	o:
-		需要p的细化
 		页面正文 或 url
 
 2. 吧
@@ -57,7 +58,7 @@ qiandaohu  so识别分析
 
 	o:
 
-		正文块，
+		正文块
 
 
 

@@ -25,11 +25,11 @@ def main():
 
 
 def do_extraction(url, dict_info, soup):
-    x, confidence = is_xiazai(url, dict_info, soup)
+    x, o, confidence = is_xiazai(url, dict_info, soup)
     if x:
         S = get_s(url, dict_info, soup)
         P = u"下载"
-        O = url
+        O = o
 
         print u"%s\t%s\t%s\t%s\t%.4f" % (url, S, P, O, confidence)
 
@@ -37,15 +37,17 @@ def do_extraction(url, dict_info, soup):
 def is_xiazai(url, dict_info, soup):
 
     if soup is None:
-        return (False, 0)
+        return (False, "~", 0)
 
-    if has_download_a_tag_1(soup):
-        return (True, 0.8)
+    flag, o = has_download_a_tag_1(soup)
+    if flag:
+        return (True, o, 0.8)
 
-    if has_download_a_tag_2(soup):
-        return (True, 0.7)
+    flag, o = has_download_a_tag_2(soup)
+    if flag:
+        return (True, o, 0.7)
 
-    return (False, 0)
+    return (False, "~", 0)
 
 
 # 1. 正文中, 下载被<a>包围, 至少得有href/onclick/id属性 且href指向的不是html
@@ -65,11 +67,14 @@ def has_download_a_tag_1(soup):
                             and not a_tag.attrs["href"].endswith("php")\
                             and not a_tag.attrs["href"].endswith("jsp")\
                             and not a_tag.attrs["href"].endswith("/"):
-                            return True
+
+                            # o 为下载链接
+                            o = a_tag.attrs["href"]
+                            return True, o
                         else:
                             continue
-                    return True
-    return False
+                    return True, "~"
+    return False, "~"
 
 
 # 如果1.不成立, 对于满足要求的<a>, 判断周围是不是有 下载 关键字
@@ -97,7 +102,9 @@ def has_download_a_tag_2(soup):
                     ''' 1. <a> 下面是否有 img 标签, 并且 alt 有 下载'''
                     for img in a_tag.find_all("img"):
                         if "alt" in img.attrs and "下载" in img.attrs["alt"]:
-                            return True
+                            # o 为下载链接
+                            o = a_tag.attrs["href"]
+                            return True, o
 
 
                     ''' 2. 周围的文字 '''
@@ -136,14 +143,20 @@ def has_download_a_tag_2(soup):
 
                     for word in key_words:
                         if word in surrounding_string:
-                            return True
-    return False
+                            # o 为下载链接
+                            o = a_tag.attrs["href"]
+                            return True, o
+    return False, "~"
 
 
 def get_s(url, dict_info, soup):
     # 使用title作为s, 去一下两侧标点
     title = dict_info["realtitle"]
     return title
+
+
+
+
 
 
 

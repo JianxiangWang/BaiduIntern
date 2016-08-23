@@ -73,7 +73,7 @@ def evaluate_s(org_test_data, predict_file_path, predict_some_p_file_path):
                     if pred_s.lower().strip() == gold_s.lower().strip():
                         recall_M += 1
                     else:
-                        print pred_s, gold_s
+                        # print pred_s, gold_s
                         pass
 
             # precision

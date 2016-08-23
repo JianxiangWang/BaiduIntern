@@ -70,6 +70,8 @@ def has_download_a_tag_1(soup):
 
                             # o 为下载链接
                             o = a_tag.attrs["href"]
+                            if o.startswith("javascript"):
+                                o = "~"
                             return True, o
                         else:
                             continue
@@ -103,7 +105,11 @@ def has_download_a_tag_2(soup):
                     for img in a_tag.find_all("img"):
                         if "alt" in img.attrs and "下载" in img.attrs["alt"]:
                             # o 为下载链接
-                            o = a_tag.attrs["href"]
+                            o = "~"
+                            if "href" in a_tag:
+                                o = a_tag.attrs["href"]
+                                if o.startswith("javascript"):
+                                    o = "~"
                             return True, o
 
 
@@ -143,8 +149,11 @@ def has_download_a_tag_2(soup):
 
                     for word in key_words:
                         if word in surrounding_string:
-                            # o 为下载链接
-                            o = a_tag.attrs["href"]
+                            o = "~"
+                            if "href" in a_tag:
+                                o = a_tag.attrs["href"]
+                                if o.startswith("javascript"):
+                                    o = "~"
                             return True, o
     return False, "~"
 

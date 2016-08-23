@@ -15,12 +15,12 @@ from jiefeng.PageClassify import PageClassify
 
 # mine
 extractions = [
-    ba_extraction,
-    shipin_extraction,
-    # tuPian_extraction,
-    xiaoShuo_extraction,
+    # ba_extraction,
+    # shipin_extraction,
+    # # tuPian_extraction,
+    # xiaoShuo_extraction,
     xiazai_extraction,
-    yinpin_extraction
+    # yinpin_extraction
 ]
 
 for line in sys.stdin:
@@ -39,9 +39,9 @@ for line in sys.stdin:
         for do_extraction in extractions:
             do_extraction(url, dict_info, soup)
 
-        # 介峰部分
-        p = PageClassify(url, dict_info, soup)
-        p.predict()
+        # # 介峰部分
+        # p = PageClassify(url, dict_info, soup)
+        # p.predict()
 
 
 

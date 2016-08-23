@@ -80,7 +80,7 @@ def get_s_for_jianjie(line):
 
     S = None
 
-    key_word_list = [u"简介", u"介绍"]
+    key_word_list = [u"简介", u"介绍", u"故事简介", u"介绍大全"]
 
     if ner_list != []:
         before_idx_list = [title.find(key_word) + len(key_word) for key_word in key_word_list if key_word in title ]
@@ -105,7 +105,7 @@ def get_s_for_jianjie(line):
         # 如果title中存在关键字, 且不能识别其中的实体的时候, 使用策略去识别
         key_word_idx = -1
         for key_word in key_word_list:
-            if title.find(key_word) != -1:
+            # if title.find(key_word) != -1:
                 key_word_idx = title.find(key_word)
 
         if key_word_idx != -1:
@@ -139,18 +139,6 @@ def get_s_for_jianjie(line):
         if start < end:
             S = S[start + 1: end]
 
-
-    # 用去掉一些词
-    useless_end_words = [
-        u"介绍大全",
-        u"介绍",
-        u"故事简介",
-        u"简介",
-    ]
-
-    for end_word in useless_end_words:
-        if S.endswith(end_word):
-            S = S[:len(S) - len(end_word)]
 
 
     return S

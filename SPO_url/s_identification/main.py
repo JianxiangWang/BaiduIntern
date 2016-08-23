@@ -183,12 +183,16 @@ def get_s_for_shipin(line):
     if ner_list != []:
         before_idx = len(title)
         entity_name = None
+
+        print title
+
         for ner in ner_list:
             offset = ner["offset"]
             etype = ner["etype"]
 
             if offset < before_idx:
                 entity_name = ner["name"]
+                print entity_name
 
         if entity_name:
             title = unicode(entity_name, errors="ignore")

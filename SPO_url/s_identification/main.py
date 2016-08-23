@@ -105,7 +105,7 @@ def get_s_for_jianjie(line):
         # 如果title中存在关键字, 且不能识别其中的实体的时候, 使用策略去识别
         key_word_idx = -1
         for key_word in key_word_list:
-            # if title.find(key_word) != -1:
+            if title.find(key_word) != -1:
                 key_word_idx = title.find(key_word)
 
         if key_word_idx != -1:

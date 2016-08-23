@@ -63,9 +63,10 @@ def main(fin):
 
 
 def is_chinese(ch):
-    if u'\u4e00' <= ch <= u'\u9fff':
+    if ord(ch) < 127:
+        return False
+    else:
         return True
-    return False
 
 if __name__ == '__main__':
     main(sys.stdin)

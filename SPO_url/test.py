@@ -1,21 +1,15 @@
 #!/usr/bin/env python
 #encoding: utf-8
 import sys
-
-import bs4
-from bs4 import BeautifulSoup
-
 reload(sys)
 sys.setdefaultencoding('utf-8')
-import re
-
-
-
+import json
 
 for line in sys.stdin:
-    line_list = line.strip().split("\t")
-    if line_list[0] == "下载" and line_list[3] == "1":
-        print line.strip()
+    url, json_str = line.strip().split("\t")
+    dict_json = json.loads(json_str)
 
+    url = unicode(url, errors="ignore")
+    print u"%s\t%s" % (url, dict_json["realtitle"])
 
 

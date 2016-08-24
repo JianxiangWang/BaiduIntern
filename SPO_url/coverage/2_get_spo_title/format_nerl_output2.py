@@ -5,24 +5,28 @@ sys.setdefaultencoding('utf-8')
 
 import json
 
+
+# 输入: url \t query = XXX \t {}, {} ..
+# http://baike.baidu.com/view/4996.htm    query = 梁朝伟  {  name : 梁朝伟  formal : NULL  offset : 0  etype : 1009  type_confidence : 10  eid : 653fbe5a7e93489db56984c43754b277  entity_confidence : 10  }
+# 输出: url \t [{}, {}]
+
 def main(fin):
 
     for line in fin:
         line_list = line.strip().split("\t")
-
-        if len(line_list) == 1:
-            sentence = line_list[0].strip()
-            sentence = sentence.replace("query =", "")
+        if len(line_list) == 2:
+            url = line_list[0].strip()
             ner_list = []
-
-            print "%s\t%s" % (sentence, json.dumps(ner_list, ensure_ascii=False))
+            print "%s\t%s" % (url, json.dumps(ner_list, ensure_ascii=False))
 
         else:
-            sentence = line_list[0].strip()
+
+            url = line_list[0].strip()
+            sentence = line_list[1].strip()
             sentence = sentence.replace("query =", "").strip()
 
             ner_list = []
-            for s in line_list[1:]:
+            for s in line_list[2:]:
                 # {  name : 春节  formal : 2016-02-08  offset : 0  etype : [D:TIME]  type_confidence : 5  eid :   entity_confidence : 0  }
                 d = {}
                 s = s[1:-1].strip()
@@ -52,7 +56,7 @@ def main(fin):
 
                 ner_list.append(d)
 
-            print u"%s\t%s" % (sentence, json.dumps(ner_list, ensure_ascii=False))
+            print u"%s\t%s" % (url, json.dumps(ner_list, ensure_ascii=False))
 
 def is_chinese(ch):
     if ord(ch) < 127:

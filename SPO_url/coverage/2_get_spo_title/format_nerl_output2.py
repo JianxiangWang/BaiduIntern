@@ -15,13 +15,12 @@ def main(fin):
     for line in fin:
         line_list = line.strip().split("\t")
         if len(line_list) == 2:
-            url = line_list[0].strip()
+            url = unicode(line_list[0].strip(), errors="ignore")
             ner_list = []
-            print "%s\t%s" % (url, json.dumps(ner_list, ensure_ascii=False))
+            print u"%s\t%s" % (url, json.dumps(ner_list, ensure_ascii=False))
 
         else:
-
-            url = line_list[0].strip()
+            url = unicode(line_list[0].strip(), errors="ignore")
             sentence = line_list[1].strip()
             sentence = sentence.replace("query =", "").strip()
 

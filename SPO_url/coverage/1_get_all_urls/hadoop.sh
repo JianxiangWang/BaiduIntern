@@ -3,7 +3,7 @@
 
 #INPUT="/app/ps/spider/wdm-site-offline/relation-extraction/dom_extraction/qiandaohu2"
 INPUT="/app/ps/spider/wdm-site-offline/relation-extraction/dom_extraction/qiandaohu"
-OUTPUT="/app/ps/spider/kg-value/wangjianxiang01/data/qiandaohu_10ku_urls"
+OUTPUT="/app/ps/spider/kg-value/wangjianxiang01/data/temp"
 
 hadoop fs -rmr ${OUTPUT}
 

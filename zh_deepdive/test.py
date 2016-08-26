@@ -63,3 +63,6 @@ print len(unicode(sent))
 #
 # for w in tokens[begin_index: end_index+1]:
 #     print w
+
+
+# print >> sys.stderr, 'spam'

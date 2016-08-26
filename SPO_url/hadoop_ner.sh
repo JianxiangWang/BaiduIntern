@@ -9,7 +9,7 @@ hadoop streaming \
     -input "${INPUT}"  \
     -output "${OUTPUT}" \
     -cacheArchive "/app/ps/spider/kg-value/wangjianxiang01/ner_reduced_tool.tar.gz#." \
-    -mapper "sh -x ner_reduced_tool/run_qdh.sh" \
+    -mapper "sh -x run_qdh.sh" \
     -reducer "NONE" \
     -jobconf mapred.job.priority="VERY_HIGH" \
     -jobconf mapred.textoutputformat.ignoreseparator=true \

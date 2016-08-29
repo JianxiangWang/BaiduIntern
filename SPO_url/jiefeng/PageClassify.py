@@ -200,12 +200,11 @@ class PageClassify:
             if start < end:
                 S = S[start + 1: end]
 
-        print S, type(S)
 
-        if S.strip() == "":
+        if S.strip() == u"":
             return "~"
 
-        return "~"
+        return str(S)
 
 
     def classify_news(self):

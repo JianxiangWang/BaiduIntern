@@ -58,7 +58,7 @@ class PageClassify:
             return -2, ''
         
         page_info['domain'] = '评测'
-        page_info['s'] = page_info['realtitle']
+        page_info['s'] = self.get_evaluating_s()
 
         if '文章内容页' not in page_info['page_type'] and '商品详情页' not in page_info['page_type']:
             return 0, ''

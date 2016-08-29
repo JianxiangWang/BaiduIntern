@@ -201,7 +201,7 @@ class PageClassify:
                 S = S[start + 1: end]
 
 
-        if S.strip():
+        if not S.strip():
             return "~"
 
         return S

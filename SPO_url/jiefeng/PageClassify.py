@@ -155,7 +155,7 @@ class PageClassify:
                     entity_name = ner["name"]
 
             if entity_name:
-                S = unicode(entity_name, errors="ignore")
+                S = entity_name
 
         if S is None:
 

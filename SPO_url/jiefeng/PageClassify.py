@@ -1,6 +1,10 @@
 # encoding: utf-8
 from __future__ import division
 import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
+
+import sys
 import json
 from PageInfo import PageInfo
 from bs4 import BeautifulSoup

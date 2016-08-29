@@ -81,6 +81,50 @@ class PageClassify:
         else:
             return 0, ''
 
+    # 测评
+    def get_evaluating_s(self):
+        ner_list = self.page_info["title_ner"]
+        title = unicode(self.page_info['realtitle'], errors="ignore")
+
+        if ner_list == []:
+            return title
+
+        key_word_list = [u"测评", u"评测", u"上手评测", u"上手测评"]
+        before_idx_list = [title.find(key_word) + len(key_word) for key_word in key_word_list if key_word in title]
+        if before_idx_list == []:
+            before_idx = len(title)
+        else:
+            before_idx = min(before_idx_list)
+
+        entity_name = None
+        for ner in ner_list:
+            offset = ner["offset"]
+            etype = ner["etype"]
+
+            if offset < before_idx:
+                entity_name = ner["name"]
+
+        if entity_name:
+            return entity_name
+
+        # 如果title中关键字 "测评", "评测", 且不能识别其中的实体的时候, 使用策略去识别
+        key_word_idx = -1
+        for key_word in key_word_list:
+            if title.find(key_word) != -1:
+                key_word_idx = title.find(key_word)
+
+        if key_word_idx != -1:
+            # 从关键字往前扫描, 遇到标点空格停止
+            i = key_word_idx - 1
+            while i >= 0:
+                if title[i] in u" ，。！；？":
+                    break
+                i -= 1
+            title = title[i + 1: key_word_idx]
+
+        return title
+
+
     def classify_introduction(self):
         """简介"""
 
@@ -273,7 +317,7 @@ class PageClassify:
 
     def get_personalprofile_s(self):
         ner_list = self.page_info["title_ner"]
-        title = self.page_info['realtitle']
+        title = unicode(self.page_info['realtitle'], errors="ignore")
 
         if ner_list == []:
             return title
@@ -542,8 +586,8 @@ class PageClassify:
     def predict(self):
         """页面类型预测"""
         extractions = [
-            # self.classify_evaluating,
-            self.classify_introduction,
+            self.classify_evaluating,
+            # self.classify_introduction,
             # # self.classify_news,
             # self.classify_personalprofile,
             # self.classify_baike,

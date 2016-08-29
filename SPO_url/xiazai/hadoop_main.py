@@ -148,10 +148,46 @@ def has_download_a_tag_2(soup):
     return False, "~"
 
 
+
 def get_s(url, dict_info, soup):
-    # 使用title作为s, 去一下两侧标点
-    title = dict_info["realtitle"]
+    ner_list = dict_info["title_ner"]
+    title = dict_info['realtitle']
+
+    if ner_list != []:
+        before_idx = len(title)
+        entity_name = None
+        for ner in ner_list:
+            offset = ner["offset"]
+            etype = ner["etype"]
+
+            if offset < before_idx:
+                entity_name = ner["name"]
+                break
+
+        if entity_name:
+            title = entity_name
+
+    # 如果有 【南妹皇后】, 《斗破苍穹》 取中间的
+    if u"《" in title and u"》" in title:
+        start = title.find(u"《")
+        end = title.find(u"》")
+        if start < end:
+            title = title[start + 1: end]
+
+    # 删除一些不必要的词
+    useless_words = [
+        u"txt",
+        u"TXT",
+        u"下载"
+    ]
+
+    for word in useless_words:
+        if word in title:
+            title = title.replace(word, "")
+
     return title
+
+
 
 
 def get_o(a_tag):

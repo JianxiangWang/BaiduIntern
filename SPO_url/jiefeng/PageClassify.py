@@ -200,6 +200,9 @@ class PageClassify:
             if start < end:
                 S = S[start + 1: end]
 
+        if S.strip() == "":
+            return "~"
+
         return S
 
 

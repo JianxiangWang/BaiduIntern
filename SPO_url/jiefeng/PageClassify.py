@@ -180,6 +180,8 @@ class PageClassify:
 
             S = title
 
+            print S.strip(), type(S.strip()), S.strip() == ""
+
         if S.endswith("）"):
             if "（" in S:
                 S = S[:S.rfind("（")]
@@ -200,7 +202,7 @@ class PageClassify:
             if start < end:
                 S = S[start + 1: end]
 
-        print S.strip(), type(S.strip()), S.strip()  == ""
+
         if not S.strip():
             return "~"
 

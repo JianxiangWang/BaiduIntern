@@ -80,7 +80,7 @@ class PageClassify:
     def classify_introduction(self):
         """简介"""
 
-        # 如果是简介页面, 直接return 1
+        # 如果是百科页面, 直接return 1
         baike_res, page_info_ = self.classify_baike()
         if baike_res == 1:
             page_info_['domain'] = '简介'
@@ -94,7 +94,7 @@ class PageClassify:
             return -2, ''
 
         page_info['domain'] = '简介'
-        page_info['s'] = page_info['realtitle']
+        page_info['s'] = self.get_introduction_s()
         title_count = 0
         cont_count  = 0
         confidence = 0
@@ -129,6 +129,74 @@ class PageClassify:
             return 1, page_info
         else:
             return 0, ''
+
+    # 简介
+    def get_introduction_s(self):
+        ner_list = self.page_info["title_ner"]
+        title = self.page_info['realtitle']
+
+        S = None
+
+        key_word_list = [u"简介", u"介绍", u"故事简介", u"介绍大全"]
+
+        if ner_list != []:
+            before_idx_list = [title.find(key_word) + len(key_word) for key_word in key_word_list if key_word in title]
+            if before_idx_list == []:
+                before_idx = len(title)
+            else:
+                before_idx = min(before_idx_list)
+
+            entity_name = None
+            for ner in ner_list:
+                offset = ner["offset"]
+                etype = ner["etype"]
+
+                if offset < before_idx:
+                    entity_name = ner["name"]
+
+            if entity_name:
+                S = unicode(entity_name, errors="ignore")
+
+        if S is None:
+
+            # 如果title中存在关键字, 且不能识别其中的实体的时候, 使用策略去识别
+            key_word_idx = -1
+            for key_word in key_word_list:
+                if title.find(key_word) != -1:
+                    key_word_idx = title.find(key_word)
+
+            if key_word_idx != -1:
+                # 从关键字往前扫描, 遇到标点空格停止
+                i = key_word_idx - 1
+                while i >= 0:
+                    if title[i] in u" ，。！；？":
+                        break
+                    i -= 1
+                title = title[i + 1: key_word_idx]
+
+            S = title
+
+        if S.endswith("）"):
+            if "（" in S:
+                S = S[:S.rfind("（")]
+        if S.endswith(")"):
+            if "(" in S:
+                S = S[:S.rfind("(")]
+
+        # 如果有 【南妹皇后】, 《斗破苍穹》 取中间的
+        if u"《" in S and u"》" in S:
+            start = S.find(u"《")
+            end = S.find(u"》")
+            if start < end:
+                S = S[start + 1: end]
+
+        if u"【" in S and u"】" in S:
+            start = S.find(u"【")
+            end = S.find(u"】")
+            if start < end:
+                S = S[start + 1: end]
+
+        return S
 
 
     def classify_news(self):
@@ -468,9 +536,9 @@ class PageClassify:
         """页面类型预测"""
         extractions = [
             # self.classify_evaluating,
-            # self.classify_introduction,
+            self.classify_introduction,
             # # self.classify_news,
-            self.classify_personalprofile,
+            # self.classify_personalprofile,
             # self.classify_baike,
             # self.classify_weibo,
             # self.classify_commidity

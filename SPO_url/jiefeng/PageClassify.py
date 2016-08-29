@@ -156,7 +156,7 @@ class PageClassify:
             return -2, ''
 
         page_info['domain'] = '个人资料'
-        page_info['s'] = page_info['realtitle']
+        page_info['s'] = self.get_personalprofile_s()
         confidence  = 0
         kv_count    = 0
         cont_count  = 0
@@ -193,6 +193,44 @@ class PageClassify:
             return 1, page_info
         else:
             return 0, ''
+
+
+    def get_personalprofile_s(self):
+        ner_list = self.page_info["title_ner"]
+        title = self.page_info['realtitle']
+
+        if ner_list == []:
+            return title
+
+        key_word = u"个人资料"
+        # 离关键字最近的那个实体, 人物
+        renwu_etype_list = [
+            "1000", "1001",
+            "1002", "1003",
+            "1004", "1005",
+            "1006", "1007",
+            "1008", "1009",
+            "1010", "1011",
+            "1012"
+        ]
+
+        if key_word in title:
+            before_idx = title.find(key_word) + len(key_word)
+        else:
+            before_idx = len(title)
+
+        entity_name = None
+        for ner in ner_list:
+            offset = ner["offset"]
+            etype = ner["etype"]
+
+            if offset < before_idx and etype in renwu_etype_list:
+                entity_name = ner["name"]
+
+        if entity_name:
+            return entity_name
+
+        return title
 
     def classify_baike(self):
         """百科"""

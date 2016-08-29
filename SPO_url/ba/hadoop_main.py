@@ -76,8 +76,6 @@ def get_s(url, dict_info, soup):
             return s
 
 
-
-
     # 找不到使用title
     s = dict_info["realtitle"]
 

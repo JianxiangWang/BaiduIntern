@@ -203,7 +203,7 @@ class PageClassify:
         if S.strip() == "":
             return "~"
 
-        return S
+        return "~"
 
 
     def classify_news(self):
@@ -566,7 +566,7 @@ class PageClassify:
 
                 print u"%s\t%s\t%s\t%s\t%.4f" % (
                     page_info['url'],
-                    "~~",
+                    page_info['s'],
                     page_info['domain'],
                     page_info['url'],
                     page_info['confidence']

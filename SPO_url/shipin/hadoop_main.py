@@ -63,7 +63,7 @@ def get_s(url, dict_info, soup):
                 entity_name = ner["name"]
 
         if entity_name:
-            title = unicode(entity_name, errors="ignore")
+            title = entity_name
 
     if u"【" in title and u"】" in title:
         start = title.find(u"【")

@@ -184,15 +184,15 @@ class PageClassify:
                 S = S[:S.rfind("(")]
 
         # 如果有 【南妹皇后】, 《斗破苍穹》 取中间的
-        if u"《" in S and u"》" in S:
-            start = S.find(u"《")
-            end = S.find(u"》")
+        if "《" in S and "》" in S:
+            start = S.find("《")
+            end = S.find("》")
             if start < end:
                 S = S[start + 1: end]
 
-        if u"【" in S and u"】" in S:
-            start = S.find(u"【")
-            end = S.find(u"】")
+        if "【" in S and "】" in S:
+            start = S.find("【")
+            end = S.find("】")
             if start < end:
                 S = S[start + 1: end]
 

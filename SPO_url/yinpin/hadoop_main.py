@@ -96,26 +96,27 @@ def get_meta_content(soup):
     return content.strip()
 
 
+
 def get_s(url, dict_info, soup):
 
-    title = dict_info["realtitle"]
-    if u"《" in title and u"》" in title:
-        s = title.find(u"《")
-        e = title.find(u"》")
-        if s < e:
-            title = title[s+1: e]
+    ner_list = dict_info["title_ner"]
+    title = dict_info['realtitle']
 
-    # 2. 删除一些无用的词
-    useless_words = [
-        u"歌词",
-        u"歌曲",
-    ]
-    for word in useless_words:
-        title = title.replace(word, "")
+    if ner_list != []:
+        before_idx = len(title)
+        entity_name = None
+        for ner in ner_list:
+            offset = ner["offset"]
+            etype = ner["etype"]
 
-    title = title.strip()
+            if offset < before_idx:
+                entity_name = ner["name"]
+                break
 
-    return title if title != u"" else u"~"
+        if entity_name:
+            title = entity_name
+
+    return title
 
 
 if __name__ == '__main__':

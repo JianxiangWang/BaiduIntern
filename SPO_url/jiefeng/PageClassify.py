@@ -169,7 +169,7 @@ class PageClassify:
                 # 从关键字往前扫描, 遇到标点空格停止
                 i = key_word_idx - 1
                 while i >= 0:
-                    if title[i] in u" ，。！；？":
+                    if title[i] in " ，。！；？":
                         break
                     i -= 1
                 title = title[i + 1: key_word_idx]

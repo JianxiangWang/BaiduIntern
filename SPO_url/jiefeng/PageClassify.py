@@ -554,7 +554,7 @@ class PageClassify:
 
             if res == 1:
 
-                print page_info['s'], type(page_info['s'])
+                print page_info['s'], type(page_info['s']), page_info['confidence']
 
                 print u"%s\t%s\t%s\t%s\t%s" % (
                     page_info['url'],

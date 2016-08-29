@@ -201,10 +201,10 @@ class PageClassify:
                 S = S[start + 1: end]
 
 
-        if S.strip() == u"":
+        if S.strip():
             return "~"
 
-        return str(S)
+        return S
 
 
     def classify_news(self):

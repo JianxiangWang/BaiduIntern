@@ -6,7 +6,7 @@ sys.setdefaultencoding('utf-8')
 
 fin_1 = open("org.test.data.filtered.urls.ner")
 fin_2 = open("org.test.data.filtered.s")
-fout = open("org.test.data.filtered.s.ner")
+fout = open("org.test.data.filtered.s.ner", "w")
 
 dict_url_to_new_info = {}
 for line in fin_1:

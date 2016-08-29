@@ -50,7 +50,7 @@ def is_shipin(url, dict_info, soup):
 # 视频
 def get_s(url, dict_info, soup):
     ner_list = dict_info["title_ner"]
-    title = unicode(dict_info['realtitle'], errors="ignore")
+    title = dict_info['realtitle']
     if ner_list != []:
         before_idx = len(title)
         entity_name = None

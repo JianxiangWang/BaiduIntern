@@ -150,6 +150,7 @@ def has_download_a_tag_2(soup):
 
 
 def get_s(url, dict_info, soup):
+
     ner_list = dict_info["title_ner"]
     title = dict_info['realtitle']
 

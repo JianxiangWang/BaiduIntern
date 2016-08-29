@@ -137,7 +137,7 @@ class PageClassify:
     # 简介
     def get_introduction_s(self):
         ner_list = self.page_info["title_ner"]
-        title = self.page_info['realtitle']
+        title = unicode(self.page_info['realtitle'], errors="ignore")
 
         S = None
 
@@ -180,8 +180,6 @@ class PageClassify:
 
             S = title
 
-            print S.strip(), type(S.strip()), S.strip() == ""
-
         if S.endswith("）"):
             if "（" in S:
                 S = S[:S.rfind("（")]
@@ -203,9 +201,8 @@ class PageClassify:
                 S = S[start + 1: end]
 
 
-        if not S.strip():
+        if S.strip() == u"":
             return "~"
-
         return S
 
 

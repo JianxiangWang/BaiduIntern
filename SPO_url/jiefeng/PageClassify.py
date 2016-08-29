@@ -557,11 +557,12 @@ class PageClassify:
 
             if res == 1:
 
-                print page_info['url'], \
-                    page_info['s'], \
-                    page_info['domain'], \
-                    page_info['url'],\
-                    page_info['confidence']
+                print \
+                    page_info['url'], type(page_info['url']),  \
+                    page_info['s'], type(page_info['s']), \
+                    page_info['domain'], type(page_info['domain']), \
+                    page_info['url'], type(page_info['url']),\
+                    page_info['confidence'], type(page_info['confidence'])
 
                 print u"%s\t%s\t%s\t%s\t%.4f" % (
                     page_info['url'],

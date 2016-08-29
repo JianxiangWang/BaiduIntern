@@ -466,13 +466,13 @@ class PageClassify:
     def predict(self):
         """页面类型预测"""
         extractions = [
-            self.classify_evaluating,
-            self.classify_introduction,
-            # self.classify_news,
+            # self.classify_evaluating,
+            # self.classify_introduction,
+            # # self.classify_news,
             self.classify_personalprofile,
-            self.classify_baike,
-            self.classify_weibo,
-            self.classify_commidity
+            # self.classify_baike,
+            # self.classify_weibo,
+            # self.classify_commidity
         ]
 
         # go go go!

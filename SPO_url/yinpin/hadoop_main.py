@@ -36,7 +36,7 @@ def do_extraction(url, dict_info, soup):
 
 def is_yinpin(url, dict_info, soup):
 
-    if soup  is None:
+    if soup is None:
         return (False, 0)
 
     # 基于meta的识别

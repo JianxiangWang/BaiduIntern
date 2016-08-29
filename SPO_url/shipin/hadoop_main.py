@@ -30,8 +30,7 @@ def do_extraction(url, dict_info, soup):
 
     x, confidence = is_shipin(url, dict_info, soup)
     if x:
-        title = dict_info["realtitle"]
-        S = title
+        S = get_s(url, dict_info, soup)
         P = u"视频"
         O = url
 
@@ -46,6 +45,56 @@ def is_shipin(url, dict_info, soup):
         return (True, 1)
     else:
         return (False, 0)
+
+
+# 视频
+def get_s(url, dict_info, soup):
+    ner_list = dict_info["title_ner"]
+    title = unicode(dict_info['realtitle'], errors="ignore")
+    if ner_list != []:
+        before_idx = len(title)
+        entity_name = None
+
+        for ner in ner_list:
+            offset = ner["offset"]
+            etype = ner["etype"]
+
+            if offset < before_idx:
+                entity_name = ner["name"]
+
+        if entity_name:
+            title = unicode(entity_name, errors="ignore")
+
+    if u"【" in title and u"】" in title:
+        start = title.find(u"【")
+        end = title.find(u"】")
+        if start < end:
+            title = title[start + 1: end]
+
+    # 用去掉一些词
+    useless_end_words = [
+        u"的视频",
+        u"短视频",
+        u"热门视频",
+        u"爆笑视频",
+        u"搞笑视频",
+        u"视频",
+    ]
+    useless_start_words = [
+        u"视频:",
+        u"精选"
+    ]
+
+
+    for end_word in useless_end_words:
+        if title.endswith(end_word):
+            title = title[:len(title) - len(end_word)]
+
+    for start_word in useless_start_words:
+        if title.startswith(start_word):
+            title = title[len(start_word):]
+
+    return title
 
 
 if __name__ == '__main__':

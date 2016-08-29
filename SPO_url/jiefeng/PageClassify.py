@@ -557,7 +557,7 @@ class PageClassify:
                           + '\t' + page_info['s']\
                           + '\t' + page_info['domain']\
                           + '\t' + page_info['url']\
-                          + '\t' + str(page_info['confidence'])
+                          + '\t' + unicode(str(page_info['confidence']))
                 print print_str
 
 

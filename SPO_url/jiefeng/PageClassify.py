@@ -553,12 +553,14 @@ class PageClassify:
             res, page_info = do_extraction()
 
             if res == 1:
-                print_str = page_info['url']\
-                          + '\t' + page_info['s']\
-                          + '\t' + page_info['domain']\
-                          + '\t' + page_info['url']\
-                          + '\t' + unicode(str(page_info['confidence']))
-                print print_str
+
+                print u"%s\t%s\t%s\t%s\t%s" % (
+                    page_info['url'],
+                    page_info['s'],
+                    page_info['domain'],
+                    page_info['url'],
+                    str(page_info['confidence'])
+                )
 
 
 

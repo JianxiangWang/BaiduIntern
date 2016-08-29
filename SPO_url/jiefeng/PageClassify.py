@@ -559,12 +559,12 @@ class PageClassify:
 
                 print page_info['s'], type(page_info['s']), page_info['confidence']
 
-                print u"%s\t%s\t%s\t%s\t%s" % (
+                print u"%s\t%s\t%s\t%s\t%.4f" % (
                     page_info['url'],
                     page_info['s'],
                     page_info['domain'],
                     page_info['url'],
-                    str(page_info['confidence'])
+                    page_info['confidence']
                 )
 
 

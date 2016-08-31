@@ -34,9 +34,17 @@ class PageClassify:
             'content'   : json_info['content'].encode('utf8'),
             'cont_html' : json_info['cont_html'].encode('utf8'),
             'kv_dict'   : {},
-            'title_ner'   : json_info['title_ner'],
+            # 'title_ner'   : json_info['title_ner'],
             # 'article'   : json_info['article'].encode('utf8')
         }
+
+        #
+        if "title_ner" in json_info:
+            page_info["title_ner"] = json_info['title_ner']
+        else:
+            page_info["title_ner"] = []
+
+
         for item in json_info['page_type']:
             page_info['page_type'].append(item.encode('utf8'))
         for item in json_info['kv_dict']:
@@ -68,7 +76,7 @@ class PageClassify:
             return 1, page_info
 
         valid_count = 0
-        key_words   = ['评测', '测评', '参数', '做工', '设计', '性价比', '优点', '缺点']
+        key_words = ['评测', '测评', '参数', '做工', '设计', '性价比', '优点', '缺点']
         for item in key_words:
             if page_info['content'].find(item) != -1:
                 valid_count += 1

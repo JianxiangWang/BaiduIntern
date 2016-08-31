@@ -25,10 +25,15 @@ extractions = [
 
 for line in sys.stdin:
         line_list = line.strip().split("\t")
-        url = unicode(line_list[0].strip(), errors="ignore")
 
+        url = unicode(line_list[0].strip(), errors="ignore")
         str_info = line_list[-1]
-        dict_info = json.loads(str_info)
+        try:
+            dict_info = json.loads(str_info)
+            if "title_ner" not in dict_info:
+                dict_info["title_ner"] = []
+        except:
+            continue
 
         try:
             soup = BeautifulSoup(dict_info["cont_html"], "html.parser")

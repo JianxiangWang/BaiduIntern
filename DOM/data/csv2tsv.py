@@ -16,8 +16,5 @@ for row in csv.reader(sys.stdin):
         x = x.replace("\n", "")
         x = re.sub('\s+', ' ', x)
         new_row.append(x)
-    print "\t".join(new_row)
 
-# s = "泽野良江 山下容莉枝 饰　      　简"
-# # s = "cac acas "
-# print re.sub(u' +', u' ', unicode(s))
+    print "\t".join(new_row)

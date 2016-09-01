@@ -50,7 +50,6 @@ def main(url, name_list, want_common_node=False):
                             res.append(tag)
                             break
 
-    print len(res)
     for tag in res:
         print tag
 
@@ -60,6 +59,7 @@ def main(url, name_list, want_common_node=False):
         print "####" * 40
         s = str(lowest_common_node(res))
         print s.strip()
+        print len(res)
         print "####" * 40
         print "".join([x.strip() for x in s.strip().split("\n")])
 
@@ -99,7 +99,7 @@ if __name__ == '__main__':
     # main(url, name_str.split(","))
 
     url, s, p, o = \
-        "http://baike.so.com/doc/6127174.html	万俟卨	历史人物_典故	《精忠岳飞》"\
+        "http://www.iqiyi.com/lib/m_204780514.html	校园大人物	综艺节目_主持人	钟昀呈,陈汉典,蔡小洁"\
             .split("\t")
 
     print "url: %s" % (url)
@@ -107,5 +107,6 @@ if __name__ == '__main__':
     main(url, s.split(","), want_common_node=False)
     print "\n==> o -------------------------------"
     main(url, o.split(","), want_common_node=True)
+    print "\n\nurl: %s" % (url)
 
 

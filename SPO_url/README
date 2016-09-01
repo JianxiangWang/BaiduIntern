@@ -1,0 +1,161 @@
+
+0. ner 识别工具：
+	
+	地址：ftp://nj02-spi-kgb09.nj02.baidu.com:/home/disk2/wangjianxiang01/tools/ner_reduced_tool.tar.gz
+
+	（1）我封装了一下，使其更适用于千岛湖项目，执行方式： cat examples.txt | run_qdh.sh
+		我对输入输出格式，我做了一些改动：
+		输入： url \t url的title
+		输出： url \t title的ner识别结果
+
+		例如：
+			输入： http://baike.baidu.com/view/4996.htm    梁朝伟
+			输出： http://baike.baidu.com/view/4996.htm    [{"name": "梁朝伟", "type_confidence": 5.0, "eid": "None", "offset": 0, "etype": "1009", "entity_confidence": 0.0, "formal": "NULL"}]
+
+
+
+1. url抓包工具：
+	有三个版本：qdh_seeksigh 、qdh_multiseek 、 qdh_multiseek_no_ner
+	
+	作用: 均为获取 2.千岛湖识别工具 所需要的输入(url_json.file)
+	输出格式为：url \t info_json (url的json信息串)
+
+		info_json包含url的信息有：title， tilte的识别信息，cont_html（正文块的html），kv_dict 等
+
+
+	a. qdh_seeksigh （包含对title的ner）：
+
+		工具地址：ftp://nj02-spi-kgb09.nj02.baidu.com:/home/disk2/wangjianxiang01/tools/qdh_seeksigh.tar.gz
+
+		输入：集群的地址，里面包含url文件（一行一个url）
+
+		运行方式：
+			修改 hadoop.getContFromUrl.sh 中的三个变量：
+				1) INPUT: 集群的输入地址，里面包含需要找包的url文件（一行一个url）
+				2) OUTPUT: 集群的输出地址， 即对url抓包后的结果存放地址
+				3) HADOOP_BIN: 改为你的hadoop的bin的路径
+
+			执行： sh -x hadoop.getContFromUrl.sh
+
+	b. qdh_multiseek (刷库工具， 包含对title的ner)：
+
+		目前是刷vip＋se库， 可以在mapper.sh中修改
+
+		工具地址：ftp://nj02-spi-kgb09.nj02.baidu.com:/home/disk2/wangjianxiang01/tools/qdh_multiseek.tar.gz
+
+		运行方式：
+			修改 hadoop.sh 中的两个变量：
+				1) OUTPUT: 集群的输出地址， 即对url抓包后的结果存放地址
+				2) HADOOP_BIN: 改为你的hadoop的bin的路径
+
+			执行：sh  -x hadoop.sh
+
+	c. qdh_multiseek_no_ner (刷库工具， 包含对title的ner):
+
+		目前是刷vip库， 可以在mapper.sh中修改， 不包含ner识别
+
+		工具地址：ftp://nj02-spi-kgb09.nj02.baidu.com:/home/disk2/wangjianxiang01/tools/qdh_multiseek_no_ner.tar.gz
+
+		运行方式：
+			修改 hadoop.sh 中的两个变量：
+				1) OUTPUT: 集群的输出地址， 即对url抓包后的结果存放地址
+				2) HADOOP_BIN: 改为你的hadoop的bin的路径
+
+			执行：sh  -x hadoop.sh
+
+
+
+2. 千岛湖识别工具
+	目前可识别11P，分别是：小说、吧、个人资料、简介、百科、测评、音频、视频、下载、商品、微博
+
+	工具地址：
+		ftp://nj02-spi-kgb09.nj02.baidu.com:/home/disk2/wangjianxiang01/BaiduIntern/SPO_url/qdh.tar.gz
+
+	工具目录介绍：
+		ba				识别吧
+		shipin			识别视频
+		tuPian			识别图片（目前没用被调用）
+		xiaoShuo		识别小说
+		xiazai			识别下载
+		yinpin			识别音频
+		jiefeng			介峰的几个模块，可以识别：个人资料、简介、百科、测评、商品、微博
+		main.py			主程序，调用各个P的识别，适合在单机下运行
+		python 			我的python，里面装了beautifulsoup，用于html解析
+		hadoop.sh 		hadoop脚本，用于在集群上进行spo识别
+
+	使用方式：
+		对于原始的url，需要首先使用 1.url抓包工具 进行抓包，得到抓包后的文件 url_json.file （即千岛湖识别工具的输入文件）
+
+		a. 单机模式下：
+			执行：cat url_json.file | ./main.py
+			识别结果打印在标准输出，格式是：url s p o 置信度 （以\t分割）, 例如：
+			http://tieba.baidu.com/p/2600261331     官道无疆        吧      http://tieba.baidu.com/p/2600261331     1.0000
+
+		b. 集群模式：
+			修改 hadoop.sh 中以下两个变量的：
+				INPUT：输入路径（集群上的路径），里面存的是原始url进行抓包后的文件（url_json.file）
+				OUTPUT：输出路径，即识别结果的存放路径
+
+		注：目前该程序可以同时用于
+			1）包含title的ner识别信息的url_json.file （url的json信息中有title_ner这个key）， s的识别会基于title的ner识别
+			2）不包含title的ner识别信息的url_json.file （url的json信息中没有title_ner这个key））， s的识别不基于title的ner识别
+
+	一些其他信息：
+
+		1）所有代码文件目录：nj02-spi-kgb09.nj02.baidu.com:/home/disk2/wangjianxiang01/BaiduIntern/SPO_url
+		2）打包脚本：ftp://nj02-spi-kgb09.nj02.baidu.com:/home/disk2/wangjianxiang01/BaiduIntern/SPO_url/pack.sh
+
+		3）org：
+			人工标注的数据：
+				ftp://nj02-spi-kgb09.nj02.baidu.com:/home/disk2/wangjianxiang01/BaiduIntern/SPO_url/test_data/org/org.test.data.filtered.s.ner
+			识别结果：
+				ftp://nj02-spi-kgb09.nj02.baidu.com:/home/disk2/wangjianxiang01/BaiduIntern/SPO_url/test_data/org/org.test.data.filtered.s.pred.spo
+			
+			s识别评估脚本：
+				ftp://nj02-spi-kgb09.nj02.baidu.com:/home/disk2/wangjianxiang01/BaiduIntern/SPO_url/test_data/org/evaluate_s.py
+			s识别评估结果：
+				ftp://nj02-spi-kgb09.nj02.baidu.com:/home/disk2/wangjianxiang01/BaiduIntern/SPO_url/test_data/org/evaluation.new.ner.result
+			
+			p识别的评估结果：
+				ftp://nj02-spi-kgb09.nj02.baidu.com:/home/disk2/wangjianxiang01/BaiduIntern/SPO_url/test_data/org/evaluation.result
+		
+		4)
+			千岛湖_P识别策略: (不全，以代码为准)
+				ftp://nj02-spi-kgb09.nj02.baidu.com:/home/disk2/wangjianxiang01/BaiduIntern/SPO_url/千岛湖_P识别策略
+			
+			千岛湖_SO识别分析: (不全，以代码为准)
+				ftp://nj02-spi-kgb09.nj02.baidu.com:/home/disk2/wangjianxiang01/BaiduIntern/SPO_url/千岛湖_SO识别分析.txt
+			
+
+
+3. 一些其他信息：
+	a. 我的机器：nj02-spi-kgb09.nj02.baidu.com
+	
+	b. 我新建了用户在这机器上, 可以登入relay后：
+		ssh wangjianxiang@nj02-spi-kgb09.nj02
+		密码是：wang2815
+	
+	c. 正在执行的任务：
+		
+		1）刷库任务：
+			hadoop 监控url： http://nj01-nanling-appmaster21.nj01.baidu.com:8071/jobdetails_DAG.jsp?jobid=job_20160627135752_2063618
+			输出目录: /app/ps/spider/kg-value/wangjianxiang01/data/vip_se_qdh_url_info_no_ner
+			可以通过以下方式看到他的执行：
+				登入relay机器
+				ssh wangjianxiang@nj02-spi-kgb09.nj02
+					密码是：wang2815
+				shell 输入：tmux a
+
+	d. 传给吴海君：
+		1）url抓包工具，没有ner识别
+			ftp://nj02-spi-kgb09.nj02.baidu.com:/home/disk2/wangjianxiang01/tools/qdh_tool.tar.gz
+
+		2）千岛湖识别工具是：
+			ftp://nj02-spi-kgb09.nj02.baidu.com:/home/disk2/wangjianxiang01/qdh_new.tar.gz
+			是之前的版本，没有s／o的识别功能，其他一样
+
+
+
+
+
+

@@ -24,6 +24,8 @@ hadoop streaming \
     -jobconf mapred.job.map.capacity=300 \
     -jobconf mapred.reduce.tasks=1 \
     -jobconf mapred.job.reduce.capacity=300 \
+    -jobconf mapred.map.max.attempts=10 \
+    -jobconf mapred.max.map.failures.percent="1" \
     -jobconf mapred.job.name="wangjianxiang_sampling"
 
 

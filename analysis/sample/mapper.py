@@ -11,7 +11,7 @@ def main():
     H = []
 
     for line in sys.stdin:
-        x = line.strip().split("\t")[0]
+        x = line.strip().split("\t")[0].strip()
         r = random.random()
         if len(H) < k:
             heappush(H, (r, x))

@@ -44,13 +44,13 @@ for line in sys.stdin:
     url = unicode(line_list[0].strip(), errors="ignore")
 
     if is_ba_domain(url):
-        print "%s\t1" % ("ba")
+        print "%s\t%s" % ("ba", url)
 
     if is_weibo_domain(url):
-        print "%s\t1" % ("weibo")
+        print "%s\t%s" % ("weibo", url)
 
     if is_baike_domain(url):
-        print "%s\t1" % ("baike")
+        print "%s\t%s" % ("baike", url)
 
 
 

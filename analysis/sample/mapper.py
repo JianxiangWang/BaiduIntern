@@ -1,6 +1,9 @@
 #!python/bin/python
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
 
-import sys, random
+import random
 from heapq import heappush, heapreplace
 
 def main():

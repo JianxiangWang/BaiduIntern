@@ -8,7 +8,7 @@ hadoop fs -rmr ${OUTPUT}
 hadoop streaming \
     -input "${INPUT}"  \
     -output "${OUTPUT}" \
-    -file "main.py" \
+    -file "mapper.py" \
     -file "reducer.py" \
     -mapper "mapper.py" \
     -reducer "reducer.py" \

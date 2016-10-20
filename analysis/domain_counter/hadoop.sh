@@ -8,6 +8,8 @@ hadoop fs -rmr ${OUTPUT}
 hadoop streaming \
     -input "${INPUT}"  \
     -output "${OUTPUT}" \
+    -file "main.py" \
+    -file "reducer.py" \
     -mapper "mapper.py" \
     -reducer "reducer.py" \
     -cacheArchive "/app/ps/spider/kg-value/wangjianxiang01/python.tar.gz#." \
@@ -24,5 +26,4 @@ hadoop streaming \
     -jobconf mapred.max.map.failures.percent="1" \
     -jobconf mapred.job.name="wangjianxiang_counter"
 
-#    -file "main.py" \
 
